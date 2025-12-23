@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Settings, Plus, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import {
   Drawer,
   DrawerContent,
@@ -7,8 +7,24 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer"
 import { TimeWindowSlider } from "@/components/TimeWindowSlider";
+import { VersionSwitcherOverlay } from "@/components/library/VersionSwitcherOverlay";
+import { useVersion } from "@/components/library/VersionContext";
+import {
+  PlusButton,
+  ContinueButton,
+  BookTableButton,
+  CalendarToggleButton,
+  NavButton,
+  BackButton,
+} from '@/components/ui/buttons';
+import {
+  DateCardWeek,
+  DateCardMonth,
+  PartySizeCard,
+} from '@/components/ui/cards';
 
 const Prototype: React.FC = () => {
+  const { getVersion, setVersion } = useVersion();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const startOfWeek = (d: Date, weekStartsOn: 0 | 1 = 0) => {
@@ -23,7 +39,7 @@ const Prototype: React.FC = () => {
   const [gridStartDate, setGridStartDate] = useState(() => {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
-    return startOfWeek(d, 0);
+    return d; // Always start with today
   });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedPartySize, setSelectedPartySize] = useState<number | string | null>(null);
@@ -45,7 +61,7 @@ const Prototype: React.FC = () => {
   const resetBookingFlow = () => {
     setSelectedDate(null);
     setSelectedPartySize(null);
-    setGridStartDate(startOfWeek(now, 0));
+    setGridStartDate(now); // Always start with today
     setCalendarMode('week');
     setMonthAnchor(new Date(now.getFullYear(), now.getMonth(), 1));
     setTimeRange({ startMinutes: 18 * 60, endMinutes: 20 * 60 });
@@ -110,7 +126,7 @@ const Prototype: React.FC = () => {
   }, [gridStartDate]);
 
   const isCurrentWeek = useMemo(() => {
-    return gridStartDate.toDateString() === startOfWeek(now, 0).toDateString();
+    return gridStartDate.toDateString() === now.toDateString();
   }, [gridStartDate, now]);
 
   const monthLabel = useMemo(() => {
@@ -147,6 +163,14 @@ const Prototype: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-4 font-['Inter']">
+      {/* Version Switcher Overlay - Renders in portal, completely isolated */}
+      <VersionSwitcherOverlay
+        componentName="TimeWindowSlider"
+        currentVersion={getVersion('TimeWindowSlider', 'v1')}
+        onVersionChange={(version) => setVersion('TimeWindowSlider', version)}
+        isVisible={currentStep === 2}
+      />
+      
       {/* iPhone 16 Pro Mockup */}
       <div 
         ref={setContainer}
@@ -184,12 +208,7 @@ const Prototype: React.FC = () => {
 
           {/* Bottom Action Button */}
           <div className="pb-12 flex justify-center">
-            <button 
-              onClick={() => setCurrentStep(1)}
-              className="w-48 h-16 bg-black border border-zinc-800 rounded-full flex items-center justify-center shadow-lg active:bg-zinc-900 transition-colors"
-            >
-              <Plus className="w-8 h-8 text-white" />
-            </button>
+            <PlusButton onClick={() => setCurrentStep(1)} />
           </div>
 
           {/* Step 1: When? - Sectioned Weekly View */}
@@ -200,12 +219,12 @@ const Prototype: React.FC = () => {
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pb-2">
-                  <div className="flex items-center justify-between px-2">
-                    <DrawerTitle className="text-left text-lg font-semibold text-zinc-100">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center justify-between">
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
                       When do you need a table?
                     </DrawerTitle>
-                    <button
+                    <CalendarToggleButton
                       onClick={() => {
                         const nextMode = calendarMode === 'week' ? 'month' : 'week';
                         setCalendarMode(nextMode);
@@ -214,56 +233,31 @@ const Prototype: React.FC = () => {
                           setMonthAnchor(new Date(base.getFullYear(), base.getMonth(), 1));
                         }
                       }}
-                      className={`h-10 w-10 rounded-full border border-zinc-800 flex items-center justify-center transition-colors
-                        ${calendarMode === 'month' ? 'bg-white text-black' : 'bg-zinc-900/60 text-zinc-200 active:bg-zinc-800'}`}
-                      aria-label={calendarMode === 'week' ? 'Open full calendar' : 'Close full calendar'}
-                    >
-                      <Calendar className="w-5 h-5" />
-                    </button>
+                      isActive={calendarMode === 'month'}
+                    />
                   </div>
                 </DrawerHeader>
                 
                 <div 
-                  className="overflow-y-auto no-scrollbar px-4 pt-4 pb-6 flex flex-col"
+                  className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6 flex flex-col"
                 >
                   {calendarMode === 'week' ? (
                     <div className="grid grid-cols-4 gap-2.5">
                       {days.map((day) => (
-                        <button
+                        <DateCardWeek
                           key={day.fullDate}
-                          disabled={day.isPast}
+                          weekday={day.weekdayShort}
+                          date={day.dateNum}
+                          month={day.monthShort}
+                          isSelected={day.isSelected}
+                          isToday={day.isToday}
+                          isPast={day.isPast}
                           onClick={() => {
                             if (day.isPast) return;
                             setSelectedDate(day.rawDate);
                             handleNextStep();
                           }}
-                          className={`rounded-[20px] border px-2 py-6 flex flex-col items-center justify-center transition-colors relative
-                            ${day.isPast ? 'opacity-10 pointer-events-none' : ''}
-                            ${day.isSelected
-                              ? 'bg-white text-black border-white'
-                              : 'bg-zinc-900/60 text-white border-zinc-800 active:bg-zinc-800'}
-                          `}
-                        >
-                          <div
-                            className={`text-[12px] font-semibold tracking-wide ${
-                              day.isSelected ? 'text-black/60' : day.isToday ? 'text-[#FE3400]/70' : 'text-zinc-500'
-                            }`}
-                          >
-                            {day.isToday ? 'Today' : day.weekdayShort}
-                          </div>
-                          <div className="relative mt-2">
-                            <div className="text-[26px] font-semibold leading-none">
-                              {day.dateNum}
-                            </div>
-                          </div>
-                          <div
-                            className={`mt-2.5 text-[12px] font-semibold ${
-                              day.isSelected ? 'text-black/50' : 'text-zinc-600'
-                            }`}
-                          >
-                            {day.monthShort}
-                          </div>
-                        </button>
+                        />
                       ))}
                     </div>
                   ) : (
@@ -295,26 +289,19 @@ const Prototype: React.FC = () => {
                               const isToday = d.toDateString() === now.toDateString();
                               const isSelected = !!selectedDate && d.toDateString() === selectedDate.toDateString();
                               return (
-                                <button
+                                <DateCardMonth
                                   key={idx}
-                                  disabled={isPast}
+                                  date={d.getDate()}
+                                  isPast={isPast}
+                                  isToday={isToday}
+                                  isSelected={isSelected}
                                   onClick={() => {
                                     if (isPast) return;
                                     setSelectedDate(d);
-                                    setGridStartDate(startOfWeek(d, 0));
+                                    setGridStartDate(d);
                                     handleNextStep();
                                   }}
-                                  className={`aspect-square rounded-[18px] border flex items-center justify-center text-[14px] font-semibold transition-colors
-                                    ${isPast ? 'opacity-10 pointer-events-none' : ''}
-                                    ${isSelected
-                                      ? 'bg-white text-black border-white'
-                                      : 'bg-zinc-900/60 text-white border-zinc-800 active:bg-zinc-800'}
-                                  `}
-                                >
-                                  <span className={isToday && !isSelected ? 'text-[#FE3400]/80' : ''}>
-                                    {d.getDate()}
-                                  </span>
-                                </button>
+                                />
                               );
                             })}
                           </div>
@@ -325,26 +312,22 @@ const Prototype: React.FC = () => {
 
                   {/* Bottom Navigation Buttons */}
                   <div className="mt-6 flex gap-3">
-                    <button
+                    <NavButton
+                      direction="prev"
                       onClick={() => {
                         if (calendarMode === 'week') prevRange();
                         else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
                       }}
-                      className="flex-1 h-14 rounded-full bg-zinc-900/60 border border-zinc-800 flex items-center justify-center active:bg-zinc-800 transition-colors"
                       aria-label={calendarMode === 'week' ? 'Previous week' : 'Previous month'}
-                    >
-                      <ChevronLeft className="w-6 h-6 text-zinc-200" />
-                    </button>
-                    <button
+                    />
+                    <NavButton
+                      direction="next"
                       onClick={() => {
                         if (calendarMode === 'week') nextRange();
                         else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
                       }}
-                      className="flex-1 h-14 rounded-full bg-zinc-900/60 border border-zinc-800 flex items-center justify-center active:bg-zinc-800 transition-colors"
                       aria-label={calendarMode === 'week' ? 'Next week' : 'Next month'}
-                    >
-                      <ChevronRight className="w-6 h-6 text-zinc-200" />
-                    </button>
+                    />
                   </div>
                 </div>
               </div>
@@ -355,15 +338,21 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent 
               container={container} 
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute"
+            className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
               overlayClassName="!absolute"
             >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pb-2">
-                  <DrawerTitle className="text-left px-2 text-lg font-semibold text-zinc-100">Select available time window</DrawerTitle>
-                </DrawerHeader>
+            <div className="flex flex-col h-full">
+              <DrawerHeader className="pt-1 pb-3 px-6">
+                <div className="flex items-center gap-4">
+                  <BackButton onClick={() => setCurrentStep(1)} />
+                  <DrawerTitle className="text-lg font-medium text-zinc-100">
+                    Around what time?
+                  </DrawerTitle>
+                </div>
+              </DrawerHeader>
 
-                <div className="overflow-y-auto no-scrollbar pt-4 pb-6">
+              <div className="flex-1 flex items-center justify-center px-4 pb-8">
+                <div className="w-full">
                   <TimeWindowSlider
                     minMinutes={minTimeMinutes}
                     maxMinutes={maxTimeMinutes}
@@ -374,15 +363,11 @@ const Prototype: React.FC = () => {
                     onChange={setTimeRange}
                   />
 
-                  <div className="px-6">
-                    <button
-                      onClick={handleNextStep}
-                      className="mt-8 w-full h-14 bg-white text-black rounded-xl font-medium text-[15px] active:bg-zinc-200 transition-colors"
-                    >
-                      Continue
-                    </button>
+                  <div className="px-2">
+                    <ContinueButton onClick={handleNextStep} className="mt-8 w-full" />
                   </div>
                 </div>
+              </div>
               </div>
             </DrawerContent>
           </Drawer>
@@ -395,31 +380,28 @@ const Prototype: React.FC = () => {
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pb-2">
-                  <DrawerTitle className="text-left px-2 text-lg font-semibold text-zinc-100">How many people?</DrawerTitle>
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => setCurrentStep(2)} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      How many people?
+                    </DrawerTitle>
+                  </div>
                 </DrawerHeader>
                 
-                <div className="overflow-y-auto no-scrollbar px-4 pt-4 pb-6">
+                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6">
                   <div className="grid grid-cols-3 gap-3">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => {
-                      const isSelected = selectedPartySize === count;
-                      return (
-                        <button 
-                          key={count}
-                          onClick={() => {
-                            setSelectedPartySize(count);
-                            handleNextStep();
-                          }}
-                          className={`aspect-square rounded-2xl border flex items-center justify-center transition-colors
-                            ${isSelected
-                              ? 'bg-white text-black border-white'
-                              : 'bg-zinc-900/30 text-white border-zinc-800/50 active:bg-zinc-800'}
-                          `}
-                        >
-                          <span className="text-[28px] font-semibold">{count}</span>
-                        </button>
-                      );
-                    })}
+                    {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
+                      <PartySizeCard
+                        key={count}
+                        count={count}
+                        isSelected={selectedPartySize === count}
+                        onClick={() => {
+                          setSelectedPartySize(count);
+                          handleNextStep();
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -434,11 +416,16 @@ const Prototype: React.FC = () => {
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pb-2">
-                  <DrawerTitle className="text-left px-2 text-lg font-semibold text-zinc-100">Confirm booking</DrawerTitle>
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => setCurrentStep(3)} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      Confirm booking
+                    </DrawerTitle>
+                  </div>
                 </DrawerHeader>
                 
-                <div className="overflow-y-auto no-scrollbar px-6 pt-6 pb-8">
+                <div className="overflow-y-auto no-scrollbar px-6 pt-2 pb-8">
                   <div className="space-y-6">
                     {/* Visual Summary Card */}
                     <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
@@ -467,12 +454,7 @@ const Prototype: React.FC = () => {
                       </div>
                     </div>
 
-                    <button
-                      onClick={handleFinish}
-                      className="w-full h-16 rounded-full bg-white text-black font-black text-xl active:bg-zinc-200 transition-all shadow-2xl"
-                    >
-                      Book Table
-                    </button>
+                    <BookTableButton onClick={handleFinish} />
                   </div>
                 </div>
               </div>
