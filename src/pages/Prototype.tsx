@@ -6,7 +6,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
-import { TimeWindowSlider } from "@/components/TimeWindowSlider";
+import { TimeWindowSlider, TimeWindowSliderV11, TimeWindowSliderV12 } from "@/components/TimeWindowSlider";
 import { VersionSwitcherOverlay } from "@/components/library/VersionSwitcherOverlay";
 import { useVersion } from "@/components/library/VersionContext";
 import {
@@ -53,6 +53,7 @@ const Prototype: React.FC = () => {
     startMinutes: 18 * 60, // 6:00 PM
     endMinutes: 20 * 60, // 8:00 PM
   }));
+  const [timeCardExpanded, setTimeCardExpanded] = useState<'earliest' | 'latest'>('earliest');
 
   const handleNextStep = () => {
     setCurrentStep((prev) => prev + 1);
@@ -65,6 +66,7 @@ const Prototype: React.FC = () => {
     setCalendarMode('week');
     setMonthAnchor(new Date(now.getFullYear(), now.getMonth(), 1));
     setTimeRange({ startMinutes: 18 * 60, endMinutes: 20 * 60 });
+    setTimeCardExpanded('earliest');
     setCurrentStep(0);
   };
 
@@ -334,48 +336,88 @@ const Prototype: React.FC = () => {
             </DrawerContent>
           </Drawer>
 
-          {/* Step 2: What Time? */}
+          {/* Step 2: Time Selection (stacked cards) */}
           <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent 
-              container={container} 
-            className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
               overlayClassName="!absolute"
             >
-            <div className="flex flex-col h-full">
-              <DrawerHeader className="pt-1 pb-3 px-6">
-                <div className="flex items-center gap-4">
-                  <BackButton onClick={() => setCurrentStep(1)} />
-                  <DrawerTitle className="text-lg font-medium text-zinc-100">
-                    Around what time?
-                  </DrawerTitle>
-                </div>
-              </DrawerHeader>
-
-              <div className="flex-1 flex items-center justify-center px-4 pb-8">
-                <div className="w-full">
-                  <TimeWindowSlider
-                    minMinutes={minTimeMinutes}
-                    maxMinutes={maxTimeMinutes}
-                    startMinutes={timeRange.startMinutes}
-                    endMinutes={timeRange.endMinutes}
-                    stepMinutes={15}
-                    minWindowMinutes={30}
-                    onChange={setTimeRange}
-                  />
-
-                  <div className="px-2">
-                    <ContinueButton onClick={handleNextStep} className="mt-8 w-full" />
+              <div className="flex flex-col h-full">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => {
+                      if (timeCardExpanded === 'latest') {
+                        setTimeCardExpanded('earliest');
+                      } else {
+                        setCurrentStep(1);
+                      }
+                    }} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      {(() => {
+                        const version = getVersion('TimeWindowSlider', 'v12');
+                        if (version === 'v11' || version === 'v12') {
+                          return timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?";
+                        }
+                        return "What time?";
+                      })()}
+                    </DrawerTitle>
                   </div>
+                </DrawerHeader>
+
+                <div className="px-4 pb-6">
+                  {(() => {
+                    const version = getVersion('TimeWindowSlider', 'v12');
+                    // V11 and V12 use two-drawer flow with single-value interface
+                    if (version === 'v11' || version === 'v12') {
+                      const SliderComponent = version === 'v12' ? TimeWindowSliderV12 : TimeWindowSliderV11;
+                      return (
+                        <SliderComponent
+                          key={timeCardExpanded}
+                          title={timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
+                          minMinutes={timeCardExpanded === 'earliest' ? minTimeMinutes : timeRange.startMinutes + 30}
+                          maxMinutes={maxTimeMinutes}
+                          value={timeCardExpanded === 'earliest' ? timeRange.startMinutes : timeRange.endMinutes}
+                          onChange={(minutes: number) => {
+                            if (timeCardExpanded === 'earliest') {
+                              setTimeRange(prev => ({ ...prev, startMinutes: minutes }));
+                            } else {
+                              setTimeRange(prev => ({ ...prev, endMinutes: minutes }));
+                            }
+                          }}
+                          onConfirm={() => {
+                            if (timeCardExpanded === 'earliest') {
+                              setTimeCardExpanded('latest');
+                            } else {
+                              handleNextStep();
+                            }
+                          }}
+                        />
+                      );
+                    }
+                    // All other versions: Single component for both times
+                    return (
+                      <TimeWindowSlider
+                        minMinutes={minTimeMinutes}
+                        maxMinutes={maxTimeMinutes}
+                        startMinutes={timeRange.startMinutes}
+                        endMinutes={timeRange.endMinutes}
+                        onChange={({ startMinutes, endMinutes }) => {
+                          setTimeRange({ startMinutes, endMinutes });
+                          handleNextStep();
+                        }}
+                      />
+                    );
+                  })()}
                 </div>
-              </div>
               </div>
             </DrawerContent>
           </Drawer>
 
           {/* Step 3: How many? */}
           <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent 
-              container={container} 
+            <DrawerContent
+              container={container}
               className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
               overlayClassName="!absolute"
             >
@@ -388,7 +430,7 @@ const Prototype: React.FC = () => {
                     </DrawerTitle>
                   </div>
                 </DrawerHeader>
-                
+
                 <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6">
                   <div className="grid grid-cols-3 gap-3">
                     {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
@@ -410,8 +452,8 @@ const Prototype: React.FC = () => {
 
           {/* Step 4: Summary & Confirmation */}
           <Drawer open={currentStep === 4} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent 
-              container={container} 
+            <DrawerContent
+              container={container}
               className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
               overlayClassName="!absolute"
             >

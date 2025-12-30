@@ -33,17 +33,6 @@ export const ComponentLibrary: Record<string, ComponentInfo> = {
         ],
       },
       {
-        version: 'v2',
-        description: 'Minimal design with prominent time display and visible handles',
-        features: [
-          'Large time display at top (From → To)',
-          'Solid red selection with visible edge handles',
-          'Clean hour markers',
-          'Simplified interaction model',
-          'More compact ruler design',
-        ],
-      },
-      {
         version: 'v3',
         description: 'Braun + Notion + Apple: One-tap quick selection with minimal interface',
         features: [
@@ -56,18 +45,6 @@ export const ComponentLibrary: Record<string, ComponentInfo> = {
         ],
       },
       {
-        version: 'v4',
-        description: 'Dual vertical columns (Earliest/Latest) with meal presets',
-        features: [
-          'Two vertical drag columns: Earliest on left, Latest on right',
-          'Meal presets (Breakfast/Lunch/Dinner) recenter the viewport',
-          'Viewport system keeps segments sized evenly (no squish)',
-          '15-minute snap with top=increase, bottom=decrease gestures',
-          'Hour labels along columns for quick reference',
-          'Dynamic island–inspired card container',
-        ],
-      },
-      {
         version: 'v5',
         description: 'Visual clock of dots around a ring',
         features: [
@@ -76,28 +53,6 @@ export const ComponentLibrary: Record<string, ComponentInfo> = {
           'Center readout of start/end times',
           'Pointer-drag only (no tap jump)',
           'Arc path and handles for direct manipulation',
-        ],
-      },
-      {
-        version: 'v6',
-        description: 'Abstract dot matrix time selector (inspired by Figma design)',
-        features: [
-          '4x5 grid of circles; range fills the dots in order',
-          'Press-and-drag on the grid to adjust earliest/latest',
-          'Simple start/end chip below the grid',
-          'Aligned with 5x4 dot layout from the reference',
-        ],
-      },
-      {
-        version: 'v7',
-        description: 'Ideal time cards + drag-to-shape range',
-        features: [
-          'Pick an ideal time via 30-minute cards',
-          'Auto-create a 2-hour range around the ideal time',
-          'Press-and-drag center to move window',
-          'Press-and-drag edges to resize (15-minute snapping)',
-          'No tap-to-jump on the ruler',
-          'Light time ticks/labels plus start→end chip',
         ],
       },
       {
@@ -123,6 +78,46 @@ export const ComponentLibrary: Record<string, ComponentInfo> = {
           'Tap anywhere to place a 2-hour selection',
           'After selection: drag middle to move, edges to resize',
           'No separate Earliest/Latest cards - inline time display',
+        ],
+      },
+      {
+        version: 'v10',
+        description: 'Refined wheel picker with Apple-like physics',
+        features: [
+          'Minimal, clean design with reduced visual noise',
+          '30-minute inline time labels on the wheel',
+          'Apple-like scroll physics: fast swipe = momentum, slow drag = snap',
+          'Spring animation when snapping to intervals',
+          'Ghost preview (subtle fill) before selection placed',
+          'Orange fill selection with thin edge line handles',
+          'Very subtle depth effect (3% scale range)',
+          'Tap to place 2-hour selection, drag edges to resize',
+        ],
+      },
+      {
+        version: 'v11',
+        description: 'Ruler picker with stacked cards for earliest/latest',
+        features: [
+          'Single drawer with two stacked expandable cards',
+          'Fixed center handle (white circle with <·> icon)',
+          'Scrollable horizontal ruler underneath',
+          'Large time display (e.g., 03:21 PM)',
+          'Tick marks with hour labels',
+          'Dedicated Continue button to confirm each selection',
+          'Earliest card collapses after selection, latest expands',
+        ],
+      },
+      {
+        version: 'v12',
+        description: 'Numeric keypad picker with two-drawer flow',
+        features: [
+          'Phone-style numeric keypad (1-9, 0) for quick time entry',
+          'Two-drawer flow like v11 (earliest → latest)',
+          'Large time display card with vertical AM/PM toggle',
+          'Natural time entry with auto-colon (6 → 6:00, 63 → 6:30)',
+          'Invalid input is blocked (smart validation)',
+          'Orange confirm arrow to advance between drawers',
+          'Backspace button to correct mistakes',
         ],
       },
     ],
