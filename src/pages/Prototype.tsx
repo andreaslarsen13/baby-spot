@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Settings } from 'lucide-react';
 import {
   Drawer,
@@ -27,6 +27,22 @@ const Prototype: React.FC = () => {
   const { getVersion, setVersion } = useVersion();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Detect if running as PWA (standalone) or on mobile device
+  const [isNativeMode, setIsNativeMode] = useState(false);
+  useEffect(() => {
+    const checkNativeMode = () => {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+        || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      setIsNativeMode(isStandalone || isMobile);
+    };
+    checkNativeMode();
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', checkNativeMode);
+    return () => {
+      window.matchMedia('(display-mode: standalone)').removeEventListener('change', checkNativeMode);
+    };
+  }, []);
   const startOfWeek = (d: Date, weekStartsOn: 0 | 1 = 0) => {
     const date = new Date(d);
     date.setHours(0, 0, 0, 0);
@@ -163,55 +179,38 @@ const Prototype: React.FC = () => {
     return `${h12}:${m.toString().padStart(2, '0')} ${meridiem}`;
   };
 
-  return (
-    <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-4 font-['Inter']">
-      {/* Version Switcher Overlay - Renders in portal, completely isolated */}
-      <VersionSwitcherOverlay
-        componentName="TimeWindowSlider"
-        currentVersion={getVersion('TimeWindowSlider', 'v1')}
-        onVersionChange={(version) => setVersion('TimeWindowSlider', version)}
-        isVisible={currentStep === 2}
-      />
-      
-      {/* iPhone 16 Pro Mockup */}
-      <div 
+  // Screen content - shared between native and mockup modes
+  const screenContent = (
+    <>
+      {/* Top Navigation */}
+      <div className="flex items-center justify-between px-6 py-4">
+        <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
+        <button className="p-2 active:bg-white/10 rounded-full transition-colors">
+          <Settings className="w-6 h-6 text-zinc-400" />
+        </button>
+      </div>
+
+      {/* Home Content */}
+      <div className="px-6 py-2 flex-1">
+        <h3 className="text-2xl font-semibold tracking-tight">Good morning, Andreas</h3>
+        <p className="text-zinc-400 text-sm mt-1">Here's what's happening today.</p>
+      </div>
+
+      {/* Bottom Action Button */}
+      <div className="pb-12 flex justify-center">
+        <PlusButton onClick={() => setCurrentStep(1)} />
+      </div>
+    </>
+  );
+
+  // Native/PWA mode - full screen, no mockup
+  if (isNativeMode) {
+    return (
+      <div
         ref={setContainer}
-        className="relative w-[402px] h-[874px] bg-black rounded-[55px] border-[8px] border-zinc-800 shadow-2xl overflow-hidden ring-1 ring-white/10"
+        className="min-h-screen bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
       >
-        {/* Dynamic Island */}
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[120px] h-[35px] bg-black rounded-full z-50 flex items-center justify-center pointer-events-none">
-          <div className="w-2 h-2 rounded-full bg-zinc-800 ml-auto mr-4" />
-        </div>
-
-        {/* Screen Content */}
-        <div className="w-full h-full bg-[#191919] text-white relative flex flex-col">
-          {/* Status Bar */}
-          <div className="h-12 flex items-center justify-between px-8 pt-4 text-xs font-semibold">
-            <span>9:41</span>
-            <div className="flex gap-1.5 items-center">
-              <div className="w-4 h-3 border border-current rounded-[2px]" />
-              <div className="w-3 h-3 bg-current rounded-full" />
-            </div>
-          </div>
-
-          {/* Top Navigation */}
-          <div className="flex items-center justify-between px-6 py-4">
-            <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
-            <button className="p-2 active:bg-white/10 rounded-full transition-colors">
-              <Settings className="w-6 h-6 text-zinc-400" />
-            </button>
-          </div>
-
-          {/* Home Content */}
-          <div className="px-6 py-2 flex-1">
-            <h3 className="text-2xl font-semibold tracking-tight">Good morning, Andreas</h3>
-            <p className="text-zinc-400 text-sm mt-1">Here's what's happening today.</p>
-          </div>
-
-          {/* Bottom Action Button */}
-          <div className="pb-12 flex justify-center">
-            <PlusButton onClick={() => setCurrentStep(1)} />
-          </div>
+        {screenContent}
 
           {/* Step 1: When? - Sectioned Weekly View */}
           <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
@@ -470,6 +469,326 @@ const Prototype: React.FC = () => {
                 <div className="overflow-y-auto no-scrollbar px-6 pt-2 pb-8">
                   <div className="space-y-6">
                     {/* Visual Summary Card */}
+                    <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Date</div>
+                          <div className="mt-1 text-[20px] font-bold text-white">
+                            {selectedDate?.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' })}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Party</div>
+                          <div className="mt-1 text-[20px] font-bold text-white">
+                            {selectedPartySize} {selectedPartySize === 1 ? 'Person' : 'People'}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-6 border-t border-zinc-800/50">
+                        <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase mb-2">Time Window</div>
+                        <div className="h-12 w-full rounded-full bg-[#FE3400] flex items-center justify-center shadow-[0_0_40px_rgba(254,52,0,0.15)]">
+                          <span className="text-[15px] font-black text-black/90">
+                            {formatMinutes(timeRange.startMinutes)} – {formatMinutes(timeRange.endMinutes)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <BookTableButton onClick={handleFinish} />
+                  </div>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+
+      </div>
+    );
+  }
+
+  // Desktop mode - show iPhone mockup with version switcher
+  return (
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-4 font-['Inter']">
+      {/* Version Switcher Overlay */}
+      <VersionSwitcherOverlay
+        componentName="TimeWindowSlider"
+        currentVersion={getVersion('TimeWindowSlider', 'v12')}
+        onVersionChange={(version) => setVersion('TimeWindowSlider', version)}
+        isVisible={currentStep === 2}
+      />
+
+      {/* iPhone 16 Pro Mockup */}
+      <div
+        ref={setContainer}
+        className="relative w-[402px] h-[874px] bg-black rounded-[55px] border-[8px] border-zinc-800 shadow-2xl overflow-hidden ring-1 ring-white/10"
+      >
+        {/* Dynamic Island */}
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[120px] h-[35px] bg-black rounded-full z-50 flex items-center justify-center pointer-events-none">
+          <div className="w-2 h-2 rounded-full bg-zinc-800 ml-auto mr-4" />
+        </div>
+
+        {/* Screen Content */}
+        <div className="w-full h-full bg-[#191919] text-white relative flex flex-col">
+          {/* Status Bar */}
+          <div className="h-12 flex items-center justify-between px-8 pt-4 text-xs font-semibold">
+            <span>9:41</span>
+            <div className="flex gap-1.5 items-center">
+              <div className="w-4 h-3 border border-current rounded-[2px]" />
+              <div className="w-3 h-3 bg-current rounded-full" />
+            </div>
+          </div>
+
+          {screenContent}
+
+          {/* Step 1: When? */}
+          <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              <div className="flex flex-col overflow-hidden">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center justify-between">
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      When do you need a table?
+                    </DrawerTitle>
+                    <CalendarToggleButton
+                      onClick={() => {
+                        const nextMode = calendarMode === 'week' ? 'month' : 'week';
+                        setCalendarMode(nextMode);
+                        if (nextMode === 'month') {
+                          const base = selectedDate ?? now;
+                          setMonthAnchor(new Date(base.getFullYear(), base.getMonth(), 1));
+                        }
+                      }}
+                      isActive={calendarMode === 'month'}
+                    />
+                  </div>
+                </DrawerHeader>
+
+                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6 flex flex-col">
+                  {calendarMode === 'week' ? (
+                    <div className="grid grid-cols-4 gap-2.5">
+                      {days.map((day) => (
+                        <DateCardWeek
+                          key={day.fullDate}
+                          weekday={day.weekdayShort}
+                          date={day.dateNum}
+                          month={day.monthShort}
+                          isSelected={day.isSelected}
+                          isToday={day.isToday}
+                          isPast={day.isPast}
+                          onClick={() => {
+                            if (day.isPast) return;
+                            setSelectedDate(day.rawDate);
+                            handleNextStep();
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-7 gap-2 px-1">
+                        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d) => (
+                          <div key={d} className="text-[11px] font-semibold text-zinc-600 text-center">
+                            {d}
+                          </div>
+                        ))}
+                      </div>
+
+                      {(() => {
+                        const first = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), 1);
+                        const startOffset = first.getDay();
+                        const daysInMonth = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth() + 1, 0).getDate();
+                        const cells: Array<Date | null> = Array.from({ length: 42 }, () => null);
+                        for (let i = 0; i < daysInMonth; i++) {
+                          const d = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), i + 1);
+                          d.setHours(0, 0, 0, 0);
+                          cells[startOffset + i] = d;
+                        }
+
+                        return (
+                          <div className="grid grid-cols-7 gap-2">
+                            {cells.map((d, idx) => {
+                              if (!d) return <div key={idx} className="aspect-square" />;
+                              const isPast = d < now;
+                              const isToday = d.toDateString() === now.toDateString();
+                              const isSelected = !!selectedDate && d.toDateString() === selectedDate.toDateString();
+                              return (
+                                <DateCardMonth
+                                  key={idx}
+                                  date={d.getDate()}
+                                  isPast={isPast}
+                                  isToday={isToday}
+                                  isSelected={isSelected}
+                                  onClick={() => {
+                                    if (isPast) return;
+                                    setSelectedDate(d);
+                                    setGridStartDate(d);
+                                    handleNextStep();
+                                  }}
+                                />
+                              );
+                            })}
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
+
+                  <div className="mt-6 flex gap-3">
+                    <NavButton
+                      direction="prev"
+                      onClick={() => {
+                        if (calendarMode === 'week') prevRange();
+                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+                      }}
+                    />
+                    <NavButton
+                      direction="next"
+                      onClick={() => {
+                        if (calendarMode === 'week') nextRange();
+                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+
+          {/* Step 2: Time Selection */}
+          <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
+              overlayClassName="!absolute"
+            >
+              <div className="flex flex-col h-full">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => {
+                      if (timeCardExpanded === 'latest') {
+                        setTimeCardExpanded('earliest');
+                      } else {
+                        setCurrentStep(1);
+                      }
+                    }} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      {(() => {
+                        const version = getVersion('TimeWindowSlider', 'v12');
+                        if (version === 'v11' || version === 'v12') {
+                          return timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?";
+                        }
+                        return "What time?";
+                      })()}
+                    </DrawerTitle>
+                  </div>
+                </DrawerHeader>
+
+                <div className="px-4 pb-6">
+                  {(() => {
+                    const version = getVersion('TimeWindowSlider', 'v12');
+                    if (version === 'v11' || version === 'v12') {
+                      const SliderComponent = version === 'v12' ? TimeWindowSliderV12 : TimeWindowSliderV11;
+                      return (
+                        <SliderComponent
+                          key={timeCardExpanded}
+                          title={timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
+                          minMinutes={timeCardExpanded === 'earliest' ? minTimeMinutes : timeRange.startMinutes + 30}
+                          maxMinutes={maxTimeMinutes}
+                          value={timeCardExpanded === 'earliest' ? timeRange.startMinutes : timeRange.endMinutes}
+                          onChange={(minutes: number) => {
+                            if (timeCardExpanded === 'earliest') {
+                              setTimeRange(prev => ({ ...prev, startMinutes: minutes }));
+                            } else {
+                              setTimeRange(prev => ({ ...prev, endMinutes: minutes }));
+                            }
+                          }}
+                          onConfirm={() => {
+                            if (timeCardExpanded === 'earliest') {
+                              setTimeCardExpanded('latest');
+                            } else {
+                              handleNextStep();
+                            }
+                          }}
+                        />
+                      );
+                    }
+                    return (
+                      <TimeWindowSlider
+                        minMinutes={minTimeMinutes}
+                        maxMinutes={maxTimeMinutes}
+                        startMinutes={timeRange.startMinutes}
+                        endMinutes={timeRange.endMinutes}
+                        onChange={({ startMinutes, endMinutes }) => {
+                          setTimeRange({ startMinutes, endMinutes });
+                          handleNextStep();
+                        }}
+                      />
+                    );
+                  })()}
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+
+          {/* Step 3: How many? */}
+          <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              <div className="flex flex-col overflow-hidden">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => setCurrentStep(2)} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      How many people?
+                    </DrawerTitle>
+                  </div>
+                </DrawerHeader>
+
+                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6">
+                  <div className="grid grid-cols-3 gap-3">
+                    {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
+                      <PartySizeCard
+                        key={count}
+                        count={count}
+                        isSelected={selectedPartySize === count}
+                        onClick={() => {
+                          setSelectedPartySize(count);
+                          handleNextStep();
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+
+          {/* Step 4: Summary */}
+          <Drawer open={currentStep === 4} onOpenChange={(open) => !open && resetBookingFlow()}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              <div className="flex flex-col overflow-hidden">
+                <DrawerHeader className="pt-1 pb-3 px-6">
+                  <div className="flex items-center gap-4">
+                    <BackButton onClick={() => setCurrentStep(3)} />
+                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                      Confirm booking
+                    </DrawerTitle>
+                  </div>
+                </DrawerHeader>
+
+                <div className="overflow-y-auto no-scrollbar px-6 pt-2 pb-8">
+                  <div className="space-y-6">
                     <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
                       <div className="flex justify-between items-end">
                         <div>

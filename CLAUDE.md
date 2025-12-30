@@ -16,12 +16,20 @@ The app features a unique component library system that allows multiple implemen
 - **Version Switcher**: UI overlay that allows live switching between component versions during development
 - **Index Pattern**: Each versionable component has an `index.tsx` that imports all versions and selects the current one via context
 
-Example: `TimeWindowSlider` has 9 different versions (v1-v9), each with distinct interaction patterns and visual designs.
+Example: `TimeWindowSlider` has multiple versions (v1-v12), each with distinct interaction patterns and visual designs.
 
 ### Application Structure
 - **Router-based**: Three main pages: Prototype (booking flow), Library (version catalog), UIKit (design system)
 - **Mobile-first**: Designed for iPhone 16 Pro mockup with drawer-based navigation
 - **Multi-step booking flow**: When → What Time → How Many → Confirmation
+- **Native Mode Detection**: Prototype.tsx detects PWA/mobile and renders full-screen app without mockup frame
+
+### PWA Support
+The app is configured as a Progressive Web App for mobile testing:
+- `public/manifest.json` - PWA manifest with standalone display mode
+- `public/icon-192.png` and `public/icon-512.png` - App icons
+- `index.html` - PWA meta tags for iOS and Android
+- Safe area insets handled via `env(safe-area-inset-*)` CSS functions
 
 ## Development Commands
 
@@ -40,6 +48,9 @@ npm run lint
 
 # Preview production build
 npm run preview
+
+# Mobile testing via ngrok (use when local network blocks device-to-device)
+npx ngrok http 5173
 ```
 
 ## Tech Stack & Patterns
