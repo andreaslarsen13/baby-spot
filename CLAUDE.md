@@ -77,6 +77,7 @@ npx ngrok http 5173
 3. Add to versions object in corresponding `index.tsx`
 4. Update registry in `registry.ts` with version info and features
 5. Change `DEFAULT_VERSION` in index.tsx to make it active
+6. **IMPORTANT**: Update fallback version in `Prototype.tsx` - search for `getVersion('ComponentName', 'vX')` and update the fallback parameter to match the new default
 
 ## Key Files
 

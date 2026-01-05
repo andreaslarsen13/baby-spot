@@ -1,25 +1,20 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { Settings } from 'lucide-react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
+import { Settings, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
-import { TimeWindowSlider, TimeWindowSliderV11, TimeWindowSliderV12 } from "@/components/TimeWindowSlider";
+import { TimeWindowSlider, TimeWindowSliderV11, TimeWindowSliderV12, TimeWindowSliderV16 } from "@/components/TimeWindowSlider";
 import { VersionSwitcherOverlay } from "@/components/library/VersionSwitcherOverlay";
 import { useVersion } from "@/components/library/VersionContext";
 import {
   PlusButton,
-  ContinueButton,
   BookTableButton,
-  CalendarToggleButton,
-  NavButton,
   BackButton,
 } from '@/components/ui/buttons';
 import {
-  DateCardWeek,
-  DateCardMonth,
   PartySizeCard,
 } from '@/components/ui/cards';
 
@@ -27,47 +22,45 @@ const Prototype: React.FC = () => {
   const { getVersion, setVersion } = useVersion();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
+  const [showVersionSwitcher, setShowVersionSwitcher] = useState(false);
 
-  // Detect if running as PWA (standalone) or on mobile device
-  const [isNativeMode, setIsNativeMode] = useState(false);
+  // Double-space hotkey to toggle version switcher
+  const lastSpaceTime = useRef<number>(0);
   useEffect(() => {
-    const checkNativeMode = () => {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-        || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      setIsNativeMode(isStandalone || isMobile);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Space' && !e.repeat) {
+        const now = Date.now();
+        if (now - lastSpaceTime.current < 400) {
+          e.preventDefault();
+          setShowVersionSwitcher(prev => !prev);
+          lastSpaceTime.current = 0;
+        } else {
+          lastSpaceTime.current = now;
+        }
+      }
     };
-    checkNativeMode();
-    window.matchMedia('(display-mode: standalone)').addEventListener('change', checkNativeMode);
-    return () => {
-      window.matchMedia('(display-mode: standalone)').removeEventListener('change', checkNativeMode);
-    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-  const startOfWeek = (d: Date, weekStartsOn: 0 | 1 = 0) => {
-    const date = new Date(d);
-    date.setHours(0, 0, 0, 0);
-    const day = date.getDay();
-    const diff = (day - weekStartsOn + 7) % 7;
-    date.setDate(date.getDate() - diff);
-    return date;
-  };
 
-  const [gridStartDate, setGridStartDate] = useState(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d; // Always start with today
-  });
+  // Force TimeWindowSlider to use v16 as the default (overrides older stored versions)
+  useEffect(() => {
+    if (getVersion('TimeWindowSlider', 'v16') !== 'v16') {
+      setVersion('TimeWindowSlider', 'v16');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedPartySize, setSelectedPartySize] = useState<number | string | null>(null);
-  const [calendarMode, setCalendarMode] = useState<'week' | 'month'>('week');
-  const [monthAnchor, setMonthAnchor] = useState(() => {
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(() => {
     const d = new Date();
-    d.setHours(0, 0, 0, 0);
     return new Date(d.getFullYear(), d.getMonth(), 1);
   });
-  const [timeRange, setTimeRange] = useState<{ startMinutes: number; endMinutes: number }>(() => ({
-    startMinutes: 18 * 60, // 6:00 PM
-    endMinutes: 20 * 60, // 8:00 PM
+  const [selectedPartySize, setSelectedPartySize] = useState<number | string | null>(null);
+  const [timeRange, setTimeRange] = useState<{ startMinutes: number | null; endMinutes: number | null }>(() => ({
+    startMinutes: null,
+    endMinutes: null,
   }));
   const [timeCardExpanded, setTimeCardExpanded] = useState<'earliest' | 'latest'>('earliest');
 
@@ -77,11 +70,10 @@ const Prototype: React.FC = () => {
 
   const resetBookingFlow = () => {
     setSelectedDate(null);
+    setShowCalendar(false);
+    setCalendarMonth(new Date(now.getFullYear(), now.getMonth(), 1));
     setSelectedPartySize(null);
-    setGridStartDate(now); // Always start with today
-    setCalendarMode('week');
-    setMonthAnchor(new Date(now.getFullYear(), now.getMonth(), 1));
-    setTimeRange({ startMinutes: 18 * 60, endMinutes: 20 * 60 });
+    setTimeRange({ startMinutes: null, endMinutes: null });
     setTimeCardExpanded('earliest');
     setCurrentStep(0);
   };
@@ -96,80 +88,9 @@ const Prototype: React.FC = () => {
     return d;
   }, []);
 
-  const days = useMemo(() => {
-    const out: Array<{
-      fullDate: string;
-      isToday: boolean;
-      isPast: boolean;
-      isSelected: boolean;
-      weekdayShort: string;
-      dateNum: number;
-      monthShort: string;
-      rawDate: Date;
-    }> = [];
-
-    for (let i = 0; i < 8; i++) {
-      const day = new Date(gridStartDate);
-      day.setDate(gridStartDate.getDate() + i);
-      day.setHours(0, 0, 0, 0);
-
-      const isToday = day.toDateString() === now.toDateString();
-      const isPast = day < now;
-      const isSelected =
-        !!selectedDate && day.toDateString() === selectedDate.toDateString();
-
-      out.push({
-        fullDate: day.toDateString(),
-        isToday,
-        isPast,
-        isSelected,
-        weekdayShort: day.toLocaleString('default', { weekday: 'short' }),
-        dateNum: day.getDate(),
-        monthShort: day.toLocaleString('default', { month: 'short' }),
-        rawDate: day,
-      });
-    }
-
-    return out;
-  }, [gridStartDate, now, selectedDate]);
-
-  const weekLabel = useMemo(() => {
-    const start = new Date(gridStartDate);
-    const end = new Date(gridStartDate);
-    end.setDate(gridStartDate.getDate() + 6);
-    const startMonth = start.toLocaleString('default', { month: 'short' });
-    const endMonth = end.toLocaleString('default', { month: 'short' });
-    const year = start.getFullYear();
-    return startMonth === endMonth ? `${startMonth} ${year}` : `${startMonth}–${endMonth} ${year}`;
-  }, [gridStartDate]);
-
-  const isCurrentWeek = useMemo(() => {
-    return gridStartDate.toDateString() === now.toDateString();
-  }, [gridStartDate, now]);
-
-  const monthLabel = useMemo(() => {
-    return monthAnchor.toLocaleString('default', { month: 'long', year: 'numeric' });
-  }, [monthAnchor]);
-
-  const nextRange = () => {
-    setGridStartDate(prev => {
-      const next = new Date(prev);
-      next.setDate(prev.getDate() + 7);
-      return next;
-    });
-  };
-
-  const prevRange = () => {
-    setGridStartDate(prev => {
-      const next = new Date(prev);
-      next.setDate(prev.getDate() - 7);
-      return next;
-    });
-  };
-
   // Step 2: start-time window configuration (7:00 AM – 10:30 PM)
-  const minTimeMinutes = 7 * 60;
-  const maxTimeMinutes = 22 * 60 + 30;
+  const minTimeMinutes = 6 * 60;
+  const maxTimeMinutes = 23 * 60 + 30;
 
   const formatMinutes = (minutes: number) => {
     const h24 = Math.floor(minutes / 60);
@@ -183,7 +104,7 @@ const Prototype: React.FC = () => {
   const screenContent = (
     <>
       {/* Top Navigation */}
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-4 py-4">
         <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
         <button className="p-2 active:bg-white/10 rounded-full transition-colors">
           <Settings className="w-6 h-6 text-zinc-400" />
@@ -191,7 +112,7 @@ const Prototype: React.FC = () => {
       </div>
 
       {/* Home Content */}
-      <div className="px-6 py-2 flex-1">
+      <div className="px-4 py-2 flex-1">
         <h3 className="text-2xl font-semibold tracking-tight">Good morning, Andreas</h3>
         <p className="text-zinc-400 text-sm mt-1">Here's what's happening today.</p>
       </div>
@@ -203,133 +124,173 @@ const Prototype: React.FC = () => {
     </>
   );
 
-  // Native/PWA mode - full screen, no mockup
-  if (isNativeMode) {
-    return (
-      <div
-        ref={setContainer}
-        className="min-h-screen bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
-      >
-        {screenContent}
+  return (
+    <div
+      ref={setContainer}
+      className="min-h-screen bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+    >
+      {/* Version Switcher Overlay - toggle with [space][space] */}
+      <VersionSwitcherOverlay
+        componentName="TimeWindowSlider"
+        currentVersion={getVersion('TimeWindowSlider', 'v16')}
+        onVersionChange={(version) => setVersion('TimeWindowSlider', version)}
+        isVisible={showVersionSwitcher}
+      />
 
-          {/* Step 1: When? - Sectioned Weekly View */}
+      {screenContent}
+
+          {/* Step 1: When? */}
           <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent 
-              container={container} 
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto !pb-[calc(2rem+env(safe-area-inset-bottom))]"
               overlayClassName="!absolute"
             >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center justify-between">
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+              <div className="flex flex-col gap-[20px] pt-[6px] px-[20px] pb-[20px]">
+                {/* Header - only show when not in calendar view */}
+                {!showCalendar && (
+                  <div className="flex items-center">
+                    <h2 className="text-[16px] font-bold text-[#d6d6d6] tracking-[0.25px]">
                       When do you need a table?
-                    </DrawerTitle>
-                    <CalendarToggleButton
-                      onClick={() => {
-                        const nextMode = calendarMode === 'week' ? 'month' : 'week';
-                        setCalendarMode(nextMode);
-                        if (nextMode === 'month') {
-                          const base = selectedDate ?? now;
-                          setMonthAnchor(new Date(base.getFullYear(), base.getMonth(), 1));
-                        }
-                      }}
-                      isActive={calendarMode === 'month'}
-                    />
+                    </h2>
                   </div>
-                </DrawerHeader>
-                
-                <div 
-                  className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6 flex flex-col"
-                >
-                  {calendarMode === 'week' ? (
-                    <div className="grid grid-cols-4 gap-2.5">
-                      {days.map((day) => (
-                        <DateCardWeek
-                          key={day.fullDate}
-                          weekday={day.weekdayShort}
-                          date={day.dateNum}
-                          month={day.monthShort}
-                          isSelected={day.isSelected}
-                          isToday={day.isToday}
-                          isPast={day.isPast}
-                          onClick={() => {
-                            if (day.isPast) return;
-                            setSelectedDate(day.rawDate);
-                            handleNextStep();
-                          }}
-                        />
-                      ))}
+                )}
+
+                {/* Date selection - cards or calendar */}
+                <div className="transition-all duration-300 ease-out">
+                  {!showCalendar ? (
+                    /* 2 rows of 4: 7 date cards + calendar trigger */
+                    <div className="grid grid-cols-4 gap-[8px]">
+                      {Array.from({ length: 7 }).map((_, i) => {
+                        const date = new Date(now);
+                        date.setDate(now.getDate() + i);
+                        const isToday = i === 0;
+                        const dayLabel = isToday ? 'Today' : date.toLocaleDateString('en-US', { weekday: 'short' });
+
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => {
+                              setSelectedDate(date);
+                              handleNextStep();
+                            }}
+                            className="h-[110px] rounded-[12px] bg-[#252525] flex flex-col items-center justify-center gap-[9px] active:scale-[0.97] active:bg-[#303030] transition-all"
+                          >
+                            <span className="text-[11px] font-medium text-zinc-400">{dayLabel}</span>
+                            <span className="text-[26px] font-bold text-white leading-none">{date.getDate()}</span>
+                          </button>
+                        );
+                      })}
+
+                      {/* Calendar trigger */}
+                      <button
+                        onClick={() => {
+                          setCalendarMonth(new Date(now.getFullYear(), now.getMonth(), 1));
+                          setShowCalendar(true);
+                        }}
+                        className="h-[110px] rounded-[12px] bg-[#252525] flex items-center justify-center active:scale-[0.97] active:bg-[#303030] transition-all"
+                      >
+                        <Calendar className="w-6 h-6 text-zinc-400" />
+                      </button>
                     </div>
                   ) : (
-                    <div className="space-y-3">
-                      <div className="grid grid-cols-7 gap-2 px-1">
-                        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d) => (
-                          <div key={d} className="text-[11px] font-semibold text-zinc-600 text-center">
-                            {d}
+                    /* Full month calendar view */
+                    <div className="flex flex-col gap-[13px] animate-in fade-in slide-in-from-bottom-2 duration-300">
+                      {/* Header with back, title, and month nav */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-[15px]">
+                          <button
+                            onClick={() => setShowCalendar(false)}
+                            className="w-[40px] h-[40px] flex items-center justify-center rounded-full active:bg-white/10 transition-colors"
+                          >
+                            <ChevronLeft className="w-6 h-6 text-white" />
+                          </button>
+                          <span className="text-[17px] font-semibold text-white tracking-[-0.4px]">
+                            {calendarMonth.toLocaleDateString('en-US', { month: 'long' })}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
+                            className="p-1 active:opacity-50 transition-opacity"
+                          >
+                            <ChevronLeft className="w-5 h-5 text-[#FF453A]" />
+                          </button>
+                          <button
+                            onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
+                            className="p-1 active:opacity-50 transition-opacity"
+                          >
+                            <ChevronRight className="w-5 h-5 text-[#FF453A]" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Day headers */}
+                      <div className="flex justify-between">
+                        {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d, i) => (
+                          <div key={i} className="w-[40px] text-center">
+                            <span className="text-[13px] font-semibold text-white/30 tracking-[-0.08px]">{d}</span>
                           </div>
                         ))}
                       </div>
 
+                      {/* Calendar grid */}
                       {(() => {
-                        const first = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), 1);
-                        const startOffset = first.getDay(); // Sunday=0
-                        const daysInMonth = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth() + 1, 0).getDate();
-                        const cells: Array<Date | null> = Array.from({ length: 42 }, () => null);
-                        for (let i = 0; i < daysInMonth; i++) {
-                          const d = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), i + 1);
-                          d.setHours(0, 0, 0, 0);
-                          cells[startOffset + i] = d;
+                        const year = calendarMonth.getFullYear();
+                        const month = calendarMonth.getMonth();
+                        const firstDay = new Date(year, month, 1).getDay();
+                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                        const cells: (number | null)[] = [];
+                        for (let i = 0; i < firstDay; i++) cells.push(null);
+                        for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                        while (cells.length % 7 !== 0) cells.push(null);
+
+                        // Split into rows
+                        const rows: (number | null)[][] = [];
+                        for (let i = 0; i < cells.length; i += 7) {
+                          rows.push(cells.slice(i, i + 7));
                         }
 
                         return (
-                          <div className="grid grid-cols-7 gap-2">
-                            {cells.map((d, idx) => {
-                              if (!d) return <div key={idx} className="aspect-square" />;
-                              const isPast = d < now;
-                              const isToday = d.toDateString() === now.toDateString();
-                              const isSelected = !!selectedDate && d.toDateString() === selectedDate.toDateString();
-                              return (
-                                <DateCardMonth
-                                  key={idx}
-                                  date={d.getDate()}
-                                  isPast={isPast}
-                                  isToday={isToday}
-                                  isSelected={isSelected}
-                                  onClick={() => {
-                                    if (isPast) return;
-                                    setSelectedDate(d);
-                                    setGridStartDate(d);
-                                    handleNextStep();
-                                  }}
-                                />
-                              );
-                            })}
+                          <div className="flex flex-col">
+                            {rows.map((row, rowIndex) => (
+                              <div key={rowIndex} className="flex justify-between py-[10px]">
+                                {row.map((day, colIndex) => {
+                                  if (day === null) {
+                                    return <div key={colIndex} className="w-[40px] h-[40px]" />;
+                                  }
+
+                                  const date = new Date(year, month, day);
+                                  const isPast = date < now;
+                                  const isToday = date.toDateString() === now.toDateString();
+
+                                  return (
+                                    <button
+                                      key={colIndex}
+                                      disabled={isPast}
+                                      onClick={() => {
+                                        setSelectedDate(date);
+                                        handleNextStep();
+                                      }}
+                                      className={`w-[40px] h-[40px] flex flex-col items-center justify-center rounded-full transition-all ${
+                                        isPast
+                                          ? 'text-zinc-700'
+                                          : 'text-white active:bg-white/10'
+                                      }`}
+                                    >
+                                      <span className="text-[20px] font-normal tracking-[0.38px]">{day}</span>
+                                      {isToday && <div className="w-[5px] h-[5px] rounded-full bg-[#FE3400] -mt-1" />}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            ))}
                           </div>
                         );
                       })()}
                     </div>
                   )}
-
-                  {/* Bottom Navigation Buttons */}
-                  <div className="mt-6 flex gap-3">
-                    <NavButton
-                      direction="prev"
-                      onClick={() => {
-                        if (calendarMode === 'week') prevRange();
-                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-                      }}
-                      aria-label={calendarMode === 'week' ? 'Previous week' : 'Previous month'}
-                    />
-                    <NavButton
-                      direction="next"
-                      onClick={() => {
-                        if (calendarMode === 'week') nextRange();
-                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-                      }}
-                      aria-label={calendarMode === 'week' ? 'Next week' : 'Next month'}
-                    />
-                  </div>
                 </div>
               </div>
             </DrawerContent>
@@ -339,38 +300,64 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%] flex flex-col"
               overlayClassName="!absolute"
             >
-              <div className="flex flex-col h-full">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
-                    <BackButton onClick={() => {
-                      if (timeCardExpanded === 'latest') {
-                        setTimeCardExpanded('earliest');
-                      } else {
-                        setCurrentStep(1);
+              {(() => {
+                const version = getVersion('TimeWindowSlider', 'v16');
+                // V16 handles its own layout
+                if (version === 'v16') {
+                  return (
+                    <TimeWindowSliderV16
+                      key={timeCardExpanded}
+                      title={timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
+                      minMinutes={
+                        timeCardExpanded === 'earliest'
+                          ? minTimeMinutes
+                          : (timeRange.startMinutes ?? minTimeMinutes) + 30
                       }
-                    }} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
-                      {(() => {
-                        const version = getVersion('TimeWindowSlider', 'v12');
-                        if (version === 'v11' || version === 'v12') {
-                          return timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?";
+                      maxMinutes={maxTimeMinutes}
+                      value={timeCardExpanded === 'earliest' ? timeRange.startMinutes : timeRange.endMinutes}
+                      earliestTime={timeCardExpanded === 'latest' ? timeRange.startMinutes : undefined}
+                      className="pb-[48px]"
+                      onBack={timeCardExpanded === 'earliest' ? () => setCurrentStep(1) : () => setTimeCardExpanded('earliest')}
+                      onChange={(minutes: number) => {
+                        if (timeCardExpanded === 'earliest') {
+                          setTimeRange(prev => ({ ...prev, startMinutes: minutes }));
+                        } else {
+                          setTimeRange(prev => ({ ...prev, endMinutes: minutes }));
                         }
-                        return "What time?";
-                      })()}
-                    </DrawerTitle>
-                  </div>
-                </DrawerHeader>
-
-                <div className="px-4 pb-6">
-                  {(() => {
-                    const version = getVersion('TimeWindowSlider', 'v12');
-                    // V11 and V12 use two-drawer flow with single-value interface
-                    if (version === 'v11' || version === 'v12') {
-                      const SliderComponent = version === 'v12' ? TimeWindowSliderV12 : TimeWindowSliderV11;
-                      return (
+                      }}
+                      onConfirm={() => {
+                        if (timeCardExpanded === 'earliest') {
+                          setTimeCardExpanded('latest');
+                        } else {
+                          handleNextStep();
+                        }
+                      }}
+                    />
+                  );
+                }
+                // V11, V12 use old layout with header
+                if (version === 'v11' || version === 'v12') {
+                  const SliderComponent = version === 'v12' ? TimeWindowSliderV12 : TimeWindowSliderV11;
+                  return (
+                    <div className="flex flex-col h-full">
+                      <DrawerHeader className="pt-1 pb-0 px-5">
+                        <div className="flex items-center gap-[15px]">
+                          <BackButton onClick={() => {
+                            if (timeCardExpanded === 'latest') {
+                              setTimeCardExpanded('earliest');
+                            } else {
+                              setCurrentStep(1);
+                            }
+                          }} />
+                          <DrawerTitle className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
+                            {timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
+                          </DrawerTitle>
+                        </div>
+                      </DrawerHeader>
+                      <div className="px-5 pb-6">
                         <SliderComponent
                           key={timeCardExpanded}
                           title={timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
@@ -386,30 +373,31 @@ const Prototype: React.FC = () => {
                           }}
                           onConfirm={() => {
                             if (timeCardExpanded === 'earliest') {
+                              setTimeRange(prev => ({ ...prev, endMinutes: prev.startMinutes + 30 }));
                               setTimeCardExpanded('latest');
                             } else {
                               handleNextStep();
                             }
                           }}
                         />
-                      );
-                    }
-                    // All other versions: Single component for both times
-                    return (
-                      <TimeWindowSlider
-                        minMinutes={minTimeMinutes}
-                        maxMinutes={maxTimeMinutes}
-                        startMinutes={timeRange.startMinutes}
-                        endMinutes={timeRange.endMinutes}
-                        onChange={({ startMinutes, endMinutes }) => {
-                          setTimeRange({ startMinutes, endMinutes });
-                          handleNextStep();
-                        }}
-                      />
-                    );
-                  })()}
-                </div>
-              </div>
+                      </div>
+                    </div>
+                  );
+                }
+                // All other versions: Single component for both times
+                return (
+                  <TimeWindowSlider
+                    minMinutes={minTimeMinutes}
+                    maxMinutes={maxTimeMinutes}
+                    startMinutes={timeRange.startMinutes}
+                    endMinutes={timeRange.endMinutes}
+                    onChange={({ startMinutes, endMinutes }) => {
+                      setTimeRange({ startMinutes, endMinutes });
+                      handleNextStep();
+                    }}
+                  />
+                );
+              })()}
             </DrawerContent>
           </Drawer>
 
@@ -417,20 +405,20 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%] !pb-[calc(2rem+env(safe-area-inset-bottom))]"
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
+                <DrawerHeader className="pt-1 pb-0 px-5">
+                  <div className="flex items-center gap-[15px]">
                     <BackButton onClick={() => setCurrentStep(2)} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                    <DrawerTitle className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
                       How many people?
                     </DrawerTitle>
                   </div>
                 </DrawerHeader>
 
-                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6">
+                <div className="overflow-y-auto no-scrollbar px-5 pt-6 pb-6">
                   <div className="grid grid-cols-3 gap-3">
                     {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
                       <PartySizeCard
@@ -453,20 +441,20 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 4} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
+              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%] !pb-[calc(2rem+env(safe-area-inset-bottom))]"
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
+                <DrawerHeader className="pt-5 pb-0 px-5">
+                  <div className="flex items-center gap-[15px]">
                     <BackButton onClick={() => setCurrentStep(3)} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
+                    <DrawerTitle className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
                       Confirm booking
                     </DrawerTitle>
                   </div>
                 </DrawerHeader>
                 
-                <div className="overflow-y-auto no-scrollbar px-6 pt-2 pb-8">
+                <div className="overflow-y-auto no-scrollbar px-5 pt-2 pb-8">
                   <div className="space-y-6">
                     {/* Visual Summary Card */}
                     <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
@@ -502,330 +490,6 @@ const Prototype: React.FC = () => {
             </DrawerContent>
           </Drawer>
 
-      </div>
-    );
-  }
-
-  // Desktop mode - show iPhone mockup with version switcher
-  return (
-    <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-4 font-['Inter']">
-      {/* Version Switcher Overlay */}
-      <VersionSwitcherOverlay
-        componentName="TimeWindowSlider"
-        currentVersion={getVersion('TimeWindowSlider', 'v12')}
-        onVersionChange={(version) => setVersion('TimeWindowSlider', version)}
-        isVisible={currentStep === 2}
-      />
-
-      {/* iPhone 16 Pro Mockup */}
-      <div
-        ref={setContainer}
-        className="relative w-[402px] h-[874px] bg-black rounded-[55px] border-[8px] border-zinc-800 shadow-2xl overflow-hidden ring-1 ring-white/10"
-      >
-        {/* Dynamic Island */}
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-[120px] h-[35px] bg-black rounded-full z-50 flex items-center justify-center pointer-events-none">
-          <div className="w-2 h-2 rounded-full bg-zinc-800 ml-auto mr-4" />
-        </div>
-
-        {/* Screen Content */}
-        <div className="w-full h-full bg-[#191919] text-white relative flex flex-col">
-          {/* Status Bar */}
-          <div className="h-12 flex items-center justify-between px-8 pt-4 text-xs font-semibold">
-            <span>9:41</span>
-            <div className="flex gap-1.5 items-center">
-              <div className="w-4 h-3 border border-current rounded-[2px]" />
-              <div className="w-3 h-3 bg-current rounded-full" />
-            </div>
-          </div>
-
-          {screenContent}
-
-          {/* Step 1: When? */}
-          <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent
-              container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
-              overlayClassName="!absolute"
-            >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center justify-between">
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
-                      When do you need a table?
-                    </DrawerTitle>
-                    <CalendarToggleButton
-                      onClick={() => {
-                        const nextMode = calendarMode === 'week' ? 'month' : 'week';
-                        setCalendarMode(nextMode);
-                        if (nextMode === 'month') {
-                          const base = selectedDate ?? now;
-                          setMonthAnchor(new Date(base.getFullYear(), base.getMonth(), 1));
-                        }
-                      }}
-                      isActive={calendarMode === 'month'}
-                    />
-                  </div>
-                </DrawerHeader>
-
-                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6 flex flex-col">
-                  {calendarMode === 'week' ? (
-                    <div className="grid grid-cols-4 gap-2.5">
-                      {days.map((day) => (
-                        <DateCardWeek
-                          key={day.fullDate}
-                          weekday={day.weekdayShort}
-                          date={day.dateNum}
-                          month={day.monthShort}
-                          isSelected={day.isSelected}
-                          isToday={day.isToday}
-                          isPast={day.isPast}
-                          onClick={() => {
-                            if (day.isPast) return;
-                            setSelectedDate(day.rawDate);
-                            handleNextStep();
-                          }}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      <div className="grid grid-cols-7 gap-2 px-1">
-                        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d) => (
-                          <div key={d} className="text-[11px] font-semibold text-zinc-600 text-center">
-                            {d}
-                          </div>
-                        ))}
-                      </div>
-
-                      {(() => {
-                        const first = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), 1);
-                        const startOffset = first.getDay();
-                        const daysInMonth = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth() + 1, 0).getDate();
-                        const cells: Array<Date | null> = Array.from({ length: 42 }, () => null);
-                        for (let i = 0; i < daysInMonth; i++) {
-                          const d = new Date(monthAnchor.getFullYear(), monthAnchor.getMonth(), i + 1);
-                          d.setHours(0, 0, 0, 0);
-                          cells[startOffset + i] = d;
-                        }
-
-                        return (
-                          <div className="grid grid-cols-7 gap-2">
-                            {cells.map((d, idx) => {
-                              if (!d) return <div key={idx} className="aspect-square" />;
-                              const isPast = d < now;
-                              const isToday = d.toDateString() === now.toDateString();
-                              const isSelected = !!selectedDate && d.toDateString() === selectedDate.toDateString();
-                              return (
-                                <DateCardMonth
-                                  key={idx}
-                                  date={d.getDate()}
-                                  isPast={isPast}
-                                  isToday={isToday}
-                                  isSelected={isSelected}
-                                  onClick={() => {
-                                    if (isPast) return;
-                                    setSelectedDate(d);
-                                    setGridStartDate(d);
-                                    handleNextStep();
-                                  }}
-                                />
-                              );
-                            })}
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  )}
-
-                  <div className="mt-6 flex gap-3">
-                    <NavButton
-                      direction="prev"
-                      onClick={() => {
-                        if (calendarMode === 'week') prevRange();
-                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-                      }}
-                    />
-                    <NavButton
-                      direction="next"
-                      onClick={() => {
-                        if (calendarMode === 'week') nextRange();
-                        else setMonthAnchor((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
-
-          {/* Step 2: Time Selection */}
-          <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent
-              container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%]"
-              overlayClassName="!absolute"
-            >
-              <div className="flex flex-col h-full">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
-                    <BackButton onClick={() => {
-                      if (timeCardExpanded === 'latest') {
-                        setTimeCardExpanded('earliest');
-                      } else {
-                        setCurrentStep(1);
-                      }
-                    }} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
-                      {(() => {
-                        const version = getVersion('TimeWindowSlider', 'v12');
-                        if (version === 'v11' || version === 'v12') {
-                          return timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?";
-                        }
-                        return "What time?";
-                      })()}
-                    </DrawerTitle>
-                  </div>
-                </DrawerHeader>
-
-                <div className="px-4 pb-6">
-                  {(() => {
-                    const version = getVersion('TimeWindowSlider', 'v12');
-                    if (version === 'v11' || version === 'v12') {
-                      const SliderComponent = version === 'v12' ? TimeWindowSliderV12 : TimeWindowSliderV11;
-                      return (
-                        <SliderComponent
-                          key={timeCardExpanded}
-                          title={timeCardExpanded === 'earliest' ? "Earliest start time?" : "Latest start time?"}
-                          minMinutes={timeCardExpanded === 'earliest' ? minTimeMinutes : timeRange.startMinutes + 30}
-                          maxMinutes={maxTimeMinutes}
-                          value={timeCardExpanded === 'earliest' ? timeRange.startMinutes : timeRange.endMinutes}
-                          onChange={(minutes: number) => {
-                            if (timeCardExpanded === 'earliest') {
-                              setTimeRange(prev => ({ ...prev, startMinutes: minutes }));
-                            } else {
-                              setTimeRange(prev => ({ ...prev, endMinutes: minutes }));
-                            }
-                          }}
-                          onConfirm={() => {
-                            if (timeCardExpanded === 'earliest') {
-                              setTimeCardExpanded('latest');
-                            } else {
-                              handleNextStep();
-                            }
-                          }}
-                        />
-                      );
-                    }
-                    return (
-                      <TimeWindowSlider
-                        minMinutes={minTimeMinutes}
-                        maxMinutes={maxTimeMinutes}
-                        startMinutes={timeRange.startMinutes}
-                        endMinutes={timeRange.endMinutes}
-                        onChange={({ startMinutes, endMinutes }) => {
-                          setTimeRange({ startMinutes, endMinutes });
-                          handleNextStep();
-                        }}
-                      />
-                    );
-                  })()}
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
-
-          {/* Step 3: How many? */}
-          <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent
-              container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
-              overlayClassName="!absolute"
-            >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
-                    <BackButton onClick={() => setCurrentStep(2)} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
-                      How many people?
-                    </DrawerTitle>
-                  </div>
-                </DrawerHeader>
-
-                <div className="overflow-y-auto no-scrollbar px-4 pt-2 pb-6">
-                  <div className="grid grid-cols-3 gap-3">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
-                      <PartySizeCard
-                        key={count}
-                        count={count}
-                        isSelected={selectedPartySize === count}
-                        onClick={() => {
-                          setSelectedPartySize(count);
-                          handleNextStep();
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
-
-          {/* Step 4: Summary */}
-          <Drawer open={currentStep === 4} onOpenChange={(open) => !open && resetBookingFlow()}>
-            <DrawerContent
-              container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%]"
-              overlayClassName="!absolute"
-            >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-1 pb-3 px-6">
-                  <div className="flex items-center gap-4">
-                    <BackButton onClick={() => setCurrentStep(3)} />
-                    <DrawerTitle className="text-lg font-medium text-zinc-100">
-                      Confirm booking
-                    </DrawerTitle>
-                  </div>
-                </DrawerHeader>
-
-                <div className="overflow-y-auto no-scrollbar px-6 pt-2 pb-8">
-                  <div className="space-y-6">
-                    <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
-                      <div className="flex justify-between items-end">
-                        <div>
-                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Date</div>
-                          <div className="mt-1 text-[20px] font-bold text-white">
-                            {selectedDate?.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' })}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Party</div>
-                          <div className="mt-1 text-[20px] font-bold text-white">
-                            {selectedPartySize} {selectedPartySize === 1 ? 'Person' : 'People'}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="pt-6 border-t border-zinc-800/50">
-                        <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase mb-2">Time Window</div>
-                        <div className="h-12 w-full rounded-full bg-[#FE3400] flex items-center justify-center shadow-[0_0_40px_rgba(254,52,0,0.15)]">
-                          <span className="text-[15px] font-black text-black/90">
-                            {formatMinutes(timeRange.startMinutes)} – {formatMinutes(timeRange.endMinutes)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <BookTableButton onClick={handleFinish} />
-                  </div>
-                </div>
-              </div>
-            </DrawerContent>
-          </Drawer>
-
-          {/* Home Indicator */}
-          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[140px] h-1.5 bg-zinc-800 rounded-full" />
-        </div>
-      </div>
     </div>
   );
 };

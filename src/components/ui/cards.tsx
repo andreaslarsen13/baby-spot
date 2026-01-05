@@ -18,29 +18,32 @@ export const DateCardWeek: React.FC<{
     onClick={onClick}
     disabled={isPast}
     className={cn(
-      'rounded-[20px] border px-2 py-6 flex flex-col items-center justify-center transition-colors relative',
-      isPast && 'opacity-10 pointer-events-none',
+      'rounded-[10px] h-[114px] px-[15px] py-[3px] flex flex-col items-center justify-center transition-colors',
+      isPast && 'opacity-40 pointer-events-none',
       isSelected
-        ? 'bg-white text-black border-white'
-        : 'bg-[#272729] text-white border-zinc-800 active:bg-zinc-800',
+        ? 'bg-white'
+        : 'bg-[#252525] active:bg-[#303030]',
       className
     )}
   >
     <div
       className={cn(
-        'text-[12px] font-semibold tracking-wide',
-        isSelected ? 'text-black/60' : isToday ? 'text-[#FE3400]/70' : 'text-zinc-500'
+        'text-[12px] font-bold tracking-[0.25px] text-center',
+        isSelected ? 'text-black/60' : 'text-[#71717b]'
       )}
     >
       {isToday ? 'Today' : weekday}
     </div>
-    <div className="relative mt-2">
-      <div className="text-[26px] font-semibold leading-none">{date}</div>
+    <div className={cn(
+      'text-[20px] font-bold mt-[10px]',
+      isSelected ? 'text-black' : 'text-[#d5d5d5]'
+    )}>
+      {date}
     </div>
     <div
       className={cn(
-        'mt-2.5 text-[12px] font-semibold',
-        isSelected ? 'text-black/50' : 'text-zinc-600'
+        'mt-[10px] text-[12px] font-bold tracking-[0.25px]',
+        isSelected ? 'text-black/50' : 'text-[#71717b]'
       )}
     >
       {month}
