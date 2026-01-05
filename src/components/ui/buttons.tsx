@@ -69,12 +69,12 @@ export const CalendarToggleButton: React.FC<{
   <button
     onClick={onClick}
     className={cn(
-      'h-10 w-10 rounded-full border border-zinc-800 flex items-center justify-center transition-colors',
-      isActive ? 'bg-white text-black' : 'bg-zinc-900/60 text-zinc-200 active:bg-zinc-800',
+      'h-10 w-10 rounded-xl bg-[#252525] flex items-center justify-center transition-colors active:bg-zinc-700',
+      isActive && 'ring-1 ring-zinc-500',
       className
     )}
   >
-    <Calendar className="w-5 h-5" />
+    <Calendar className="w-5 h-5 text-zinc-300" />
   </button>
 );
 
@@ -84,21 +84,24 @@ export const CalendarToggleButton: React.FC<{
 export const NavButton: React.FC<{
   direction: 'prev' | 'next';
   onClick?: () => void;
+  disabled?: boolean;
   className?: string;
   'aria-label'?: string;
-}> = ({ direction, onClick, className, 'aria-label': ariaLabel }) => (
+}> = ({ direction, onClick, disabled = false, className, 'aria-label': ariaLabel }) => (
   <button
     onClick={onClick}
+    disabled={disabled}
     aria-label={ariaLabel}
     className={cn(
-      'flex-1 h-14 rounded-full bg-[#242427] border border-zinc-800 flex items-center justify-center active:bg-zinc-800 transition-colors',
+      'w-14 h-14 rounded-full bg-zinc-800/50 flex items-center justify-center transition-colors',
+      disabled ? 'opacity-30' : 'active:bg-zinc-700',
       className
     )}
   >
     {direction === 'prev' ? (
-      <ChevronLeft className="w-6 h-6 text-zinc-200" />
+      <ChevronLeft className="w-5 h-5 text-zinc-300" />
     ) : (
-      <ChevronRight className="w-6 h-6 text-zinc-200" />
+      <ChevronRight className="w-5 h-5 text-zinc-300" />
     )}
   </button>
 );
@@ -114,7 +117,7 @@ export const BackButton: React.FC<{
     onClick={onClick}
     aria-label="Go back"
     className={cn(
-      'w-12 h-12 rounded-xl bg-[#2a2a2a] flex items-center justify-center active:bg-zinc-700 transition-colors flex-shrink-0',
+      'w-10 h-10 rounded-xl bg-[#2a2a2a] flex items-center justify-center active:bg-zinc-700 transition-colors flex-shrink-0',
       className
     )}
   >

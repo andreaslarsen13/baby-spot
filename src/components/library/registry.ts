@@ -120,6 +120,51 @@ export const ComponentLibrary: Record<string, ComponentInfo> = {
           'Backspace button to correct mistakes',
         ],
       },
+      {
+        version: 'v13',
+        description: 'iOS-style scroll wheel picker',
+        features: [
+          'Vertical scroll wheel with full times (6:00 PM, 6:30 PM)',
+          '30-minute intervals for quick selection',
+          'CSS scroll-snap for smooth, natural scrolling',
+          'Highlighted center selection row (zinc-800 pill)',
+          'Fading gradient effect above/below selection',
+          'Two-drawer flow like v11/v12 (earliest → latest)',
+        ],
+      },
+      {
+        version: 'v14',
+        description: 'Grid picker with Morning/Afternoon/Evening segmented control',
+        features: [
+          'Segmented toggle for Morning / Afternoon / Evening',
+          '3x4 grid of 30-minute slots',
+          'Selected earliest time shown in header for latest drawer',
+          'Back button and centered confirm button',
+          'Compact 20px side padding and 15px vertical spacing',
+        ],
+      },
+      {
+        version: 'v15',
+        description: 'Paginated grid picker with arrow navigation',
+        features: [
+          '3x4 grid of 30-minute time slots',
+          'Arrow navigation to page through Breakfast/Lunch/Dinner',
+          'Centered bottom arrows for balanced feel',
+          'Clean layout without tabs or labels',
+          'Back button in header for drawer navigation',
+        ],
+      },
+      {
+        version: 'v16',
+        description: 'Grid picker with Breakfast/Lunch/Dinner segmented control',
+        features: [
+          'Segmented picker for Breakfast / Lunch / Dinner at top',
+          '3-column grid of 30-minute time slots',
+          'Tap any meal period to switch time ranges',
+          'Back button in header for navigation',
+          'Clean, minimal design matching Figma spec',
+        ],
+      },
     ],
   },
 };
