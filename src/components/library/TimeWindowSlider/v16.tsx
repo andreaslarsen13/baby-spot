@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -11,6 +11,8 @@ type Props = {
   onConfirm?: () => void;
   onBack?: () => void;
   earliestTime?: number;
+  mealPeriodIndex?: number; // Lock latest times to this meal period
+  onMealPeriodChange?: (index: number) => void; // Callback when meal period changes
   className?: string;
 };
 
@@ -46,29 +48,27 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
   onConfirm,
   onBack,
   earliestTime,
+  mealPeriodIndex,
+  onMealPeriodChange,
   className = "",
 }) => {
   const isLatestMode = earliestTime != null;
   const [selectedPeriod, setSelectedPeriod] = useState(0); // Default to Dinner
-  const [latestPage, setLatestPage] = useState(0); // Pagination for latest mode
 
-  const SLOTS_PER_PAGE = 12; // 3 cols x 4 rows
-
-  // Generate all slots based on mode
-  const allSlots = useMemo(() => {
+  const handlePeriodChange = (index: number) => {
+    setSelectedPeriod(index);
+    onMealPeriodChange?.(index);
+  };
+  // Generate slots based on mode
+  const currentSlots = useMemo(() => {
     if (isLatestMode) {
-      // For latest mode: show times after earliest selection
-      return buildSlots(earliestTime + STEP, 23 * 60);
+      // For latest mode: show times after earliest selection, locked to meal period
+      const period = mealPeriods[mealPeriodIndex ?? 0];
+      return buildSlots(earliestTime + STEP, period.end);
     }
     const period = mealPeriods[selectedPeriod];
     return buildSlots(period.start, period.end);
-  }, [isLatestMode, earliestTime, selectedPeriod]);
-
-  // Paginate slots for latest mode
-  const totalPages = Math.ceil(allSlots.length / SLOTS_PER_PAGE);
-  const currentSlots = isLatestMode
-    ? allSlots.slice(latestPage * SLOTS_PER_PAGE, (latestPage + 1) * SLOTS_PER_PAGE)
-    : allSlots;
+  }, [isLatestMode, earliestTime, selectedPeriod, mealPeriodIndex]);
 
   const handleTimeSelect = (minutes: number) => {
     onChange?.(minutes);
@@ -92,33 +92,9 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
 
       {/* Segmented Picker or Earliest Time Pill */}
       {isLatestMode ? (
-        <div className="flex items-center justify-between">
-          <div className="inline-flex items-center bg-[#1c1c1c] rounded-[10px] p-[3px]">
-            <div className="h-[32px] px-4 rounded-[8px] bg-[#2c2c2c] flex items-center justify-center text-[13px] font-medium text-white tracking-[-0.08px] shadow-sm">
-              Earliest: {formatTime(earliestTime).time} {formatTime(earliestTime).meridiem}
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setLatestPage(p => p - 1)}
-              disabled={latestPage === 0}
-              className={cn(
-                "p-1 transition-opacity",
-                latestPage === 0 ? "opacity-30" : "active:opacity-50"
-              )}
-            >
-              <ChevronLeft className="w-5 h-5 text-[#d6d6d6]" />
-            </button>
-            <button
-              onClick={() => setLatestPage(p => p + 1)}
-              disabled={latestPage >= totalPages - 1}
-              className={cn(
-                "p-1 transition-opacity",
-                latestPage >= totalPages - 1 ? "opacity-30" : "active:opacity-50"
-              )}
-            >
-              <ChevronRight className="w-5 h-5 text-[#d6d6d6]" />
-            </button>
+        <div className="inline-flex items-center bg-[#1c1c1c] rounded-[10px] p-[3px] self-start">
+          <div className="h-[32px] px-4 rounded-[8px] bg-[#2c2c2c] flex items-center justify-center text-[13px] font-medium text-white tracking-[-0.08px] shadow-sm">
+            {mealPeriods[mealPeriodIndex ?? 0].label}: {formatTime(earliestTime).time} {formatTime(earliestTime).meridiem}
           </div>
         </div>
       ) : (
@@ -126,7 +102,7 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
           {mealPeriods.map((period, index) => (
             <button
               key={period.label}
-              onClick={() => setSelectedPeriod(index)}
+              onClick={() => handlePeriodChange(index)}
               className={cn(
                 "h-[32px] px-4 rounded-[8px] text-[13px] font-medium tracking-[-0.08px] transition-all",
                 selectedPeriod === index

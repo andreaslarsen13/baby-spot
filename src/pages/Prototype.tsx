@@ -63,6 +63,7 @@ const Prototype: React.FC = () => {
     endMinutes: null,
   }));
   const [timeCardExpanded, setTimeCardExpanded] = useState<'earliest' | 'latest'>('earliest');
+  const [selectedMealPeriod, setSelectedMealPeriod] = useState(0); // Track meal period for latest time
 
   const handleNextStep = () => {
     setCurrentStep((prev) => prev + 1);
@@ -75,6 +76,7 @@ const Prototype: React.FC = () => {
     setSelectedPartySize(null);
     setTimeRange({ startMinutes: null, endMinutes: null });
     setTimeCardExpanded('earliest');
+    setSelectedMealPeriod(0);
     setCurrentStep(0);
   };
 
@@ -318,7 +320,9 @@ const Prototype: React.FC = () => {
                       }
                       maxMinutes={maxTimeMinutes}
                       value={timeCardExpanded === 'earliest' ? timeRange.startMinutes : timeRange.endMinutes}
-                      earliestTime={timeCardExpanded === 'latest' ? timeRange.startMinutes : undefined}
+                      earliestTime={timeCardExpanded === 'latest' ? timeRange.startMinutes ?? undefined : undefined}
+                      mealPeriodIndex={timeCardExpanded === 'latest' ? selectedMealPeriod : undefined}
+                      onMealPeriodChange={setSelectedMealPeriod}
                       className="pb-[48px]"
                       onBack={timeCardExpanded === 'earliest' ? () => setCurrentStep(1) : () => setTimeCardExpanded('earliest')}
                       onChange={(minutes: number) => {
