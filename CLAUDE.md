@@ -50,7 +50,7 @@ npm run lint
 npm run preview
 
 # Mobile testing via ngrok (use when local network blocks device-to-device)
-npx ngrok http 5173
+ngrok http --url=imelda-reblown-camryn.ngrok-free.dev 5173
 ```
 
 ## Tech Stack & Patterns

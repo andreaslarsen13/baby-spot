@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -50,9 +50,12 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
 }) => {
   const isLatestMode = earliestTime != null;
   const [selectedPeriod, setSelectedPeriod] = useState(0); // Default to Dinner
+  const [latestPage, setLatestPage] = useState(0); // Pagination for latest mode
 
-  // Generate slots based on mode
-  const currentSlots = useMemo(() => {
+  const SLOTS_PER_PAGE = 12; // 3 cols x 4 rows
+
+  // Generate all slots based on mode
+  const allSlots = useMemo(() => {
     if (isLatestMode) {
       // For latest mode: show times after earliest selection
       return buildSlots(earliestTime + STEP, 23 * 60);
@@ -61,13 +64,19 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
     return buildSlots(period.start, period.end);
   }, [isLatestMode, earliestTime, selectedPeriod]);
 
+  // Paginate slots for latest mode
+  const totalPages = Math.ceil(allSlots.length / SLOTS_PER_PAGE);
+  const currentSlots = isLatestMode
+    ? allSlots.slice(latestPage * SLOTS_PER_PAGE, (latestPage + 1) * SLOTS_PER_PAGE)
+    : allSlots;
+
   const handleTimeSelect = (minutes: number) => {
     onChange?.(minutes);
     onConfirm?.();
   };
 
   return (
-    <div className={cn("flex flex-col gap-[13px] pt-[6px] px-[20px] pb-[20px]", className)}>
+    <div className={cn("flex flex-col gap-[10px] pt-[6px] px-[20px] pb-[20px]", className)}>
       {/* Header */}
       <div className="flex gap-[15px] items-center w-full">
         <button
@@ -83,22 +92,46 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
 
       {/* Segmented Picker or Earliest Time Pill */}
       {isLatestMode ? (
-        <div className="flex items-start w-full">
-          <div className="bg-[#252525] h-[40px] px-4 rounded-[25px] flex items-center justify-center text-[13px] font-semibold text-white tracking-[-0.08px]">
-            Earliest: {formatTime(earliestTime).time} {formatTime(earliestTime).meridiem}
+        <div className="flex items-center justify-between">
+          <div className="inline-flex items-center bg-[#1c1c1c] rounded-[10px] p-[3px]">
+            <div className="h-[32px] px-4 rounded-[8px] bg-[#2c2c2c] flex items-center justify-center text-[13px] font-medium text-white tracking-[-0.08px] shadow-sm">
+              Earliest: {formatTime(earliestTime).time} {formatTime(earliestTime).meridiem}
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setLatestPage(p => p - 1)}
+              disabled={latestPage === 0}
+              className={cn(
+                "p-1 transition-opacity",
+                latestPage === 0 ? "opacity-30" : "active:opacity-50"
+              )}
+            >
+              <ChevronLeft className="w-5 h-5 text-[#d6d6d6]" />
+            </button>
+            <button
+              onClick={() => setLatestPage(p => p + 1)}
+              disabled={latestPage >= totalPages - 1}
+              className={cn(
+                "p-1 transition-opacity",
+                latestPage >= totalPages - 1 ? "opacity-30" : "active:opacity-50"
+              )}
+            >
+              <ChevronRight className="w-5 h-5 text-[#d6d6d6]" />
+            </button>
           </div>
         </div>
       ) : (
-        <div className="bg-[#252525] flex h-[40px] items-center p-[2px] rounded-[25px] w-full">
+        <div className="inline-flex items-center bg-[#1c1c1c] rounded-[10px] p-[3px] self-start">
           {mealPeriods.map((period, index) => (
             <button
               key={period.label}
               onClick={() => setSelectedPeriod(index)}
               className={cn(
-                "flex-1 h-[34px] rounded-[100px] text-[13px] font-medium text-white tracking-[-0.08px] transition-all",
+                "h-[32px] px-4 rounded-[8px] text-[13px] font-medium tracking-[-0.08px] transition-all",
                 selectedPeriod === index
-                  ? "bg-[#191919] border border-[#2a2a2a]"
-                  : "active:bg-white/5"
+                  ? "bg-[#2c2c2c] text-white shadow-sm"
+                  : "text-zinc-500 active:text-zinc-300"
               )}
             >
               {period.label}
@@ -108,69 +141,32 @@ export const TimeWindowSliderV16: React.FC<Props> = ({
       )}
 
       {/* Time Grid */}
-      {isLatestMode && currentSlots.length > 12 ? (
-        /* Horizontal scroll for latest mode with many slots */
-        <div className="overflow-x-auto no-scrollbar -mx-[20px] px-[20px]">
-          <div
-            className="grid grid-flow-col gap-[10px]"
-            style={{ gridTemplateRows: 'repeat(4, 80px)', paddingRight: '20px' }}
-          >
-            {currentSlots.map((minutes) => {
-              const { time, meridiem } = formatTime(minutes);
-              const isSelected = value === minutes;
+      <div className="grid grid-cols-3 gap-[10px] mt-[4px]">
+        {currentSlots.map((minutes) => {
+          const { time, meridiem } = formatTime(minutes);
+          const isSelected = value === minutes;
 
-              return (
-                <button
-                  key={minutes}
-                  onClick={() => handleTimeSelect(minutes)}
-                  className={cn(
-                    "flex items-center justify-center h-[80px] rounded-[7px] transition-all active:scale-[0.98]",
-                    isSelected
-                      ? "bg-[#FE3400]"
-                      : "bg-[#252525] active:bg-[#303030]"
-                  )}
-                  style={{ width: 'calc((100vw - 60px) / 3)' }}
-                >
-                  <span className={cn(
-                    "text-[15px] font-semibold tracking-[0.25px]",
-                    isSelected ? "text-black" : "text-[#d5d5d5]"
-                  )}>
-                    {time} <span className={isSelected ? "text-black/70" : "text-[#d5d5d5]"}>{meridiem}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        /* Standard grid for earliest mode */
-        <div className="grid grid-cols-3 gap-[10px]">
-          {currentSlots.map((minutes) => {
-            const { time, meridiem } = formatTime(minutes);
-            const isSelected = value === minutes;
-
-            return (
-              <button
-                key={minutes}
-                onClick={() => handleTimeSelect(minutes)}
-                className={cn(
-                  "flex items-center justify-center h-[80px] rounded-[7px] transition-all active:scale-[0.98]",
-                  isSelected
-                    ? "bg-[#FE3400]"
-                    : "bg-[#252525] active:bg-[#303030]"
-                )}
-              >
-                <span className={cn(
-                  "text-[15px] font-semibold tracking-[0.25px]",
-                  isSelected ? "text-black" : "text-[#d5d5d5]"
-                )}>
-                  {time} <span className={isSelected ? "text-black/70" : "text-[#d5d5d5]"}>{meridiem}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
+          return (
+            <button
+              key={minutes}
+              onClick={() => handleTimeSelect(minutes)}
+              className={cn(
+                "flex items-center justify-center h-[80px] rounded-[7px] transition-all active:scale-[0.98]",
+                isSelected
+                  ? "bg-[#FE3400]"
+                  : "bg-[#252525] active:bg-[#303030]"
+              )}
+            >
+              <span className={cn(
+                "text-[15px] font-semibold tracking-[0.25px]",
+                isSelected ? "text-black" : "text-[#d5d5d5]"
+              )}>
+                {time} <span className={isSelected ? "text-black/70" : "text-[#d5d5d5]"}>{meridiem}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };
