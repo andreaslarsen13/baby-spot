@@ -11,5 +11,8 @@ export default defineConfig({
   },
   server: {
     allowedHosts: true,
+    // Disable HMR for stable mobile testing via ngrok
+    // The WebSocket connection through tunnels causes page reloads
+    hmr: false,
   },
 })

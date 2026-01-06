@@ -84,16 +84,17 @@ export const DateCardMonth: React.FC<{
 export const PartySizeCard: React.FC<{
   count: number | string;
   isSelected?: boolean;
+  isFlashing?: boolean;
   onClick?: () => void;
   className?: string;
-}> = ({ count, isSelected = false, onClick, className }) => (
+}> = ({ count, isSelected = false, isFlashing = false, onClick, className }) => (
   <button
     onClick={onClick}
     className={cn(
-      'rounded-[7px] flex items-center justify-center px-5 py-7 transition-colors',
-      isSelected
-        ? 'bg-white text-black'
-        : 'bg-[#252525] text-[#d5d5d5] active:bg-[#1a1a1a]',
+      'rounded-[7px] flex items-center justify-center px-5 py-7 transition-all duration-100',
+      (isSelected || isFlashing)
+        ? 'bg-[#FE3400] text-white'
+        : 'bg-[#252525] text-[#d5d5d5]',
       className
     )}
   >

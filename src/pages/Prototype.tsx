@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
-import { Settings, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Settings, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import {
   Drawer,
   DrawerContent,
@@ -7,6 +7,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer"
 import { TimeWindowSlider, TimeWindowSliderV11, TimeWindowSliderV12, TimeWindowSliderV16 } from "@/components/TimeWindowSlider";
+import { RestaurantSearchV1 } from "@/components/library/RestaurantSearch";
 import { VersionSwitcherOverlay } from "@/components/library/VersionSwitcherOverlay";
 import { useVersion } from "@/components/library/VersionContext";
 import {
@@ -17,11 +18,31 @@ import {
 import {
   PartySizeCard,
 } from '@/components/ui/cards';
+import { cn } from '@/lib/utils';
+
+// Helper to persist state to localStorage for dev refresh
+const usePersistedState = <T,>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] => {
+  const [state, setState] = useState<T>(() => {
+    try {
+      const saved = localStorage.getItem(`prototype_${key}`);
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return defaultValue;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(`prototype_${key}`, JSON.stringify(state));
+    } catch {}
+  }, [key, state]);
+
+  return [state, setState];
+};
 
 const Prototype: React.FC = () => {
   const { getVersion, setVersion } = useVersion();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = usePersistedState('currentStep', 0);
   const [showVersionSwitcher, setShowVersionSwitcher] = useState(false);
 
   // Double-space hotkey to toggle version switcher
@@ -51,19 +72,25 @@ const Prototype: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDateStr, setSelectedDateStr] = usePersistedState<string | null>('selectedDate', null);
+  const selectedDate = selectedDateStr ? new Date(selectedDateStr) : null;
+  const setSelectedDate = (date: Date | null) => setSelectedDateStr(date ? date.toISOString() : null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [calendarMonth, setCalendarMonth] = useState(() => {
     const d = new Date();
     return new Date(d.getFullYear(), d.getMonth(), 1);
   });
-  const [selectedPartySize, setSelectedPartySize] = useState<number | string | null>(null);
-  const [timeRange, setTimeRange] = useState<{ startMinutes: number | null; endMinutes: number | null }>(() => ({
+  const [flashingCalendarDay, setFlashingCalendarDay] = useState<string | null>(null);
+  const [selectedPartySize, setSelectedPartySize] = usePersistedState<number | string | null>('selectedPartySize', null);
+  const [timeRange, setTimeRange] = usePersistedState<{ startMinutes: number | null; endMinutes: number | null }>('timeRange', {
     startMinutes: null,
     endMinutes: null,
-  }));
-  const [timeCardExpanded, setTimeCardExpanded] = useState<'earliest' | 'latest'>('earliest');
+  });
+  const [timeCardExpanded, setTimeCardExpanded] = usePersistedState<'earliest' | 'latest'>('timeCardExpanded', 'earliest');
   const [selectedMealPeriod, setSelectedMealPeriod] = useState(0); // Track meal period for latest time
+  const [flashingCard, setFlashingCard] = useState<number | null>(null); // Track which card is flashing
+  const [flashingPartySize, setFlashingPartySize] = useState<number | string | null>(null);
+  const [selectedRestaurants, setSelectedRestaurants] = usePersistedState<string[]>('selectedRestaurants', []);
 
   const handleNextStep = () => {
     setCurrentStep((prev) => prev + 1);
@@ -73,10 +100,14 @@ const Prototype: React.FC = () => {
     setSelectedDate(null);
     setShowCalendar(false);
     setCalendarMonth(new Date(now.getFullYear(), now.getMonth(), 1));
+    setFlashingCalendarDay(null);
     setSelectedPartySize(null);
     setTimeRange({ startMinutes: null, endMinutes: null });
     setTimeCardExpanded('earliest');
     setSelectedMealPeriod(0);
+    setFlashingCard(null);
+    setFlashingPartySize(null);
+    setSelectedRestaurants([]);
     setCurrentStep(0);
   };
 
@@ -120,7 +151,7 @@ const Prototype: React.FC = () => {
       </div>
 
       {/* Bottom Action Button */}
-      <div className="pb-12 flex justify-center">
+      <div className="mt-auto mb-8 flex justify-center">
         <PlusButton onClick={() => setCurrentStep(1)} />
       </div>
     </>
@@ -129,7 +160,7 @@ const Prototype: React.FC = () => {
   return (
     <div
       ref={setContainer}
-      className="min-h-screen bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+      className="h-[100dvh] bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden"
     >
       {/* Version Switcher Overlay - toggle with [space][space] */}
       <VersionSwitcherOverlay
@@ -145,155 +176,181 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto !pb-[calc(2rem+env(safe-area-inset-bottom))]"
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto"
               overlayClassName="!absolute"
             >
-              <div className="flex flex-col gap-[20px] pt-[6px] px-[20px] pb-[20px]">
-                {/* Header - only show when not in calendar view */}
-                {!showCalendar && (
-                  <div className="flex items-center">
-                    <h2 className="text-[16px] font-bold text-[#d6d6d6] tracking-[0.25px]">
-                      When do you need a table?
-                    </h2>
+              <div className="flex flex-col gap-[4px] pt-[6px] px-[20px]">
+                {/* Header */}
+                <div className="flex items-center">
+                  {showCalendar && (
+                    <button
+                      onClick={() => setShowCalendar(false)}
+                      className="w-[40px] h-[40px] flex items-center justify-center rounded-full active:bg-white/10 transition-colors -ml-[10px] mr-[5px]"
+                    >
+                      <ChevronLeft className="w-6 h-6 text-white" />
+                    </button>
+                  )}
+                  <h2 className="text-[16px] font-bold text-[#d6d6d6] tracking-[0.25px]">
+                    {showCalendar ? 'Select a date' : 'When do you need a table?'}
+                  </h2>
+                </div>
+
+                {!showCalendar ? (
+                  /* Date selection - scrollable list with fade */
+                  <div className="relative h-[420px]">
+                    {/* Top fade */}
+                    <div className="absolute top-0 left-0 right-0 h-[20px] bg-gradient-to-b from-[#191919] to-transparent z-10 pointer-events-none" />
+                    {/* Bottom fade */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[40px] bg-gradient-to-t from-[#191919] to-transparent z-10 pointer-events-none" />
+
+                    <div className="overflow-y-auto h-full py-[20px] no-scrollbar [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                      <div className="flex flex-col gap-[8px]">
+                        {Array.from({ length: 7 }).map((_, i) => {
+                          const date = new Date(now);
+                          date.setDate(now.getDate() + i);
+                          const isToday = i === 0;
+                          const dayLabel = isToday ? 'Today' : date.toLocaleDateString('en-US', { weekday: 'long' });
+                          const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                          const isSelected = selectedDate?.toDateString() === date.toDateString();
+                          const isActive = flashingCard === i || isSelected;
+
+                          return (
+                            <button
+                              key={i}
+                              onClick={() => {
+                                setFlashingCard(i);
+                                setSelectedDate(date);
+                                setTimeout(() => {
+                                  handleNextStep();
+                                }, 200);
+                              }}
+                              className={cn(
+                                "flex-shrink-0 h-[64px] rounded-[12px] flex items-center justify-between px-[18px] transition-all duration-100",
+                                isActive
+                                  ? "bg-[#FE3400]"
+                                  : "bg-[#252525]"
+                              )}
+                            >
+                              <span className={cn(
+                                "text-[15px] font-medium transition-colors duration-100",
+                                isActive ? "text-white" : "text-white/90"
+                              )}>{dayLabel}</span>
+                              <span className={cn(
+                                "text-[14px] tabular-nums transition-colors duration-100",
+                                isActive ? "text-white/70" : "text-white/40"
+                              )}>{monthDay}</span>
+                            </button>
+                          );
+                        })}
+                        {/* More dates button */}
+                        <button
+                          onClick={() => setShowCalendar(true)}
+                          className="flex-shrink-0 h-[64px] rounded-[12px] flex items-center justify-center gap-[8px] px-[18px] bg-[#252525] transition-all duration-100 active:bg-[#303030]"
+                        >
+                          <Calendar className="w-5 h-5 text-white/50" />
+                          <span className="text-[15px] font-medium text-white/50">More dates</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* Calendar view */
+                  <div className="flex flex-col gap-[13px] pb-[calc(20px+env(safe-area-inset-bottom))]">
+                    {/* Header with month nav */}
+                    <div className="flex items-center justify-between mt-[10px]">
+                      <span className="text-[17px] font-semibold text-white tracking-[-0.4px]">
+                        {calendarMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
+                          className="p-1 active:opacity-50 transition-opacity"
+                        >
+                          <ChevronLeft className="w-5 h-5 text-[#FF453A]" />
+                        </button>
+                        <button
+                          onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
+                          className="p-1 active:opacity-50 transition-opacity"
+                        >
+                          <ChevronRight className="w-5 h-5 text-[#FF453A]" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Day headers */}
+                    <div className="flex justify-between">
+                      {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d, i) => (
+                        <div key={i} className="w-[40px] text-center">
+                          <span className="text-[13px] font-semibold text-white/30 tracking-[-0.08px]">{d}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Calendar grid */}
+                    {(() => {
+                      const year = calendarMonth.getFullYear();
+                      const month = calendarMonth.getMonth();
+                      const firstDay = new Date(year, month, 1).getDay();
+                      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                      const cells: (number | null)[] = [];
+                      for (let i = 0; i < firstDay; i++) cells.push(null);
+                      for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+                      while (cells.length % 7 !== 0) cells.push(null);
+
+                      const rows: (number | null)[][] = [];
+                      for (let i = 0; i < cells.length; i += 7) {
+                        rows.push(cells.slice(i, i + 7));
+                      }
+
+                      return (
+                        <div className="flex flex-col">
+                          {rows.map((row, rowIndex) => (
+                            <div key={rowIndex} className="flex justify-between py-[10px]">
+                              {row.map((day, colIndex) => {
+                                if (day === null) {
+                                  return <div key={colIndex} className="w-[40px] h-[40px]" />;
+                                }
+
+                                const date = new Date(year, month, day);
+                                const dateStr = date.toDateString();
+                                const isPast = date < now;
+                                const isToday = dateStr === now.toDateString();
+                                const isSelected = selectedDate?.toDateString() === dateStr;
+                                const isActive = flashingCalendarDay === dateStr || isSelected;
+
+                                return (
+                                  <button
+                                    key={colIndex}
+                                    disabled={isPast}
+                                    onClick={() => {
+                                      setFlashingCalendarDay(dateStr);
+                                      setSelectedDate(date);
+                                      setTimeout(() => {
+                                        handleNextStep();
+                                      }, 200);
+                                    }}
+                                    className={cn(
+                                      "w-[40px] h-[40px] flex flex-col items-center justify-center rounded-full transition-all duration-100",
+                                      isPast
+                                        ? 'text-zinc-700'
+                                        : isActive
+                                          ? 'bg-[#FE3400] text-white'
+                                          : 'text-white'
+                                    )}
+                                  >
+                                    <span className="text-[20px] font-normal tracking-[0.38px]">{day}</span>
+                                    {isToday && !isActive && <div className="w-[5px] h-[5px] rounded-full bg-[#FE3400] -mt-1" />}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
-
-                {/* Date selection - cards or calendar */}
-                <div className="transition-all duration-300 ease-out">
-                  {!showCalendar ? (
-                    /* 2 rows of 4: 7 date cards + calendar trigger */
-                    <div className="grid grid-cols-4 gap-[8px]">
-                      {Array.from({ length: 7 }).map((_, i) => {
-                        const date = new Date(now);
-                        date.setDate(now.getDate() + i);
-                        const isToday = i === 0;
-                        const dayLabel = isToday ? 'Today' : date.toLocaleDateString('en-US', { weekday: 'short' });
-
-                        return (
-                          <button
-                            key={i}
-                            onClick={() => {
-                              setSelectedDate(date);
-                              handleNextStep();
-                            }}
-                            className="h-[110px] rounded-[12px] bg-[#252525] flex flex-col items-center justify-center gap-[9px] active:scale-[0.97] active:bg-[#303030] transition-all"
-                          >
-                            <span className="text-[11px] font-medium text-zinc-400">{dayLabel}</span>
-                            <span className="text-[26px] font-bold text-white leading-none">{date.getDate()}</span>
-                          </button>
-                        );
-                      })}
-
-                      {/* Calendar trigger */}
-                      <button
-                        onClick={() => {
-                          setCalendarMonth(new Date(now.getFullYear(), now.getMonth(), 1));
-                          setShowCalendar(true);
-                        }}
-                        className="h-[110px] rounded-[12px] bg-[#252525] flex items-center justify-center active:scale-[0.97] active:bg-[#303030] transition-all"
-                      >
-                        <Calendar className="w-6 h-6 text-zinc-400" />
-                      </button>
-                    </div>
-                  ) : (
-                    /* Full month calendar view */
-                    <div className="flex flex-col gap-[13px] animate-in fade-in slide-in-from-bottom-2 duration-300">
-                      {/* Header with back, title, and month nav */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-[15px]">
-                          <button
-                            onClick={() => setShowCalendar(false)}
-                            className="w-[40px] h-[40px] flex items-center justify-center rounded-full active:bg-white/10 transition-colors"
-                          >
-                            <ChevronLeft className="w-6 h-6 text-white" />
-                          </button>
-                          <span className="text-[17px] font-semibold text-white tracking-[-0.4px]">
-                            {calendarMonth.toLocaleDateString('en-US', { month: 'long' })}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
-                            className="p-1 active:opacity-50 transition-opacity"
-                          >
-                            <ChevronLeft className="w-5 h-5 text-[#FF453A]" />
-                          </button>
-                          <button
-                            onClick={() => setCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
-                            className="p-1 active:opacity-50 transition-opacity"
-                          >
-                            <ChevronRight className="w-5 h-5 text-[#FF453A]" />
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Day headers */}
-                      <div className="flex justify-between">
-                        {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((d, i) => (
-                          <div key={i} className="w-[40px] text-center">
-                            <span className="text-[13px] font-semibold text-white/30 tracking-[-0.08px]">{d}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Calendar grid */}
-                      {(() => {
-                        const year = calendarMonth.getFullYear();
-                        const month = calendarMonth.getMonth();
-                        const firstDay = new Date(year, month, 1).getDay();
-                        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-                        const cells: (number | null)[] = [];
-                        for (let i = 0; i < firstDay; i++) cells.push(null);
-                        for (let d = 1; d <= daysInMonth; d++) cells.push(d);
-                        while (cells.length % 7 !== 0) cells.push(null);
-
-                        // Split into rows
-                        const rows: (number | null)[][] = [];
-                        for (let i = 0; i < cells.length; i += 7) {
-                          rows.push(cells.slice(i, i + 7));
-                        }
-
-                        return (
-                          <div className="flex flex-col">
-                            {rows.map((row, rowIndex) => (
-                              <div key={rowIndex} className="flex justify-between py-[10px]">
-                                {row.map((day, colIndex) => {
-                                  if (day === null) {
-                                    return <div key={colIndex} className="w-[40px] h-[40px]" />;
-                                  }
-
-                                  const date = new Date(year, month, day);
-                                  const isPast = date < now;
-                                  const isToday = date.toDateString() === now.toDateString();
-
-                                  return (
-                                    <button
-                                      key={colIndex}
-                                      disabled={isPast}
-                                      onClick={() => {
-                                        setSelectedDate(date);
-                                        handleNextStep();
-                                      }}
-                                      className={`w-[40px] h-[40px] flex flex-col items-center justify-center rounded-full transition-all ${
-                                        isPast
-                                          ? 'text-zinc-700'
-                                          : 'text-white active:bg-white/10'
-                                      }`}
-                                    >
-                                      <span className="text-[20px] font-normal tracking-[0.38px]">{day}</span>
-                                      {isToday && <div className="w-[5px] h-[5px] rounded-full bg-[#FE3400] -mt-1" />}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            ))}
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  )}
-                </div>
               </div>
             </DrawerContent>
           </Drawer>
@@ -302,7 +359,7 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[88%] flex flex-col"
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[88%] flex flex-col"
               overlayClassName="!absolute"
             >
               {(() => {
@@ -323,7 +380,7 @@ const Prototype: React.FC = () => {
                       earliestTime={timeCardExpanded === 'latest' ? timeRange.startMinutes ?? undefined : undefined}
                       mealPeriodIndex={timeCardExpanded === 'latest' ? selectedMealPeriod : undefined}
                       onMealPeriodChange={setSelectedMealPeriod}
-                      className="pb-[48px]"
+                      className=""
                       onBack={timeCardExpanded === 'earliest' ? () => setCurrentStep(1) : () => setTimeCardExpanded('earliest')}
                       onChange={(minutes: number) => {
                         if (timeCardExpanded === 'earliest') {
@@ -409,7 +466,7 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%] !pb-[calc(2rem+env(safe-area-inset-bottom))]"
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
@@ -422,16 +479,20 @@ const Prototype: React.FC = () => {
                   </div>
                 </DrawerHeader>
 
-                <div className="overflow-y-auto no-scrollbar px-5 pt-6 pb-6">
+                <div className="overflow-y-auto no-scrollbar px-5 pt-6 pb-[calc(24px+env(safe-area-inset-bottom))]">
                   <div className="grid grid-cols-3 gap-3">
                     {[1, 2, 3, 4, 5, 6, 7, 8, '9+'].map((count) => (
                       <PartySizeCard
                         key={count}
                         count={count}
                         isSelected={selectedPartySize === count}
+                        isFlashing={flashingPartySize === count}
                         onClick={() => {
+                          setFlashingPartySize(count);
                           setSelectedPartySize(count);
-                          handleNextStep();
+                          setTimeout(() => {
+                            handleNextStep();
+                          }, 200);
                         }}
                       />
                     ))}
@@ -441,24 +502,37 @@ const Prototype: React.FC = () => {
             </DrawerContent>
           </Drawer>
 
-          {/* Step 4: Summary & Confirmation */}
-          <Drawer open={currentStep === 4} onOpenChange={(open) => !open && resetBookingFlow()}>
+          {/* Step 4: Find a Spot (Restaurant Selection) - Full Screen */}
+          {currentStep === 4 && (
+            <div className="absolute inset-0 z-50 bg-[#151515]">
+              <RestaurantSearchV1
+                selectedRestaurants={selectedRestaurants}
+                onSelectionChange={setSelectedRestaurants}
+                onBack={() => setCurrentStep(3)}
+                onContinue={handleNextStep}
+                maxSelections={5}
+              />
+            </div>
+          )}
+
+          {/* Step 5: Summary & Confirmation */}
+          <Drawer open={currentStep === 5} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-zinc-800 text-white outline-none !absolute h-auto max-h-[85%] !pb-[calc(2rem+env(safe-area-inset-bottom))]"
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
               overlayClassName="!absolute"
             >
               <div className="flex flex-col overflow-hidden">
                 <DrawerHeader className="pt-5 pb-0 px-5">
                   <div className="flex items-center gap-[15px]">
-                    <BackButton onClick={() => setCurrentStep(3)} />
+                    <BackButton onClick={() => setCurrentStep(4)} />
                     <DrawerTitle className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
                       Confirm booking
                     </DrawerTitle>
                   </div>
                 </DrawerHeader>
                 
-                <div className="overflow-y-auto no-scrollbar px-5 pt-2 pb-8">
+                <div className="overflow-y-auto no-scrollbar px-5 pt-2 pb-[calc(32px+env(safe-area-inset-bottom))]">
                   <div className="space-y-6">
                     {/* Visual Summary Card */}
                     <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
