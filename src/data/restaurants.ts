@@ -84,6 +84,7 @@ export const restaurants: Restaurant[] = [
     color: '#6B8E6B',
     categories: ['spot-curated', 'bib-gourmand'],
     rating: 4.5,
+    isNew: true,
   },
   {
     id: '5',

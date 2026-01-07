@@ -19,12 +19,6 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
   maxSelections = 5,
 }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('spot-curated');
-  const [seenCategories, setSeenCategories] = useState<Set<CategoryType>>(() => new Set(['spot-curated'])); // Start with first tab as seen
-
-  const handleCategoryClick = (catId: CategoryType) => {
-    setActiveCategory(catId);
-    setSeenCategories(prev => new Set([...prev, catId]));
-  };
 
   const activeCtg = useMemo(
     () => categories.find((c) => c.id === activeCategory)!,
@@ -34,6 +28,16 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
   const filteredRestaurants = useMemo(
     () => restaurants.filter((r) => r.categories.includes(activeCategory)),
     [activeCategory]
+  );
+
+  const newRestaurants = useMemo(
+    () => filteredRestaurants.filter((r) => r.isNew),
+    [filteredRestaurants]
+  );
+
+  const regularRestaurants = useMemo(
+    () => filteredRestaurants.filter((r) => !r.isNew),
+    [filteredRestaurants]
   );
 
   const toggleRestaurant = (id: string) => {
@@ -102,12 +106,10 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
           <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
             {categories.map((cat) => {
               const isActive = activeCategory === cat.id;
-              const hasNew = restaurants.some(r => r.categories.includes(cat.id) && r.isNew);
-              const hasUnseen = hasNew && !seenCategories.has(cat.id);
               return (
                 <button
                   key={cat.id}
-                  onClick={() => handleCategoryClick(cat.id)}
+                  onClick={() => setActiveCategory(cat.id)}
                   className={cn(
                     'flex-shrink-0 h-[43px] px-4 rounded-[37px] flex items-center justify-center transition-colors',
                     isActive
@@ -123,19 +125,40 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
                   >
                     {cat.name}
                   </span>
-                  {hasUnseen && (
-                    <span className="w-[7px] h-[7px] rounded-full bg-[#FF453A] self-start mt-[7px] -mr-1" />
-                  )}
                 </button>
               );
             })}
           </div>
         </div>
 
+        {/* New to List Section */}
+        {newRestaurants.length > 0 && (
+          <div className="bg-[#1a1a1a] border-y border-[#2a2a2a]">
+            <div className="px-4">
+              <div className="pt-1">
+                <span className="text-[11px] font-medium text-[#666] tracking-[0.3px]">
+                  Recently added to list
+                </span>
+              </div>
+              <div className="flex flex-col">
+                {newRestaurants.map((restaurant) => (
+                  <RestaurantCard
+                    key={restaurant.id}
+                    restaurant={restaurant}
+                    isSelected={isSelected(restaurant.id)}
+                    canAdd={canAddMore || isSelected(restaurant.id)}
+                    onToggle={() => toggleRestaurant(restaurant.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Restaurant List */}
         <div className="px-4">
           <div className="flex flex-col">
-            {filteredRestaurants.map((restaurant) => (
+            {regularRestaurants.map((restaurant) => (
               <RestaurantCard
                 key={restaurant.id}
                 restaurant={restaurant}
@@ -204,16 +227,9 @@ const RestaurantCard: React.FC<{
         {/* Restaurant Info */}
         <div className="flex flex-col gap-0.5">
           {/* Name */}
-          <div className="flex items-center gap-2">
-            <span className="text-[17px] font-semibold text-white tracking-[-0.4px]">
-              {restaurant.name}
-            </span>
-            {restaurant.isNew && (
-              <span className="text-[11px] font-medium text-[#FF453A] tracking-[-0.1px]">
-                New to list
-              </span>
-            )}
-          </div>
+          <span className="text-[17px] font-semibold text-white tracking-[-0.4px]">
+            {restaurant.name}
+          </span>
 
           {/* Cuisine & Location */}
           <span className="text-[15px] text-[#8E8E93] tracking-[-0.2px]">
