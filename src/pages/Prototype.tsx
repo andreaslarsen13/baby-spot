@@ -1,5 +1,18 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
-import { Settings, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { Settings, ChevronLeft, ChevronRight, Calendar, X } from 'lucide-react';
+import { restaurants } from '@/data/restaurants';
+
+// Active booking search type
+interface ActiveSearch {
+  id: string;
+  date: string;
+  startMinutes: number;
+  endMinutes: number;
+  partySize: number | string;
+  restaurantIds: string[];
+  stopTimeOffset: number;
+  createdAt: number;
+}
 import {
   Drawer,
   DrawerContent,
@@ -12,13 +25,222 @@ import { VersionSwitcherOverlay } from "@/components/library/VersionSwitcherOver
 import { useVersion } from "@/components/library/VersionContext";
 import {
   PlusButton,
-  BookTableButton,
   BackButton,
 } from '@/components/ui/buttons';
 import {
   PartySizeCard,
 } from '@/components/ui/cards';
 import { cn } from '@/lib/utils';
+
+// Stop Time Picker - Stepper based design
+interface StopTimePickerProps {
+  selectedDate: Date | null;
+  startTimeMinutes: number | null;
+  endTimeMinutes: number | null;
+  stopTimeOffset: number;
+  onOffsetChange: (offset: number) => void;
+  onConfirm: () => void;
+  onBack: () => void;
+}
+
+const StopTimePicker: React.FC<StopTimePickerProps> = ({
+  selectedDate,
+  startTimeMinutes,
+  endTimeMinutes,
+  stopTimeOffset,
+  onOffsetChange,
+  onConfirm,
+  onBack,
+}) => {
+  const [yoloMode, setYoloMode] = useState(false);
+
+  // Calculate the actual stop time and days offset
+  const getStopTime = () => {
+    if (yoloMode) return { minutes: endTimeMinutes, daysBack: 0 };
+    if (!startTimeMinutes) return null;
+    const rawMinutes = startTimeMinutes - stopTimeOffset;
+    const daysBack = Math.floor(-rawMinutes / (24 * 60)) + (rawMinutes < 0 ? 1 : 0);
+    const normalizedMinutes = ((rawMinutes % (24 * 60)) + (24 * 60)) % (24 * 60);
+    return { minutes: normalizedMinutes, daysBack };
+  };
+
+  const formatTime = (minutes: number) => {
+    const h24 = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    const meridiem = h24 >= 12 ? 'PM' : 'AM';
+    const h12 = ((h24 + 11) % 12) + 1;
+    return `${h12}:${m.toString().padStart(2, '0')} ${meridiem}`;
+  };
+
+  // Get date label for stop time
+  const getDateLabel = (daysBack: number) => {
+    if (!selectedDate || daysBack === 0) return null;
+    const stopDate = new Date(selectedDate);
+    stopDate.setDate(stopDate.getDate() - daysBack);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    if (stopDate.toDateString() === today.toDateString()) return 'Today';
+    if (stopDate.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
+    return stopDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  };
+
+  // Format offset in readable text (e.g., "1 hour", "30 minutes", "1 hour 30 minutes")
+  const formatOffsetText = (mins: number) => {
+    if (mins < 60) return `${mins} minutes`;
+    const hours = Math.floor(mins / 60);
+    const remainMins = mins % 60;
+    const hourText = hours === 1 ? '1 hour' : `${hours} hours`;
+    if (remainMins === 0) return hourText;
+    return `${hourText} ${remainMins} min`;
+  };
+
+  const stopTime = getStopTime();
+  const dateLabel = stopTime ? getDateLabel(stopTime.daysBack) : null;
+
+  return (
+    <div className="flex flex-col pt-1 px-5 pb-[calc(24px+env(safe-area-inset-bottom))]">
+      {/* Header */}
+      <div className="flex items-center gap-[15px] py-2">
+        <button
+          onClick={onBack}
+          className="w-10 h-10 flex items-center justify-center rounded-full active:bg-white/10 transition-colors -ml-2"
+        >
+          <ChevronLeft className="w-6 h-6 text-white" />
+        </button>
+        <h2 className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
+          Search stop time
+        </h2>
+      </div>
+
+      {/* Time Display + Stepper */}
+      <div className="flex flex-col items-center py-6">
+        <div className="text-[14px] text-[#8e8e93] mb-2">
+          Spot will stop searching at
+        </div>
+        <div className="text-[56px] font-light text-white tabular-nums tracking-tight">
+          {stopTime !== null ? formatTime(stopTime.minutes) : '—'}
+        </div>
+        {dateLabel && (
+          <div className="text-[15px] text-[#8e8e93] mt-1">
+            {dateLabel}
+          </div>
+        )}
+
+        {/* Stepper controls */}
+        <div className={cn(
+          "flex items-center gap-4 mt-6 transition-opacity",
+          yoloMode && "opacity-40"
+        )}>
+          <button
+            onClick={() => onOffsetChange(Math.min(stopTimeOffset + 30, 48 * 60))}
+            disabled={yoloMode || stopTimeOffset >= 48 * 60}
+            className={cn(
+              "w-[52px] h-[52px] rounded-full flex items-center justify-center text-[24px] font-light transition-all",
+              yoloMode || stopTimeOffset >= 48 * 60
+                ? "bg-[#1c1c1e] text-[#3a3a3c]"
+                : "bg-[#252525] text-white active:bg-[#353535]"
+            )}
+          >
+            −
+          </button>
+          <div className="w-[160px] text-center whitespace-nowrap">
+            <span className="text-[15px] font-medium text-[#d5d5d5]">
+              {formatOffsetText(stopTimeOffset)}
+            </span>
+            <span className="text-[15px] font-medium text-[#636366]"> before</span>
+          </div>
+          <button
+            onClick={() => onOffsetChange(Math.max(stopTimeOffset - 30, 30))}
+            disabled={yoloMode || stopTimeOffset <= 30}
+            className={cn(
+              "w-[52px] h-[52px] rounded-full flex items-center justify-center text-[24px] font-light transition-all",
+              yoloMode || stopTimeOffset <= 30
+                ? "bg-[#1c1c1e] text-[#3a3a3c]"
+                : "bg-[#252525] text-white active:bg-[#353535]"
+            )}
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      {/* Settings Cards */}
+      <div className="flex flex-col gap-3 mb-6">
+        {/* Quick Presets Row */}
+        <div className={cn(
+          "flex gap-2 transition-opacity",
+          yoloMode && "opacity-40"
+        )}>
+          {[
+            { label: '6h before', mins: 6 * 60 },
+            { label: '24h before', mins: 24 * 60 },
+            { label: '48h before', mins: 48 * 60 },
+          ].map(({ label, mins }) => {
+            const isSelected = stopTimeOffset === mins;
+            return (
+              <button
+                key={label}
+                onClick={() => !yoloMode && onOffsetChange(isSelected ? 60 : mins)}
+                disabled={yoloMode}
+                className={cn(
+                  "flex-1 h-[40px] rounded-[12px] text-[13px] font-medium transition-all",
+                  isSelected
+                    ? "bg-white text-black"
+                    : "bg-[#252525] text-[#8e8e93] active:bg-[#353535]"
+                )}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Yolo Mode Card */}
+        <div className="bg-[#252525] rounded-2xl px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <span className="text-[14px] font-semibold text-[#d5d5d5] tracking-[0.25px]">
+                Yolo mode
+              </span>
+              <span className="text-[12px] font-semibold text-[#898989] tracking-[0.25px]">
+                Keep searching until latest time
+              </span>
+            </div>
+            {/* iOS Toggle */}
+            <button
+              onClick={() => setYoloMode(!yoloMode)}
+              className={cn(
+                "w-[51px] h-[31px] rounded-full relative transition-colors",
+                yoloMode ? "bg-[#fe3400]" : "bg-[#39393d]"
+              )}
+            >
+              <div
+                className={cn(
+                  "absolute top-[2px] w-[27px] h-[27px] bg-white rounded-full shadow-[0px_3px_7px_0px_rgba(0,0,0,0.12)] transition-all",
+                  yoloMode ? "right-[2px]" : "left-[2px]"
+                )}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Confirm button */}
+      <button
+        onClick={onConfirm}
+        className="w-full h-[54px] bg-[#fe3400] rounded-[46px] flex items-center justify-center"
+      >
+        <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+          Confirm
+        </span>
+      </button>
+    </div>
+  );
+};
 
 // Helper to persist state to localStorage for dev refresh
 const usePersistedState = <T,>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] => {
@@ -91,6 +313,9 @@ const Prototype: React.FC = () => {
   const [flashingCard, setFlashingCard] = useState<number | null>(null); // Track which card is flashing
   const [flashingPartySize, setFlashingPartySize] = useState<number | string | null>(null);
   const [selectedRestaurants, setSelectedRestaurants] = usePersistedState<string[]>('selectedRestaurants', []);
+  const [editingField, setEditingField] = useState<'date' | 'time' | 'party' | 'spots' | 'stopTime' | null>(null);
+  const [stopTimeOffset, setStopTimeOffset] = usePersistedState<number>('stopTimeOffset', 60); // minutes before start time
+  const [activeSearches, setActiveSearches] = usePersistedState<ActiveSearch[]>('activeSearches', []);
 
   const handleNextStep = () => {
     setCurrentStep((prev) => prev + 1);
@@ -108,11 +333,31 @@ const Prototype: React.FC = () => {
     setFlashingCard(null);
     setFlashingPartySize(null);
     setSelectedRestaurants([]);
+    setEditingField(null);
+    setStopTimeOffset(60);
     setCurrentStep(0);
   };
 
   const handleFinish = () => {
+    // Save the active search
+    if (selectedDate && timeRange.startMinutes !== null && timeRange.endMinutes !== null && selectedPartySize && selectedRestaurants.length > 0) {
+      const newSearch: ActiveSearch = {
+        id: Date.now().toString(),
+        date: selectedDate.toISOString(),
+        startMinutes: timeRange.startMinutes,
+        endMinutes: timeRange.endMinutes,
+        partySize: selectedPartySize,
+        restaurantIds: selectedRestaurants,
+        stopTimeOffset: stopTimeOffset,
+        createdAt: Date.now(),
+      };
+      setActiveSearches(prev => [newSearch, ...prev]);
+    }
     resetBookingFlow();
+  };
+
+  const cancelSearch = (id: string) => {
+    setActiveSearches(prev => prev.filter(s => s.id !== id));
   };
 
   const now = useMemo(() => {
@@ -133,6 +378,28 @@ const Prototype: React.FC = () => {
     return `${h12}:${m.toString().padStart(2, '0')} ${meridiem}`;
   };
 
+  // Get stop time based on offset
+  const getStopTimeMinutes = () => {
+    if (!timeRange.startMinutes) return null;
+    return timeRange.startMinutes - stopTimeOffset;
+  };
+
+  const getStopTimeLabel = () => {
+    const stopMins = getStopTimeMinutes();
+    if (stopMins === null) return '—';
+    return formatMinutes(stopMins);
+  };
+
+
+  // Format time for display
+  const formatTimeShort = (minutes: number) => {
+    const h24 = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    const meridiem = h24 >= 12 ? 'PM' : 'AM';
+    const h12 = ((h24 + 11) % 12) + 1;
+    return `${h12}:${m.toString().padStart(2, '0')} ${meridiem}`;
+  };
+
   // Screen content - shared between native and mockup modes
   const screenContent = (
     <>
@@ -145,9 +412,41 @@ const Prototype: React.FC = () => {
       </div>
 
       {/* Home Content */}
-      <div className="px-4 py-2 flex-1">
-        <h3 className="text-2xl font-semibold tracking-tight">Good morning, Andreas</h3>
-        <p className="text-zinc-400 text-sm mt-1">Here's what's happening today.</p>
+      <div className="px-4 py-2 flex-1 overflow-y-auto">
+        <h3 className="text-xl tracking-tight">
+          <span className="font-light text-[#898989]">Good morning, </span>
+          <span className="font-semibold text-[#D6D6D6]">Andreas</span>
+        </h3>
+
+        {/* Active Search Cards */}
+        {activeSearches.length > 0 && (
+          <div className="flex flex-col gap-3 mt-6">
+            {activeSearches.map((search) => {
+              const searchDate = new Date(search.date);
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const tomorrow = new Date(today);
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              const isToday = searchDate.toDateString() === today.toDateString();
+              const isTomorrow = searchDate.toDateString() === tomorrow.toDateString();
+              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : searchDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+
+              return (
+                <div key={search.id} className="bg-[#2c2c2e] rounded-2xl border border-[#3a3a3c] p-4">
+                  {/* Date as title */}
+                  <div className="text-[17px] font-semibold text-white">
+                    {dateLabel}
+                  </div>
+
+                  {/* Info */}
+                  <div className="text-[13px] text-[#636366] mt-1">
+                    {formatTimeShort(search.startMinutes)}–{formatTimeShort(search.endMinutes)} · {search.partySize} guests · {search.restaurantIds.length} spot{search.restaurantIds.length > 1 ? 's' : ''}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Bottom Action Button */}
@@ -173,7 +472,16 @@ const Prototype: React.FC = () => {
       {screenContent}
 
           {/* Step 1: When? */}
-          <Drawer open={currentStep === 1} onOpenChange={(open) => !open && resetBookingFlow()}>
+          <Drawer open={currentStep === 1} onOpenChange={(open) => {
+            if (!open) {
+              if (editingField) {
+                setEditingField(null);
+                setCurrentStep(5);
+              } else {
+                resetBookingFlow();
+              }
+            }
+          }}>
             <DrawerContent
               container={container}
               className="bg-[#191919] border-0 text-white outline-none !absolute h-auto"
@@ -221,7 +529,12 @@ const Prototype: React.FC = () => {
                                 setFlashingCard(i);
                                 setSelectedDate(date);
                                 setTimeout(() => {
-                                  handleNextStep();
+                                  if (editingField === 'date') {
+                                    setEditingField(null);
+                                    setCurrentStep(5);
+                                  } else {
+                                    handleNextStep();
+                                  }
                                 }, 200);
                               }}
                               className={cn(
@@ -327,7 +640,12 @@ const Prototype: React.FC = () => {
                                       setFlashingCalendarDay(dateStr);
                                       setSelectedDate(date);
                                       setTimeout(() => {
-                                        handleNextStep();
+                                        if (editingField === 'date') {
+                                          setEditingField(null);
+                                          setCurrentStep(5);
+                                        } else {
+                                          handleNextStep();
+                                        }
                                       }, 200);
                                     }}
                                     className={cn(
@@ -356,7 +674,16 @@ const Prototype: React.FC = () => {
           </Drawer>
 
           {/* Step 2: Time Selection (stacked cards) */}
-          <Drawer open={currentStep === 2} onOpenChange={(open) => !open && resetBookingFlow()}>
+          <Drawer open={currentStep === 2} onOpenChange={(open) => {
+            if (!open) {
+              if (editingField) {
+                setEditingField(null);
+                setCurrentStep(5);
+              } else {
+                resetBookingFlow();
+              }
+            }
+          }}>
             <DrawerContent
               container={container}
               className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[88%] flex flex-col"
@@ -393,7 +720,12 @@ const Prototype: React.FC = () => {
                         if (timeCardExpanded === 'earliest') {
                           setTimeCardExpanded('latest');
                         } else {
-                          handleNextStep();
+                          if (editingField === 'time') {
+                            setEditingField(null);
+                            setCurrentStep(5);
+                          } else {
+                            handleNextStep();
+                          }
                         }
                       }}
                     />
@@ -437,7 +769,12 @@ const Prototype: React.FC = () => {
                               setTimeRange(prev => ({ ...prev, endMinutes: prev.startMinutes + 30 }));
                               setTimeCardExpanded('latest');
                             } else {
-                              handleNextStep();
+                              if (editingField === 'time') {
+                                setEditingField(null);
+                                setCurrentStep(5);
+                              } else {
+                                handleNextStep();
+                              }
                             }
                           }}
                         />
@@ -454,7 +791,12 @@ const Prototype: React.FC = () => {
                     endMinutes={timeRange.endMinutes}
                     onChange={({ startMinutes, endMinutes }) => {
                       setTimeRange({ startMinutes, endMinutes });
-                      handleNextStep();
+                      if (editingField === 'time') {
+                        setEditingField(null);
+                        setCurrentStep(5);
+                      } else {
+                        handleNextStep();
+                      }
                     }}
                   />
                 );
@@ -463,7 +805,16 @@ const Prototype: React.FC = () => {
           </Drawer>
 
           {/* Step 3: How many? */}
-          <Drawer open={currentStep === 3} onOpenChange={(open) => !open && resetBookingFlow()}>
+          <Drawer open={currentStep === 3} onOpenChange={(open) => {
+            if (!open) {
+              if (editingField) {
+                setEditingField(null);
+                setCurrentStep(5);
+              } else {
+                resetBookingFlow();
+              }
+            }
+          }}>
             <DrawerContent
               container={container}
               className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
@@ -491,7 +842,12 @@ const Prototype: React.FC = () => {
                           setFlashingPartySize(count);
                           setSelectedPartySize(count);
                           setTimeout(() => {
-                            handleNextStep();
+                            if (editingField === 'party') {
+                              setEditingField(null);
+                              setCurrentStep(5);
+                            } else {
+                              handleNextStep();
+                            }
                           }, 200);
                         }}
                       />
@@ -508,8 +864,20 @@ const Prototype: React.FC = () => {
               <RestaurantSearchV1
                 selectedRestaurants={selectedRestaurants}
                 onSelectionChange={setSelectedRestaurants}
-                onBack={() => setCurrentStep(3)}
-                onContinue={handleNextStep}
+                onBack={() => {
+                  if (editingField === 'spots') {
+                    setEditingField(null);
+                    setCurrentStep(5);
+                  } else {
+                    setCurrentStep(3);
+                  }
+                }}
+                onContinue={() => {
+                  if (editingField === 'spots') {
+                    setEditingField(null);
+                  }
+                  setCurrentStep(5);
+                }}
                 maxSelections={5}
               />
             </div>
@@ -519,52 +887,202 @@ const Prototype: React.FC = () => {
           <Drawer open={currentStep === 5} onOpenChange={(open) => !open && resetBookingFlow()}>
             <DrawerContent
               container={container}
-              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[90%]"
               overlayClassName="!absolute"
             >
-              <div className="flex flex-col overflow-hidden">
-                <DrawerHeader className="pt-5 pb-0 px-5">
-                  <div className="flex items-center gap-[15px]">
-                    <BackButton onClick={() => setCurrentStep(4)} />
-                    <DrawerTitle className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
-                      Confirm booking
-                    </DrawerTitle>
-                  </div>
-                </DrawerHeader>
-                
-                <div className="overflow-y-auto no-scrollbar px-5 pt-2 pb-[calc(32px+env(safe-area-inset-bottom))]">
-                  <div className="space-y-6">
-                    {/* Visual Summary Card */}
-                    <div className="rounded-[32px] border border-zinc-800 bg-zinc-900/30 p-6 space-y-6">
-                      <div className="flex justify-between items-end">
-                        <div>
-                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Date</div>
-                          <div className="mt-1 text-[20px] font-bold text-white">
-                            {selectedDate?.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' })}
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase">Party</div>
-                          <div className="mt-1 text-[20px] font-bold text-white">
-                            {selectedPartySize} {selectedPartySize === 1 ? 'Person' : 'People'}
-                          </div>
-                        </div>
-                      </div>
+              <div className="flex flex-col gap-4 pt-1 px-5 pb-[calc(24px+env(safe-area-inset-bottom))]">
+                {/* Header */}
+                <div className="flex items-center justify-between py-2">
+                  <h2 className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
+                    Confirm Booking Plan
+                  </h2>
+                  <button
+                    onClick={resetBookingFlow}
+                    className="h-[33px] px-4 bg-[#252525] rounded-[49px] flex items-center justify-center"
+                  >
+                    <span className="text-[12px] font-medium text-[#d5d5d5] tracking-[-0.25px]">
+                      Restart
+                    </span>
+                  </button>
+                </div>
 
-                      <div className="pt-6 border-t border-zinc-800/50">
-                        <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase mb-2">Time Window</div>
-                        <div className="h-12 w-full rounded-full bg-[#FE3400] flex items-center justify-center shadow-[0_0_40px_rgba(254,52,0,0.15)]">
-                          <span className="text-[15px] font-black text-black/90">
-                            {formatMinutes(timeRange.startMinutes)} – {formatMinutes(timeRange.endMinutes)}
-                          </span>
-                        </div>
+                <div className="flex flex-col gap-4">
+                  {/* Spots Card */}
+                  <div className="bg-[#252525] rounded-2xl p-4 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.02)]">
+                    <button
+                      onClick={() => {
+                        setEditingField('spots');
+                        setCurrentStep(4);
+                      }}
+                      className="w-full flex items-center justify-between mb-3"
+                    >
+                      <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.25px]">
+                        Restaurants
+                      </span>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[14px] font-medium text-white tracking-[-0.408px]">
+                          {selectedRestaurants.length}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#d5d5d5]" />
                       </div>
+                    </button>
+                    <div className="flex gap-[5px] overflow-x-auto no-scrollbar">
+                      {selectedRestaurants.map((id) => {
+                        const restaurant = restaurants.find(r => r.id === id);
+                        if (!restaurant) return null;
+                        return (
+                          <div key={id} className="flex flex-col gap-[3px] items-center flex-shrink-0 w-[89px]">
+                            <div
+                              className="w-full h-[79px] rounded-[4px]"
+                              style={{ backgroundColor: restaurant.color }}
+                            />
+                            <span className="text-[10px] text-[#d6d6d6] tracking-[0.25px] text-center w-full truncate">
+                              {restaurant.name}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
+                  </div>
 
-                    <BookTableButton onClick={handleFinish} />
+                  {/* Settings Rows */}
+                  <div className="rounded-2xl overflow-hidden">
+                    {/* Date */}
+                    <button
+                      onClick={() => {
+                        setEditingField('date');
+                        setCurrentStep(1);
+                      }}
+                      className="w-full bg-[#252525] h-12 px-4 flex items-center justify-between"
+                    >
+                      <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                        Date
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                          {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#d5d5d5]" />
+                      </div>
+                    </button>
+                    {/* Start Time */}
+                    <button
+                      onClick={() => {
+                        setEditingField('time');
+                        setTimeCardExpanded('earliest');
+                        setCurrentStep(2);
+                      }}
+                      className="w-full bg-[#252525] h-12 px-4 flex items-center justify-between border-t border-[#3d3d3d]"
+                    >
+                      <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                        Time Window
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                          {timeRange.startMinutes !== null && timeRange.endMinutes !== null
+                            ? `${formatMinutes(timeRange.startMinutes)} - ${formatMinutes(timeRange.endMinutes)}`
+                            : '—'}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#d5d5d5]" />
+                      </div>
+                    </button>
+                    {/* Party Size */}
+                    <button
+                      onClick={() => {
+                        setEditingField('party');
+                        setCurrentStep(3);
+                      }}
+                      className="w-full bg-[#252525] h-12 px-4 flex items-center justify-between border-t border-[#3d3d3d]"
+                    >
+                      <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                        Guests
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                          {selectedPartySize ?? '—'}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#d5d5d5]" />
+                      </div>
+                    </button>
+                    {/* Search will stop at */}
+                    <button
+                      onClick={() => {
+                        setEditingField('stopTime');
+                        setCurrentStep(6);
+                      }}
+                      className="w-full bg-[#252525] h-12 px-4 flex items-center justify-between border-t border-[#3d3d3d]"
+                    >
+                      <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                        Search Stop Time
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[14px] font-medium text-[#d5d5d5] tracking-[-0.408px]">
+                          {getStopTimeLabel()}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#d5d5d5]" />
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Winter Mode Card */}
+                  <div className="bg-[#252525] rounded-2xl px-4 py-3 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.02)]">
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <span className="text-[14px] font-semibold text-[#d5d5d5] tracking-[0.25px]">
+                          Winter mode on
+                        </span>
+                        <span className="text-[12px] font-semibold text-[#898989] tracking-[0.25px]">
+                          Indoor tables only
+                        </span>
+                      </div>
+                      {/* iOS Toggle */}
+                      <button className="w-[51px] h-[31px] bg-[#65c466] rounded-full relative">
+                        <div className="absolute right-[2px] top-[2px] w-[27px] h-[27px] bg-white rounded-full shadow-[0px_3px_7px_0px_rgba(0,0,0,0.12)]" />
+                      </button>
+                    </div>
                   </div>
                 </div>
+
+                {/* Activate Spot Button */}
+                <button
+                  onClick={handleFinish}
+                  className="w-full h-[54px] bg-[#fe3400] rounded-[46px] flex items-center justify-center"
+                >
+                  <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+                    Activate Spot
+                  </span>
+                </button>
               </div>
+            </DrawerContent>
+          </Drawer>
+
+          {/* Step 6: Stop Time Selection */}
+          <Drawer open={currentStep === 6} onOpenChange={(open) => {
+            if (!open) {
+              setEditingField(null);
+              setCurrentStep(5);
+            }
+          }}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto"
+              overlayClassName="!absolute"
+            >
+              <StopTimePicker
+                selectedDate={selectedDate}
+                startTimeMinutes={timeRange.startMinutes}
+                endTimeMinutes={timeRange.endMinutes}
+                stopTimeOffset={stopTimeOffset}
+                onOffsetChange={setStopTimeOffset}
+                onConfirm={() => {
+                  setEditingField(null);
+                  setCurrentStep(5);
+                }}
+                onBack={() => {
+                  setEditingField(null);
+                  setCurrentStep(5);
+                }}
+              />
             </DrawerContent>
           </Drawer>
 

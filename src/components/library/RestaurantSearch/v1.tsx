@@ -18,7 +18,7 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
   onContinue,
   maxSelections = 5,
 }) => {
-  const [activeCategory, setActiveCategory] = useState<CategoryType>('spot-curated');
+  const [activeCategory, setActiveCategory] = useState<CategoryType>('spots-picks');
 
   const activeCtg = useMemo(
     () => categories.find((c) => c.id === activeCategory)!,
@@ -73,7 +73,7 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
           <div className="h-[50px] bg-[#252525] rounded-[46px] flex items-center gap-2 px-5">
             <Search className="w-4 h-4 text-[#d6d6d6]" />
             <span className="text-[13px] text-[#d6d6d6] tracking-[0.25px]">
-              Search for a spot...
+              Search restaurants...
             </span>
           </div>
         </div>
@@ -94,9 +94,9 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
             />
             <div className="relative z-10">
               <h2 className="text-[22px] font-bold text-white tracking-[0.25px]">
-                {activeCtg.name}
+                {activeCtg.title}
               </h2>
-              <p className="text-[12px] text-white/90 mt-0.5">{activeCtg.description}</p>
+              <p className="text-[12px] text-white/90 mt-0.5">{activeCtg.subtitle}</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export const RestaurantSearchV1: React.FC<RestaurantSearchProps> = ({
                       isActive ? 'text-white' : 'text-[#909090]'
                     )}
                   >
-                    {cat.name}
+                    {cat.title}
                   </span>
                 </button>
               );
