@@ -24,4 +24,11 @@ dist-ssr
 *.sw?
 
 # Claude Code local settings
-.claude/
+.claude/*
+!.claude/skills/
+
+# Training artifacts
+training_logs/
+
+# Environment
+.env

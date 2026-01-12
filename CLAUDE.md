@@ -159,3 +159,48 @@ Spot is an agentic concierge — not old-world hospitality, but a software agent
 **Before:** "Michelin Stars — Restaurants with 1-3 stars from everyone's favorite tire company"
 **After:** "Michelin Guide — Restaurants awarded Michelin stars"
 *Why: The tire joke undercuts prestige. Use the official name, let Michelin be the authority.*
+
+### Voice Influences
+
+For stylistic exemplars, see `CopyWriting_References/spot_voice_reference.txt` — excerpts from Vitra, Aesop, MoMA, Leica, and Kinfolk that model Editorial Minimalism.
+
+**Sentence-Level Patterns:**
+- Declarative sentences — statements of fact, no hedging or qualifiers
+- Active constructions — "We investigate" not "Investigations are conducted"
+- Compound sentences linked with dashes or semicolons — ideas flow, don't fragment
+- "From X to Y" structures show range — "from design classics to contemporary creations"
+- Questions can punctuate prose for rhythm, but sparingly
+
+**Credibility Patterns:**
+- Specific details ground claims — names, dates, places, numbers
+- Heritage as anchor — history establishes authority ("established in 1932", "over 150 years")
+- Context before claim — circumstance precedes the point
+- Process language over outcome language — "conceptualising, researching, creating"
+- No superlatives — quality is stated, not oversold
+
+**Voice Patterns:**
+- Confident first person "we" — not apologetic, not boastful
+- Geographic specificity — real places, not vague regions
+- Proper nouns do the work — "Isamu Noguchi" not "a famous sculptor"
+- Concrete imagery over abstraction — "a pile of laundry" not "domestic responsibilities"
+
+## The Problems
+
+### For Diners
+**You can't get a table where you want to eat.** The booking platforms (Resi, OpenTable) are overrun with bots. Scalpers grab prime-time reservations and flip them. Until recent legislation, people were making $100k/year selling reservations.
+
+**Priority goes to credit cards, not regulars.** Resi's notify system prioritizes Amex Platinum holders. They get pinged minutes before everyone else. If you've eaten at a restaurant 10 times, you get no advantage over a tourist with the right credit card.
+
+**Discovery is fragmented and full of noise.** You're across Google Maps, Yelp, Infatuation, TikTok, friends' texts. Reviews are increasingly untrustworthy — AI slop is making it worse. There's no single place that aggregates quality signals and lets you act on them.
+
+### For Restaurants
+**You can't identify or reward your regulars.** Resi tells you someone has been to your restaurant before, but you can't prioritize them for reservations. You can't say "this person always comes with their partner and orders wine — give them the good table."
+
+**You can't reach new customers effectively.** Discovery happens on social media now, but there's no attribution. An influencer posts about your restaurant, 50 people try to book — you have no idea it happened or who they are.
+
+**The platforms don't work for you.** OpenTable and Resi are 25+ years old. Both acquired. Both focused on credit card partnerships and enterprise deals, not on solving your problems. They've stopped innovating. Restaurants are switching back to OpenTable from Resi — that's how bad it's gotten.
+
+### The Root Cause
+**The booking platforms are misaligned.** Their incentives are: keep users on the platform, sell credit card partnerships, charge restaurants a SaaS fee. None of that helps diners get tables or helps restaurants find and keep regulars.
+
+**There's a matching problem no one is solving.** High demand for hot restaurants, constrained supply, no tools to smooth it. Last-minute cancellations go unfilled. 5pm and 9:30pm tables sit empty while 7:30pm is impossible. Regulars compete with bots and tourists.
