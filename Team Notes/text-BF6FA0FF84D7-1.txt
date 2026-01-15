@@ -1,0 +1,459 @@
+Speaker A: Double read in similar.
+Speaker B: Nice.
+Speaker A: Yeah.
+Speaker B: Let's do.
+Speaker A: We added this arm. Mandy Fountain.
+Speaker B: Yeah, we do.
+Speaker A: What time is that?
+Speaker B: Red.
+Speaker A: 7:45 or. No, like eight something. Right.
+Speaker B: Eight might be 8:45. It might be 8:45.
+Speaker A: Okay, then we're good on time.
+Speaker B: Yeah. 8:45.
+Speaker A: Sick. So it can be. It's fine if we do it 4:45 or whatever. Yeah. I wonder if Sarum has a conversation with what's her name?
+Speaker C: Mandy.
+Speaker B: Probably right? If he had a conversation with Mandy.
+Speaker A: Yeah, he probably did. Funny when it's just in the same history.
+Speaker B: Yeah. Right above it.
+Speaker A: It was like, fuck you, stupid bitch.
+Speaker B: What do you think this is? Is this morpho?
+Speaker A: That's what I was talking. Steak spelled that way. I feel like it's somebody's brand. I couldn't remember if it was.
+Speaker B: That's what I thought, too. Steakhouse fault.
+Speaker A: Yeah.
+Speaker B: Or was there like a separate thing.
+Speaker A: Built on top of it called, like, steakhouse? Yeah, there might have been.
+Speaker B: I mean, there was a staked out. Oh, yes. I guess so.
+Speaker A: Oh, they're one of the big vaults.
+Speaker B: Wow. Steakhouse Financial.
+Speaker C: Crazy.
+Speaker B: Wow, that's so crazy.
+Speaker A: It's a lot of money. Who do we think they are?
+Speaker B: I guess there's like. It's a company.
+Speaker A: Probably Andy and Leighton.
+Speaker B: Morpho is pretty cool.
+Speaker A: Yeah, they. It was really smart to build, like, the. It's interesting how a lot of the ethos of what works in crypto is like. It's not decentralization in terms of the.
+Speaker C: Actual.
+Speaker A: Platform so much as it is like, the services make open products. Right.
+Speaker C: Hey, sorry about that.
+Speaker A: Yo.
+Speaker B: Hello.
+Speaker C: How are you? How are you, brother? Hey, nice to meet you, man.
+Speaker B: Hey, you too.
+Speaker C: How's it going, man?
+Speaker B: It's going great. How are you?
+Speaker C: I'm great. Brian speaks super highly of you, and he's not one to bullshit, so when he says somebody's incredible to work with, I. I take him literally.
+Speaker B: Wow, that feels great. Well, he says great things about you as well, so it's great.
+Speaker C: Dad. I'm the one exception to that rule, just so you know. All right, noted.
+Speaker A: I like man things about you, about Matt, and then it'll just. Reverse psychology.
+Speaker C: How's it going, guys? What's happening?
+Speaker B: We are good.
+Speaker A: We've been doing a little bit of strategy, thinking, a little bit of kind of pitch workshopping. I know I shared like, a super early version of a very rough one with you when that was, like, last week and then. Yeah, but we've kind of, like, retooled some things and would love to riff on both that and just kind of, I think, like larger picture, like business model stuff. Some of the stuff we were talking about.
+Speaker C: Awesome. By the way, I don't always wear this fucking tank top. That isn't a first time wearing a tank top. I was gonna say we're all on the same page. I don't know.
+Speaker A: I don't know if I believe you.
+Speaker B: That's all right.
+Speaker C: It is a first time wearing a tank top. I had a trainer and he was like, you're putting this on. I was like, I'm not a guy that wears that kind of thing. And then I totally fucking forgot that this meeting was starting right now and that this is what you were getting is a tank top. And I promise now it's gonna be my thing and I will wear it in all future meetings with two of you.
+Speaker B: All right.
+Speaker C: Get a new uniform.
+Speaker B: Next time we hop on, none of us will have sleeves.
+Speaker C: That sounds appropriate. How do you want to prosecute this? Do you want to go through. Do you want to go through the pitch a little bit and how you're thinking about it? Do you want to update it? Like, you and I had a pretty good jam just on like, I think what I'm seeing on the macro side. I don't know how much you recapped.
+Speaker A: Together, but I think like a pretty, pretty good amount. Do you feel good about it? Yeah, we can go through. Yeah, let's, let's. We can screen share some of what we have been talking about. There's a lot of like product statements or sorry, problem statement and then it goes a little bit into the product and then. Yeah, I think that'll just be the right jumping off point for us to just all just go from there. Okay, let me.
+Speaker C: What were you doing before this, man?
+Speaker B: Oh, I was, I was.
+Speaker A: Oh yeah, you get.
+Speaker B: Yeah.
+Speaker A: Oh yeah. Let me do a little.
+Speaker B: I'll do a quick intro. I've been working startups the last like eight years, basically out of college. I went and worked at a. A venture studio where I was. Which one, it was called ZX Ventures. It was funded by AB InBev. And so all of the startups were within the CPG space and I was focused mostly on. On our South America teams, but I was joining the early stage founders that we would bring in and give a little bit of precede capital to and was kind of just working, just the two of us working on validating these new ideas and one of the ones that we ended up funding and that I ended up Joining was a. We were building a new bottle return system in Argentina because the glass bottles were actually a better store of value than the peso because of their inflation. And so it ended up being like a. It wasn't a crypto product, but it was a digital wallet for people that were returning bottles that they could spend in supermarkets and partnered with all the major chains and Coca Cola and all the big drink manufacturers. And so I was working on that during COVID The plan was that I was moving down there, but all of Argentina pretty much shut down. And so I started exploring, found my way into the crypto space because I was talking to the founder of Pool Suite which was if you.
+Speaker C: I was a member, I am technically still a card carrying member at poolsuite.
+Speaker B: All right, nice. So I joined with Marty and I started talking about how we could fund it. And so worked on that first NFT drop and joined and worked there before joining Pleaserdao, their product lab where I was kind of running that and that's where Brian and I met during the Wu Tang project. But a lot of these, like these creative consumer products and within the e commerce space. And so Brian and I were doing a lot of that exploration at the previous company and so we started building a lot of these, you know, mini defi apps and kind of fell into this restaurant space. But I've been around in my whole life because my dad for my whole life was was starting restaurants and running them. And so I saw the whole from the beginning when all of the, the new companies were coming on the scene and Seamless and Grubhub and they started just absolutely pillaging these restaurants and the disaster with Yelp and basically the struggle that restaurants have had to pretty much like just like run, you know, a calm, stable business. And so this concept is particularly true to. To a lot of my life and things that I've seen. So pretty exciting one to get to work on.
+Speaker C: That's awesome, dude. The Argentina one sounds fascinating and somehow bleak at the same time. Yeah, there was such a massive inflation. That market existed.
+Speaker B: It was crazy black markets. People were soaring like 15 bottles under their barbecues in their houses.
+Speaker A: It.
+Speaker C: And then the, the crypto stuff all sounds like super fun. Like the, the sort of bleeding edge of the culture stuff. It's like I can't even imagine what that wuang moment felt like as you were doing that too. So that's cool. That's. That's exciting stuff.
+Speaker A: Yeah, we kind of the. The two of us also like towards the end of both of our Time at Pleaser, we segued into, like, crypto.
+Speaker B: AI type stuff too. Yeah.
+Speaker A: And we're doing some, like, weird, unhinged crypto Twitter AI agent type stuff.
+Speaker C: Cool.
+Speaker A: And then I don't. I can't remember if I told you this, but Andreas was also responsible for most of the Mandy prompt.
+Speaker C: Oh, sweet.
+Speaker A: Of why she.
+Speaker C: Yeah, you are fucking unhinged then.
+Speaker B: Yeah.
+Speaker C: That tells me more about you than.
+Speaker A: I need to know. You wouldn't know it from the. His how he carries himself.
+Speaker C: Yeah, yeah, yeah. It's a weird, intimate glimpse into your brain. So, yeah, I get it.
+Speaker A: I hate that you met Mandy.
+Speaker C: Smile is just an absolute fucking, you know, savage of a human being. I'll do my story super fast. I. I started in entertainment, built out a venture group at caa. I was kind of there right as, like, Twitter was growing, YouTube was growing. And my job at CA, they represent about half the town in the world. I was like, build new companies around talent. So, like, Funny or Die was like the first company I built. And then it was that and representing all the YouTubers when they were first starting and then covering all the tech companies. So in covering all the tech companies like Netflix and YouTube and Google and Tencent and representing Amazon, things like that, I got to know Saka, who was like, leaving Google to start Lowercase Capital, which is like one of the first seed funds. He was like the first investor in Uber and Twitter and Instagram. And he was like, hey, I've never had a partner. I want you to join me and build this with me. So I jumped into that with him, did a series of funds with Saka. He went from basically being like, totally unknown and like a wacko, to being a wacko, but very well known and very rich. And then at some point, he handed the business off to me and was like, hey, you can run this as your own shop. And then he's like, I'm going to retire fully. I want you to go and do your own thing. I didn't want to go do another seed fund. So I meandered my way through some twists and turns to CO2, which is like one of the largest hedge funds in the world. If you told me as a kid that I'd work at a hedge fund, I would have told you, you're fucking psychotic. But they were convincing guys and they were basically like, hey, we'll train you on all the growth investing and public investing, and you could build your venture team. So I built a series of venture funds there, starting with our first one, which was like 700 million bucks and did like all of the early stage stuff and then ended up doing all of our consumer investing across early and growth. So across the years it's been like everything from early checks into stripe and slack and handshake back at lowercase and then WordPress and a bunch of others that were sort of like near misses on all things social. So like Mindy, if you remember that, and Triller, if you remember that. Anyway, all those kinds of old businesses. And then that's where I met Brian. We started cranking on just building fun projects together. He was building moose with Patrick, who's still a good friend as well. And I was like, I fucking love this guy. And I was just like, at some point, I'm gonna find something we can build together. Flash forward to cotu. Ended up doing things like Supabase, I led replit, I did opensea, I did a bunch of others there. And then what's it called? And then Brian and I built a startup in the music space, which I'm sure he's told you about. And then I left CO2 a couple years ago to just start doing angel investing. And so since then it's mostly AI stuff and a little bit of crypto. So I did the limitless protocol on crypto side, if you know the prediction market market ecosystem at all. And then I on the. I did like things like cognition on the angel AI side and that is the career amazing. And I just mostly wear tank tops and be a dad.
+Speaker A: And it all led to being a tank top.
+Speaker C: It all led to sleeveless Matt. Anyway, so, you know, as we think about like the restaurant space a little bit. What. How do you want to rip on this, Brian? What's. What's a good way to think about it? Do you want to take me through some of how you're making.
+Speaker A: Let me now I will share fan's window. What it's giving me, it's sending me in a permissions zone, even though it. I think it already has it.
+Speaker B: Oh, you do have cluly installed.
+Speaker A: I downloaded it but never used it, I promise. All right. Is this sharing a thing? Yes. Okay. So I mostly think it's beneficial for us to just kind of chat about the problem, get a little bit into the product. But then I think that's where the kind of larger strategy type stuff takes over.
+Speaker C: Okay.
+Speaker A: You can see this, right?
+Speaker C: Yeah, yeah, I'm reading.
+Speaker A: Nice. Okay.
+Speaker B: Yeah.
+Speaker A: So basically like problem kicks off with. In New York, it's basically impossible to get reservations where you actually want to eat. The problem, hugely, because of resident OpenTable being overrun by, like, bots. People are scalping, people are making, like, or at least until some of the. The recent legislation, we're making like almost $100,000 a year selling reservations that they capture. The discovery side is pretty messed up. There's like, you know, you're across, like, your lists on Google Maps, belly, Yelp, searching, TikToks, everything. Then you have to go look for, like, menus, things on the restaurant website, Google Maps, figure out where it actually is, is it even open. There's reviews that, like, nobody trusts across resi, yelp, etc. This stuff is also getting worse because of AI generating tons of this, like, crazy, just like, slop reviews. And so, like, basically all of this is in the way of restaurants being able to get a hold of new customers and get their previous customers to, like, keep coming back over and over again. Because regular customers are basically the thing that they value 100%. And a lot of this is because it's also, like, just enabled. Because the booking platforms are pretty bad. Like, they are all old, and so they've kind of stopped innovating. All of them were acquired. Tox somehow got, like, acquired twice. And their incentives are just like, no longer at all aligned with the incentives of either, like, people looking for reservations or the restaurants. And they just, like, focus on their, like, credit card deals with banks and things that kind of give out prioritization, but not really. And there's no actual, like, marketing loyalty programs on the restaurant side. They do not help people actually figure out, like, okay, hey, this is around me. This is a place that wants me to go back because I've been there before. I should get, you know, priority reservation or something like that. And yeah, so like, the restaurants are just like, essentially like, they have. They don't have the tools to be able to reach the right people. The diners cannot reach tables at the restaurants they should be eating at. There's like this fundamental broken, like, marketplace problem and matching problem at the root of all of this. That's the general landscape. And so can I repeat back what I heard, please?
+Speaker C: So what you're telling me is the three players that basically dominate, like discovery and booking in restaurants are 1, outdated, 2, misaligned, and 3, are all required. So their incentives to innovate are through the floor, and they haven't innovated in what's effectively 10 years. Diners have a hard time trusting reviews. The discovery is broken, and then it's hard to book because there aren't really tools on these platforms to make booking simple. In fact, the incentives are probably misaligned there because the platforms want you to come back and see ads and have time on site and all you want is just eat at your favorite restaurant. The restaurants are dissatisfied because for them they are getting middleman on discovery. They have the platforms taking a vig and they don't get insight into the customer, which is really what they care about because they can't tell who's a big spender versus not. And so they don't have a way of like intelligently targeting their supply. And so they just. It's first come, first serve or whatever or at the mercy of the platforms who don't give a shit whether it's a high value customer or not. And so they don't get interesting insight or analytics. That's the summary.
+Speaker A: Yeah, I think pretty much all the.
+Speaker B: Beats, I think it's pretty good. I think just would emphasize that like the, these platforms have loyalty programs for the users, but they don't align with. They're not loyalty programs for the restaurants. And so restaurants want these people, these customers that'll keep coming back, these regular diners, but those aren't the people that get priority or get rewarded. And so there's that kind of piece.
+Speaker C: A little bit like the, the loyalty programs are designed to get you to try other restaurants and explore the.
+Speaker B: The loyalty programs are not impacted at all based on whether you've been to a place, how many times you've shown up or whether the restaurant thinks of you. Someone that is a regular.
+Speaker C: It's not the restaurant's loyalty, it's loyalty to the platform and booking.
+Speaker A: Right?
+Speaker B: Yeah.
+Speaker C: And so there's no incentive for somebody to like to continue to go back to the same spot within the loyalty systems that exist at the platform level. Right? Yeah. Have their own loyalty programs.
+Speaker A: They try to a little bit. There's apps like Blackbird and some of the like level up stuff you see in the.
+Speaker C: Yeah, I put my phone number in my like Jesse goes to a coffee shop, she puts her number in the thing. Like you know, she gets points for it. I used to get the same thing at like different shops. Yeah, it's all built into Toast these days as part of their. I'm sure Toast's loyalty program or whatever.
+Speaker A: Right. There's like a little bit of stuff and like there is like Rezi will tell the restaurant like hey this is Andreas. He's been here six times or something. And sometimes the restaurant will then it's still like Very much on them to do a nice thing at that point also, which, like, mostly is like, you know, maybe the manager says hi, maybe they give out something. But there's no way to even be like, Andreas should be able to get a table here whenever he wants because he always, you know, comes with his girlfriend and they drink three bottles of wine or something. Yeah, yeah, yeah.
+Speaker C: This is part of the. I was early. I was the seed investor in reserve back in the day.
+Speaker A: Oh yeah.
+Speaker C: This was part of the pitch for reserve was that they would know like, you know, this guy orders off of the reserve wine list and like, you know, they could optimize table revenue.
+Speaker A: Yeah, that was like Resi's first acquisition.
+Speaker C: Yeah. They were competitors and then Resi just put them in the dirt. Yeah, but that was part of the initial pitch.
+Speaker A: Yeah, I think it's very much like that pitch. It's funny how much it still just rings true in New York.
+Speaker C: Yeah.
+Speaker A: Because like all these problems are just back again and a lot of things like social media have only intensified them.
+Speaker C: And then your solution solves which components of this.
+Speaker A: Okay, so we're first. Generally we think that like there is a large opportunity in solving this isn't necessarily in the doc, but something that we've been talking through is like it feels like there's a big opportunity in just solving like the whole thing. Like there's like you can go after the larger marketplace portion of it because OpenTable and is owned by booking.com and they're like by far the largest. Like you know, Resi and Talk are comparatively somewhat small but like basically like no one has actually truly disrupted OpenTable and booking.com and it's a 30 almost year old company at this point and just like doesn't really ship any tools or anything. Like they've added basic features that Resy has which like sometimes is enough for a restaurant to switch back to them from Resi. Like the fact that restaurants are switching back to this like total dinosaur of a company implies that just like there should be some sort of innovation here. And clearly there hasn't been.
+Speaker C: Yeah, it's either that or it's. It shows that like this is just one of those categories. It's like, you know, like Craigslisty where it just doesn't fucking matter. And they have such a stranglehold on like on supply and you know, and such a stranglehold on like attention that it's really hard to create a 10x better experience around it. And agents might be that, but they. I think this Might be like there is, there is an opportunity, there is a challenge. This might just be like one of those tar pit ideas that like everyone who has ever tried just can't overcome the obvious suck that is OpenTable, right.
+Speaker A: And like whatever, you know, they're actually at some like market optimum in terms of like pricing and market share where.
+Speaker C: You'Re just so fucking cheap. Like yeah, yeah. Which is suck ass.
+Speaker A: And so, so the thought is, the thought as it's been kind of around the Rezibot is like the way into this market is to first tackle the problem of a lot of high intent, high spending customers who know where they want to eat but can't get a reservation somewhere and create a product for them that basically gets them the resi tables and monetizes in some way like chatted about kind of like a booking fee type add on per table that you get booked. Maybe there's some subscription stuff that gets you like premium priority for new things or like you know, the platform itself gets access to some flow of reservations and you can give them out to people like widget that we've chatted about and basically go very upmarket, somewhat closed group, but super, super high quality. And then you can go, you're providing a ton of value to them. And then you can go to restaurants and say hey, we have this super valuable community. We'll give you a bunch of data on them. We'll let you do things like prioritize customers by the neighborhood they're in, whether they've been to your place before, whether they've like you can do stuff like have they been to a competitor in your area or something like that and then secure a sort of like, like this add on flow of tables. Like not try to like go in and replace like a resident open table right away but just say like hey, you probably have like these extra couple of tables similar to like what like a Dorsia has done.
+Speaker C: Yeah, I was about to say you've seen Dorsia and you know. Yeah, yeah, exactly.
+Speaker A: And so yeah, like, like there is a willingness there on the part of restaurants, but this would be like hyper focused on also like New York. And you can do a bunch of like fun cultural stuff within New York too. Like the dining scene is just kind of crazy here in terms of how high spend it is and just like the amount of just like wild chefs and experiences and pop ups and stuff going on all the time. And then basically from there there is an opportunity to expand like downward within the market of like start to Add more like discovery tools for people who aren't like the super high end spender. Like they might be a free person who just like wants really good recommendations for Italian spots near them or something. And it just kind of aggregates reservations. And then you expand on the consumer side, you can then, you know, offer these really, really good tools to restaurants if they totally flip off of an open table or resi. And so you can start to capture more of the, the vertical market that way. But at the same time you have this like very engaged, the super like high end spectrum. And you can take these people and they have a ton of overlap with like high end like experiences across like travel hotels, like all the like wellness stuff that is like very much an emerging category and like somewhat untapped. Like I think for a lot of folks building a sort of like experiential thing, they're still going after like a lot of it is like nightlife's, club bars, etc.
+Speaker C: Yeah.
+Speaker A: But there's all this like very expensive like high end wellness stuff that's emerging. It's kind of like a viable alternative to it. And so that one in particular has been like interesting to me as I thought of just like other places that, that might even.
+Speaker C: Consumer lives.
+Speaker A: Yeah, like there's just so much overlap there. Also the businesses have like very similar problems. Like they're managing booking and they're managing like, okay, who are my customers? Where are they going to come from? And so I think there's like a natural extension there. There's stuff like the AI concierge features which are super valuable on the consumer side, also super valuable on the business side. A lot of this stuff is just like easy to translate across different verticals and you can sort of like grow within the same market or stay very high end and grow across different markets.
+Speaker C: Yeah.
+Speaker A: Or do both would be great too.
+Speaker C: Yeah.
+Speaker A: So that's the general shape of it.
+Speaker C: Okay, what do you think the starting. What do you. Where do you start?
+Speaker A: I think starting with like we have like, I don't know, we probably like let like 10 or so folks onto the reservation bot and all those used to look like people like like the, the excitement score is like crazy. Like as soon as somebody gets their first reservation, we always get a text that's like, holy shit. This was like a magical experience.
+Speaker C: And so because they get to go to somewhere that they have wanted to go for a long time, they're like, fuck, it's always booked or.
+Speaker A: Right.
+Speaker C: I thought it would be impossible or whatever.
+Speaker A: Right. And it Feels there's like something very interesting in the sort of like you don't get immediate satisfaction from it, which you know.
+Speaker C: Yeah, a little bit tough obviously, but like the delayed hit of.
+Speaker A: Yeah, yeah. There's like anticipation and it's sort of like, it's, it's like almost got like a random reward situation going on with it.
+Speaker C: Yeah, yeah, yeah.
+Speaker A: That's really powerful and interesting. As long as the, it's kind of conveyed to the user that it's like you're not 100% going to get this table at this time at this place if you ask us to do something that's totally impossible at this stage.
+Speaker C: Yeah. And what does pricing look like for you? Cost pricing for running that the bandwidth.
+Speaker A: Is the main thing at this point with our users. It's on the order of like I.
+Speaker B: Think.
+Speaker A: If we have probably like 50 users it would be like 30 or so dollars a month.
+Speaker B: Okay.
+Speaker A: So yeah, pretty like it's, it's, it's about like I think a dollar. Like if a user is pretty active it comes out to like a dollar a month and so not crazy. The, the resi stuff, the, the bot defense appears to just be like non existent. We did talk to somebody who.
+Speaker C: We.
+Speaker A: Got through a friend who talked to somebody who used to be there. Like they laid off like that whole team.
+Speaker C: You have to assume that that's coming.
+Speaker A: Back at some point. It will likely come back I think also because they are losing customers to OpenTable and that's one of the reasons. But I think also like it'll be interesting because there is a little bit of a shift to OpenTable which we're like is close to being integrated in New York and they probably have even worse bot defenses. And so there's just like an interesting like, like some stuff will probably keep bouncing around on that. But I also think that like the, the anti bot stuff is also much more geared towards like this, the, the hoarding and scalping use case and the flipping stuff. Like they're much more concerned with like trying to determine the market. Right. Like has this account interacted with the market.
+Speaker C: Yeah.
+Speaker A: Which we're not going to do. The only thing that we would. I think the, the, the like value add product idea that we've had there is much more similar like what like a belly does or something where it's like you have a reservation and you can't make it anymore and you don't want to get hit with a cancellation fee. Somebody else in this community because it's like a high trust thing. Or like, if there's a social aspect you have, like friends, friends of friends, et cetera, somebody just, you give them the details and they go, they go, take it. So there's no, like, transferring that that occurs. Yeah.
+Speaker C: So when I do, when I do these exercises, I think about, like, all the people in the touch points and I think, like, good, bad, indifferent, like, are they going to think this is great for me? Are they going to think this is bad, like, not great for me? Are they going to think it's like, whatever and they're going to ignore it? This is normal usage. And so, like, for all of these, like, let's lay out, like, who are the three constituents? And like, let's, let's play it doesn't matter. And how much does it matter is the second valence. But, like, let's start with the first. The first is like, who? For the consumer seems like it matters. Like, they care. It's net benefit beneficial for them. Like, they get the reservation at the place they wanted to go and it's much easier. Saves them time. And, you know, maybe not just saves them time, but there's like a binary of, like, they would not have had this experience, right? Like, they just wouldn't have gone to that restaurant. And so it is, it is. That is the real benefit here is, like, it takes things that wouldn't have happened for them and makes them possible. And, you know.
+Speaker A: Yeah, we've heard, we've heard from some folks who were like, actually, like, some because, like, whenever anyone, like, cancels one or something, like, I always text them and I'm like, what's up? But some people were, like, adding searches for spots purely on the, like, oh, well, if I, like, get something really sick this week, like, maybe I'll go. And then, like, would end up, like, canceling the search because they're just like, oh, I just, like, I've been having a busy week. And so, like, that would have been like, an extra night spent in a restaurant that, like, would not have happened otherwise.
+Speaker C: Yeah, it changed their behavior. Like, you know, I have a buddy who's a psychopath and had his assistant have reservations two or three every night. Every night of the week. Like, and it was like, two or three reservations every night of the week. And it, it was wherever he wanted to go. And you get him, like, months in advance. He's like, why would I not? It cost me, like, you know, whatever, 100 bucks a month for this, like, person in the Philippines to call my favorite 10 restaurants or 25 restaurants or whatever. I got a list of places that I've always want to go. Every time I see a restaurant, like, that looks amazing. Add it to the list. And, like, I don't care where you get the reservations. Like, vary it up between this and, like, find me reservations every night of the week at like 6, 7, and 8. And that's just how we ran. And I was like, you know, if I'm not gonna text me the night before, I'll let you know. Let's cancel them the night before. Before there's a charge. And he had options. Every fucking night. And it was like, he seemed like a psychopath, but he would give friends reservations. He would be like, hey, show up as me. It's fine. And like, you know, I got a reservation for anybody want to go to this fucking, you know, whatever. Don, Angie or wherever. It was like, great. That felt like a superpower for him.
+Speaker A: Yeah, we should name the app after him. That's pretty much what it does.
+Speaker C: Yeah. Well, he's one of the users I'll throw on the app. Oh, perfect.
+Speaker A: Yeah, we are ready for that this week. That was my other thing for you.
+Speaker C: Yeah, yeah, I got. I got a few people, but he's certainly one that I would put on there. And he'll be easing New York, like, all the time. And every time he goes. He sent me, like, the 50 places he goes, and he's got his friends with all the managers at all the restaurants, like, the. For the consumer. I think that's a core benefit, right, Resi. Not a benefit. Like, Rezi is like, this takes up, you know, you've just added a super predator into their, you know, ecology, and they're gonna be pissed. And so today, not pissed, but future, as soon as they realize that there's like a thousand hyenas on the plains, like, they're gonna be like, we gotta kill these hyenas whatever it takes. And you can assume that you're not gonna be the only one building reservation bots on marketplaces. And so today, not like a big deal, but near future, like, very fucking big deal. And everyone's gonna suffer this. And reservations are one of those things where, like, you know, Chat PD's got 800,000 members and it's now eugenic, and you're like, get me a reservation. It's like, is everybody going to try to get, like, send me a pulse every morning of the best 10 restaurants in the city that just came out according to these 10 blogs, and, like, get me a reservation as a prompt. And it's like, Fuck. Now you're like, this is a broader question about defensibility on the idea. But I, you know, I think to the point that we're sticking to, which is like, is it a net benefit to the, to the current platforms? No. If anything, it's like a service. They may want to upsell their own customer base, too, of like a concierge service. The final one is the restaurants. I think you make a good point that, like, these restaurants do care about knowing about spend habits. I don't think you currently have. Like, I don't think. I think you need to get to real scale before you can offer that data as a workaround. And the current product doesn't have true, you know, true insight into spend. There's no obvious flow of like, how much did you spend at that restaurant? In the product? And so I think it's an adjunct to get that information. It doesn't happen natively within the flow today. And so I'm not sure that value prop to the restaurant is there on the identify who's spending what. And then secondarily, the target customer that you're going after is targeting restaurants that have no fucking problem filling every table. They're getting hunted by Dorcia. They're getting hunted by everybody. Like, there are a lot of people going after, like, that supply that, you know, talk is ticketing against those tables. Like, they have been there. There's. There is, you know, 200 restaurants in the city, in New York in particular, that are just like, always packed and they don't have a problem getting reservations. And that's actually, if you go after this demo, that's the table that everybody's hunting, right? Like, did you make infatuation the Eater Top 50 list in the last six months or a year? You're in that segment of. Of competition. And so they are neutral, I would say. And your core value prop is, you know, adjacent. Not like your core value prop is like, we get people tables at your restaurant. And these people are like, dude, good luck getting a table at our restaurant. So I don't think today the value prop is clear on that one. If I'm just walking down, like, the. The three constituents in your ecosystem, not to say that it's not valuable enough for the first player and neutral for players two and three for long enough for you to build an interesting business and get to, like, some leverage point where you have enough customers on the app where you're like, hey, we can like, do, you know, maybe the. Maybe those restaurants for loss leaders for the middle of the pack that really does want discovery and you provide the service of like getting them alternatives at these like secondary options as part of your service. Right. It's like, hey, you're not going to get a fucking table at, you know, whatever, but there's another pizza joint right down the street that's like ranked one of the best in the world according to Dave Portnoy. And you're like, we can get you a reservation there. Do you want that? And like taking that exhaust from the top players and redirecting it to the best next option is something that like other restaurants will want. And so there is a, you know, there is a model of this that like directs people for like viable replacements that you could do that provides value. But the top tier restaurants might just be your like, you know, your window dressing.
+Speaker A: It is a little bit of that. Yeah, I think there is one. Like we didn't mention it in the doc, but the top restaurants do deal with a lot of like last minute cancellations and unpredictability. And so I think this is again, like totally needs to be proven. But the idea that yeah, if someone's coming from us, they're way more likely to actually show up and fill the table, which is like, it's, it's not huge, but it is like restaurants crave predictability. And so if they're rife with like these, you know, botted marketplace things that then just get all canceled or dropped or.
+Speaker C: Yeah, or you're capable of filling those last minute full.
+Speaker A: Right? If we can blast those out, that.
+Speaker C: You quickly fill those holes. Like if you can get to that point, like then you are a value prop. Like there's no, like no empty cables is like your goal. And like we know exactly who's been trying to go to your restaurant and has you on the hit list. We can ping that person via a, you know, a text almost instantaneously.
+Speaker A: Right.
+Speaker C: So you have a very different level of trust with a concierge style product than Open Table would.
+Speaker A: Right.
+Speaker C: Open Table is not going to spam me like, hey, there's an open spot at this place that you looked at once. But like your service dedicated to, you know, you helping get reservations all the time. Maybe, maybe you have that compact with your user.
+Speaker A: Right. And helping smooth. Like we can do some like demand curve smoothing of like, you know, they often end up like the bots all go for like the, the 6:30-8 window. And so it's like restaurants do have trouble, I think with like the five, like that first dinner shift and Then the later dinner shift in New York and it's like there's so many people here who would eat dinner at 9:30.
+Speaker C: Yeah, yeah. So I, I just think going through that exercise will be helpful as you think about this. Like and then you know, the next component that we could talk about is like is it valuable? Is there a way to make money? Like I think there is a way to make money here. You have examples in New York already of services like this that are charging in end consumers. There's clearly like willingness to pay for like the time savings and like AI products. As long as you market it like that, like convenient, people will pay for convenience. And so I think there's willingness to pay. You can build a bunch of, you know, whether it's paper seat or pay per, you know, month or whatever, there's, there's opportunities. The risk you run is, you know, let's just talk like platform risk. Like again you and I talked about this briefly, Brian, but like there's probably like four or five buckets of like actions that are getting, you know, that are about to hit ChatGPT. And like all of these products are like we're agentic. And you're like, what does that mean? You're like, well you can do this, this, this, this and this. And if reservations isn't one of the, this is, I think we're all like blow my brains out. I'd be, I'd be shocked and appalled if like reservations at restaurants wasn't one of the, one of the four or five things listed. And they what can your agent do? And that means your competitor is OpenAI and OpenAI is trying to get really good at this kind of shit and booking you a reservation. Buying the thing on Walmart like as you saw today, like you know, helping you find what to watch next. All feel like really fucking low hanging fruit for this thing. And you know having a restaurant list in your OpenAI it's like, hey, you know, we know you love Indian food. There's new Indian spot from the guys at SEMA that feels like pretty core value prop for, for within Open AI. And so I worry that you are going to get price compression pretty quickly. Like people have willingness to pay today but it doesn't feel like unlike Sora or Mid Journey where there may be a quality differential nobody cares about like who gave me the reservation. They just want the reservation done right. And because it's not immediate gratification on this, like people will probably veer to the one that says it can do it and Even if the hit rate is lower. Does that make sense?
+Speaker B: Yeah.
+Speaker C: Like Chachi BT is cheap, cheaper than you would probably want to be yourselves.
+Speaker A: Right, right. And in like the world where OpenTable effectively was a stand in for this product, right. Of like the table's either on OpenTable or it's nowhere. Like it's like that. I think there's that type of thinking right. Where it's like, yeah, it can be a sort of winner, like single player domination.
+Speaker C: Yeah. So that's another thing for you guys to think about as you think about like do we raise venture capital or do we like launch this thing and like see how it starts to grow organically is if I didn't have an airtight sense of the, you know, just a long term defensibility here and like how this thing morphs, I probably wouldn't want to stake the next three years of like having raised capital against an idea. I would probably lean towards the path of like let's just fucking run this thing as fast as we can. Because we're in the, you know, we're in the flashlight era of, of AI agents and it doesn't matter if there's no you can build like you can get a lot of money in the next handful of years building agents that do single task things really fucking well. And I would encourage you to think about it more like that than think about it like, you know, this has to be the end be all end all platforms. Like the two of you, if you ask me like what your core skill is, it's like you're fucking growing. You can build basically anything. You've got great design sense, great execution sense and you basically like are full stack to tandem crew that can like go execute these agency products really well. I would encourage you just to build a bunch of these and get them people's hands and like sell them for as much as you can and do it do like as much monetization against these as possible and like you could probably build a good business, a great business for the two of you especially doing this. And my bet is that somebody comes and acquires that service for a lot of money at some point like a bending spoons or you know, somebody who's got like a bunch of different media assets and like what do we even do with AI and like like an agent approach and you're just like oh well there's one crew that can bang out basically like a billion agent apps and I would just like treat them like that. I treat it like fast fashion for, for agents And I'm sure you have like 15 ideas that you could like twist this one into too. It's like, oh yeah, we have a subscription premium product. We have like our discovery product. We have an influencer like Legion product that like helps like Clinic the dot. We have a product for whatever you and I talked about, like a product for Airbnb hosts or the same fucking thing for services, like book all your services and like, you know, if anything like this moment is one of like really great niche opportunities and like it doesn't take a lot for you to take exactly the same fucking service that you built here and redirect it to booking, you know, high end nights out or like booking, you know, whatever tables at clubs or booking, whatever. There's a fucking million ways that you could brand exactly the same use case and you know, put a little bit of agentic secret sauce in there with like a chat front end to it if you want. And people probably look at that and be like, oh, that's a fucking interesting business. That's my hot read on it.
+Speaker A: Yeah, that makes sense.
+Speaker B: I think that there's a, I think there's some moats when you have that ChatGPT struggles with, which I think would be the, the direct partnership with restaurants.
+Speaker C: Yeah.
+Speaker B: And then understanding someone's social graph and recommendations that would come from friends. Which I think is why like a lot of the, the die hard restaurant users are using apps like Belly.
+Speaker C: Yes.
+Speaker B: And I think it's going to be a little while before that's something that these agents are using. And so it feels like there could be a lane for running at getting enough users on the platform to be able to go to restaurants, get a supply of tables and then build a product that potentially solves a lot of the booking frictions that a user might have, having cancellations, wanting to have a backup and being able to swap it, setting, you know, your, your rank priorities. And it's like a little bit more power tool and niche than I think ChatGPT's agent product would have out of the box. And so maybe it's something that could end up being like a really powerful app, you know, better than OpenTable's app or better than Rezi's app within ChatGPT and kind of like trying to use that as a moment to really launch it, to really compete with Resi and opentable and kind of put some pressure on them.
+Speaker C: Yeah, I think if you go down that path, I would, I would test that path a little bit. It sounds like you have enough relationships with the restaurants to test it. I, I would go to a handful of them and be like, hey, what you're talking about now is like, like, really trying to solve the value prop to those players and go around the middle player, which I think is doable. But it means, like, it means you have to really narrow down like the value prop to them. Like, if I were, if I were running at that, like, the value prop that you described earlier was like, people cancel a lot, like in restaurants, deal with a lot of like this like, last minute thing. If you could be like the last minute clearinghouse for reservations, like, that's a very pretty valuable thing, I imagine. And so, you know, part of the value that you present is that, like, you can hit people instantaneously on an app that has notifications for anywhere that they might want to be on their hit list. And it's like, that feels like something that restaurants would be really excited about. You're like, hey, if you have a fucking table that's like, you know, open 15 minutes before reservation, like, what the fuck are you going to do if you want to fill that and you want to just put out like an apb, like, hey, this is like, you know, this table is available at this place that might be alone enough to get people excited about, like. But the model we were talking about earlier relied you into almost entirely not having conversations with restaurants. Like, that's a BD conversation and a product conversation and like a, you know, a sales motion that you, you'd have to validate.
+Speaker B: Yeah, definitely.
+Speaker C: Which is different than, like, I'm just building an agent that's going to go to the existing platforms and like, right, people pay 20 bucks a month and let's see how many fucking people we.
+Speaker A: Can get and vampire attack them.
+Speaker C: Yeah, yeah, exactly. That's very different. Yeah, not, not mutually exclusive, by the way. Like.
+Speaker A: Right.
+Speaker C: In fact, I might, I might say you, you almost want to go in loaded with like a thousand users who use your app exclusively for reservations. Before you even have that conversation, be like, hey, we, we've got 50 people who have listed your restaurant as like, a place they'd love to go. And, like, they will probably fill your table. So we have intent already on 50 people, right. Of like, your hit. You're on their hit list. But do you want to clear the, you know, do you want to clear out, like, you want a text button that goes immediately to all 50 of those people to, like, tables? That make sense?
+Speaker B: Yeah, yeah, it does. We have this, like, potential order flow for them at any time. That they need it.
+Speaker C: Yeah, yeah.
+Speaker A: Like I think a lot of it is fundamentally just like a matching problem. It's like less so actually with where we're starting with the super high end restaurants because kind of to your point like they're getting demand, right? Like they're, it's supply that's constrained and I think there is like a delta of like they could get more quality reservations and prioritize the people that they actually want to prioritize. But I think ultimately that is just like an entrance wedge into capture more of the market, get that high quality user base and then cool, you can start to actually match supply and demand in a lot of ways. That's being just totally left open right now.
+Speaker C: Yeah. The other one that I had for you, Andreas, which I've kind of told Brian a little bit about, is like, I do think like most of the discoveries now happening in social, not on Yelp or these other platforms. Like it's going to tick tock. It's like best restaurants and whatever or like are your favorite food influencers going to a place and checking it out or whatever. Jeremy Rabinowitz or whatever his name is is like checking something out in your city. And I think like right now there's no way for them to track like their influence and like what conversion looks like into reservation. And your product is kind of perfect for letting people do the impulse reservations. Like add this to my queue of restaurants and like get me a spot at this place. Because it's like, it's like a simple ingest and it can go wherever something same high level surface area can go to like resi can go to OpenTable. Like the user doesn't have to think like is this on OpenTable? The influencer doesn't have to think like Is this on OpenTable or Resi or top whatever. They can just post as they would normally and then be like book here. And all they have to do is put book here with like their custom code basically and like that's the end of it. And then what you get is like data that that user can go back to the restaurant on and say 50 people tried to book a reservation at your restaurant from this person's post. And I think that's enough value today that's not being captured that like is at the demand level like it is. It's probably the thing that restaurants care more care as much about as they do regulars, which is like new demand gen and tracking the source of new demand gen and giving them new tools to acquire more. Like if they said, oh, this person is great at driving new reservations. Like, they probably have zero fucking visibility into, like, how they're actually driving new users. And so there's this shadow economy that, like, you know, people think it's happening on OpenTable, but it's really happening on Instagram and ends at OpenTable. And if you can circumvent that by being like, oh, actually the intent is happening here. And that's where we put the conversion that I think is the kind of thing where like, restaurants would be like, oh, turns out we're spending in the wrong place. We should be doing a lot more influencer. And you have relationships with influencers who are on the platform. Like, here's a bounty system. It's like, if you get 10 reservations, you can get paid a hundred dollars. If you do 50 reservations, you can pay the thousand dollars. If you get a hundred reservations on your video, you can get paid whatever it would cost the restaurant to acquire actual reservations.
+Speaker B: Right.
+Speaker C: If you went even further than that, or like this led to X spend, you can be like, hey, you could actually create rev share back to the creator with yourselves in the middle of like, this person booked through whoever on Instagram, like, they get 10% of the bill. Right now you're not even paying a bouncy system. You're like, oh, we just tracked like this reservation, spent this much money and we can do, do accounting back. And you've created a whole new tracking and economy on the back of like, what is effectively the same service. Right. You're like, we are a service that helps people get reservations at restaurants irrespective of where the, where the reservation booking happens. And like now reserve. Now we can track like this person to this reservation and you can like, save the restaurant. Like, how much do they spend? You can full circle it.
+Speaker B: Yeah, I think it's. I think the idea and the opportunity gets much bigger if we can get into the restaurant's platform, whatever stack they're using. Because, like with Dorcia, like, you can pay with the card on file, which they're doing through their, like, stripe setup. And so then you get to the check and you can start doing payments. And that's just like pretty much what all of these companies are kind of running for. Also is taking out the pos.
+Speaker C: Yeah.
+Speaker B: And so that gets really interesting. I think we, we had also talked about one idea for all, all the substack influencers.
+Speaker C: Yeah.
+Speaker B: And being able to, you know, create their maps, all their like, curated spots, and you could have the booking there and that could have the referral link as well. And it could all be the same system again.
+Speaker C: Same, same exact idea. Like, I think it's just a link where it's like book here for like, get your reservation with that place here. And it's like we built an agent that like goes out and does it for you. All you got to do is log in with your thing once and then you have it saved forever and you go out. And I would literally be like, hey, we, we're giving you a tool that your client customers can book now. And now we can like, tell the restaurant how much traffic you're actually driving them and like value prop to the reader, value prop to the creator, value prop to the restaurant. All of those are like net positives, neutral to the, to the resi or whatever. Who cares? Like, because you're not like scalping like hard to get restaurants necessarily. And so it sort of changes your dynamic a little bit and gives you like three positives in the, in the flow.
+Speaker B: Right.
+Speaker C: And additional points of leverage that today are undeveloped. Like, nobody knows how much traffic is really, like how many diners are really coming from an influencer, despite the fact that we all know, you know, intuitively that that's where the bulk of discovery is happening.
+Speaker B: Right. Right.
+Speaker A: Right now it's either they blew up and like, are so slam that they can't function, or they have no idea.
+Speaker C: Yeah. Like, maybe they went viral or maybe it's like somebody like just keeps doing it. Like, you know, you never know. And now you're like, oh, fuck this mommy influencer is sending us like 100 customers a month. Like, they might. She might be the best channel they've ever had. Right. Because the moms are looking for a good spot for kids in the Lower east side. And like, did a plot a post about like, this is a great spot for, like, your whole family can eat together. And they have no idea that like not insignificant amount of their consumers are coming from this place.
+Speaker A: Right, Right. And there's like that probably like upper middle that drive the super useful people to restaurants that wouldn't go otherwise.
+Speaker C: You can go and acquire them. And it's like, again, like, to know did this for fashion and built a pretty sizable business on the back of it, like hundreds of millions of dollars in revenue on the back of it by being like, oh, these were the items of clothing that were referenced in this person's thing. And you can shop those things here. And they closed the loop from like inspiration to execution. And I think nobody has done that for restaurants. And frankly, wasn't possible because you had this complexity at the reservation level that you guys have solved. And so this is like, to know for restaurants uses exactly the same service and process that you've done. And again, I. The beauty of your moment in time is like, you haven't raised venture funding. And so I'd probably just do both of these things. I would probably, like, create a list, like, create a link that's like, customizable to the creator and just be like, hey, we'd love to, like, put this, like, in the comments. You don't even have to fucking approve it. You could literally just go to the comments and make the reservation booking yourself and just be like, this creator, you know, hey, get a reservation at this place here. I love this place. And like that. You don't have to ask permission for anybody. You can do it entirely yourselves. Just be the first on every comment. You know what I mean? Start there. You'd have no permission, no bd, no partners. Like, who fucking cares? Just go, like, build a bot that every time somebody releases a new reserve, a restaurant reserv, like, video review, go through the thousand influencers and just build a comment bot that's like, get a reservation at this place right here. Click here to get a reservation and just blanket the Internet. And you already know that intent is coming. You're just the only person creating the booking link on the page.
+Speaker A: Right, Right. There's no competition there.
+Speaker C: There's no competition. There's no booking link on any of those things.
+Speaker B: Right.
+Speaker C: So be like, get the reservation here. And it's like, oh, my God, I love it. You can book a reservation here. You could build a bot to do that fucking tomorrow to generate demand. And then you have real users and then you have like, you know, whatever.
+Speaker A: Right. Do you think that there's a strong pitch to the creators in the beginning? Like, is it. Is it, like, is the sort of, like, we'll attribute stuff, even though you might not. Yeah, like, I understand. Like, you can also, like, do the.
+Speaker B: Rewards and stuff like that.
+Speaker A: Like, especially once you have restaurants. Otherwise we would just have to, like, eat the any, like, payout type stuff in the beginning.
+Speaker C: I would again, if you started just by doing it as a comment.
+Speaker A: Right. The comments is totally, totally.
+Speaker C: It's totally fair game. And then if you eventually say, hey, like, this gives you a way to partner with. Hey, did you know you drove 100 reservations? We'd love to partner with you to make this like an official partnership. And that way we can go to the restaurants together. To tell them how much you're booking and send, you know, well, well, you just literally start by telling the restaurant, like, hey, just so you know, like, here were all the places that had, you know, referenced your restaurant this month and here are the creators who drove the most usage against it. Like, just start doing that and you will find ways to make money. Like, you don't have to fucking ask permission for any of this shit. Just like put the, put the reservation link on the videos and then feed the information back and be like, these, these are the creator. Like create a list, right? Creators who drive the most reservations. Like, we've, we've created a bot that like tells like, you know, helps identify creators who actually have influence. Put out real content against that. Like every creator on the planet wants to compete to be like the best at this. And so anyway, those are some things that I would consider. That was my, that was my inspired moment of brilliance on this category. Nice.
+Speaker B: I think it is super interesting. I think it's untapped for restaurants and marketing has always just been such a difficult thing for, for the restaurants that really need it, which are the ones that, that aren't, you know, the, the very trendy and hot spots.
+Speaker A: Yeah.
+Speaker C: And it's like, it's happening in social. There's no attribution back. Like, anyway, that's my, that's my read for you.
+Speaker A: Yeah, it's a good one.
+Speaker C: I am getting pinged by a three year old that I'm on gymnastics time. I'm gonna go put on some sleeves and head to gymnastics. But if you want to think about any of this shit and do another riff, I'm around all week. So whatever you guys want to do. And by the way, take everything with a grain of whatever because, you know, at the end of the day, you're gonna throw yourselves at, you know, at this one way or another. And so don't let, if I, if I discourage you or encourage you. Take both of those with appropriate, you know, caution.
+Speaker B: Perfect.
+Speaker A: This was great.
+Speaker B: Yeah.
+Speaker A: I have a sneaking suspicion that you'll be showing up to gymnastics without sleeves. I just have to say it.
+Speaker C: Your dads need to know, know that, that, that Matt has been working on.
+Speaker A: Right. What's the point? What's it all for?
+Speaker C: It was back then, it. They deserve it. Unless they feel bad for themselves. They feel, you know, they really. Right.
+Speaker A: They need to regret being on drop off duty today.
+Speaker C: That's right. I got it, sweetheart.
+Speaker A: I'll do it. All right. Thanks so much, Matt.
+Speaker C: It's great to meet you man.
+Speaker B: Likewise. Talk soon.
+Speaker C: Later.
+Speaker B: All right. I mean the, the attribution ideas are. Those are, they're definitely interesting for like growth.
+Speaker A: It's a ton of, I mean it's, it's highly complimentary.
+Speaker B: Yeah, yeah, it is.
+Speaker A: Because performance market, like one of the screaming on fire broken problems is performance marketing.
+Speaker B: Yeah. Right.
+Speaker A: And there are undoubtedly a lot of influencers driving bookings in New York.
+Speaker B: Mm.
+Speaker A: It's a very open ended like R and D problem. To see how much.
+Speaker B: Something I heard was that initial gut feeling on like on not solving, you know, the core restaurant's burning issues. Which is true for the hot restaurants. They don't really need much.
+Speaker A: Yeah. They do have problems with the cancellation.
+Speaker B: Stuff and they do problems.
+Speaker A: That's why all their cancellation fees are insane.
+Speaker B: Right.
+Speaker A: That's why somebody did the booking fee. Right.
+Speaker B: And so that.
+Speaker A: Yeah.
+Speaker B: For the hot restaurants there's the, you know, last minute cancellations.
+Speaker A: Yeah. And like demand smoothing.
+Speaker C: Right.
+Speaker A: Because people don't like even when someone sets up a resi notify, like I have to imagine it's like, you know, they set it up for 6:30 to 8:30 and then if a 6:00pm or a 9:00pm shows up. Right.
+Speaker B: Like that's basically seed its model. Right. It's like driving people in, in real time, trying to fill these tables, getting, you know, walk in and pushing it out to people. Yeah. And then there was the, you know, all the other restaurants. What is the, the pitch for them? Could be that there's all this demand going to the same 50, 100 top restaurants and we can drive new customers that can't get tables there to their spots and it's like new discovery.
+Speaker C: Yes.
+Speaker B: And I think that like that idea landed while Mazio was talking about. He was like, oh, that could actually, you know, solve the bigger.
+Speaker A: Yeah, he arrived at it himself.
+Speaker B: He arrived at it himself.
+Speaker A: Which is true.
+Speaker C: Like.
+Speaker A: Right. The, the initial high intent problem.
+Speaker B: Yeah.
+Speaker A: You get people in the door by saying that they can eat at the places that they can't otherwise eat at.
+Speaker B: Yes.
+Speaker A: And you retain them by being just the booking thing.
+Speaker B: I think so too. Yeah. I think, I think because having a relationship with the users is such a, I think it's valuable, such a valuable thing that getting there, whatever it takes. Right. The attribution product, the last minute filling or the discovery and yeah, those are like the core things.
+Speaker A: Yeah. I think the most valuable.
+Speaker C: Like it.
+Speaker A: Does make some intuitive sense that at some point someone can do some custom GPT agent that's it's like every day Try to book the ones on the infatuations hit list.
+Speaker C: Yeah.
+Speaker A: And it's like, sure. But it's gonna like have a lot of trouble.
+Speaker B: It's gonna check once a day or it's. Yeah, it's like calling them all the.
+Speaker A: Time and the restaurant has to stop answering the phones or something like that. Like, they probably can't reverse engineer the Rezde APIs. At some point maybe they'll have an integration and a partnership.
+Speaker B: Right.
+Speaker A: But then it's like, okay, well then there is the window to just speedrun it and just say we're going to.
+Speaker B: Try to do the. We're going to go high end and.
+Speaker A: Start trying to come up with this data and this product that you can then go to restaurants with. You can build an attribution platform especially. I do think the substack place is a good place to start.
+Speaker B: I think so.
+Speaker A: I think they will. I just like. I don't know. I have a good feeling about it.
+Speaker B: But because it's much more.
+Speaker A: I don't know, I think a lot of the substack people are doing it like for the love of the game and like actually want to get people.
+Speaker B: I think so too. Cool spots.
+Speaker A: The influencers are doing it.
+Speaker B: You're going to the wrong reason the top people in belly and be like.
+Speaker A: Yeah, we know we're doing. Who can try the most bookings. Yeah. Competition.
+Speaker B: Right.
+Speaker C: Yeah.
+Speaker A: That would work with the Valley Freaks.
+Speaker C: For sure.
+Speaker B: That would work with the Valley freaks.
+Speaker A: Because they already are leaderboard brand.
+Speaker B: Yeah. Yeah.
+Speaker A: Right. The substack people want like utility, which is great. Right. And then at the same time we try to get a white label thing like you know, have.
+Speaker B: Have an EA angle. Yeah.
+Speaker A: Try to do that. Yeah. Just like literally just run at all these things.
+Speaker B: Mm.
+Speaker A: And then if restaurants isn't working, try to do a wellness thing or try to. If. If restaurants is only working with the core product of super high end paid Rachel's, then find the others that Rachels like to do and build the same agent there the same way.
+Speaker C: Like what?
+Speaker B: Right.
+Speaker A: What he was talking about. Right. The problem is to run all these things quickly.
+Speaker C: It needs money.
+Speaker B: Yeah.
+Speaker A: Not to use Runway, but like 500k I think.
+Speaker B: Yeah.
+Speaker A: Pitch in that case is honestly a little bit more of just like a picture.
+Speaker C: It's like we're gonna do these eight things.
+Speaker A: Right? You want it?
+Speaker C: Yeah.
+Speaker A: I think it's fine. I think filling up the notion is just. Is a good exercise for people who are a little bit more. Have slightly higher conviction about the the core idea.
+Speaker B: Yeah.
+Speaker A: And just getting those conversations going and so we should finish that.
+Speaker B: Yeah.
+Speaker A: But I think also in general, I think that there is value probably putting together a short list of the sort of like experiments side of things.
+Speaker B: Yeah, I think so too. Yeah. Yeah. It's like things to validate.
+Speaker A: Right. Right.
+Speaker B: Like.
+Speaker C: Right.
+Speaker A: Because it's like so many things can be true and ChatGPT could be coming with the end all be all of agents. Reservations will probably be a major feature of it.
+Speaker B: Yeah.
+Speaker A: New Yorkers are status obsessed and want membership in some exclusive community.
+Speaker B: Yeah.
+Speaker A: They don't give a fuck about their little ChatGPT cute little ChatGPT membership. They want the good shit.
+Speaker B: Right.
+Speaker A: Restaurants need help and will probably give some tables or some might flip off of Resi or opentable to something new. Regardless of where the users are coming from. The thing that can get the users to ChatGPT or can get the users to some AI or website, they're like, okay, well then all that matters is that we have the like best tool for finding those people or blasting out last minute availability. Another thing that can be true is that we do a lot of stuff quickly and make a lot of money. Yeah.
+Speaker B: That is true also.
+Speaker A: And we could also just end up getting acquired in a year.
+Speaker B: Yeah.
+Speaker A: By Gobi after they raised $4 billion. Right. The funny thing is that Matt like it's like, it's funny because he is a good investor.
+Speaker B: Yeah.
+Speaker A: And my takeaway from a conversation like that is like how the Does Kobe raise $10 million? Yeah. What did they say?
+Speaker B: I don't know. We're gonna ingest just like the data. But like we could say that too. It's just. Well.
+Speaker A: And he knows that we know that. Like he knows that. Right.
+Speaker B: Like.
+Speaker A: Like we don't even have to talk about that. No. And it's crazy that. Right. You can punch 30 million holes in Gobi of like.
+Speaker B: Yeah.
+Speaker A: If you're just doing basic AI aggregation, why can't anyone else do it?
+Speaker C: Right.
+Speaker A: How are you going to own the relationship with the consumer in a world where people are. In a world where a billion people use ChatGPT and that's their favorite agent.
+Speaker B: Right.
+Speaker A: I don't even think you need more questions like how could they. What are the answers to those?
+Speaker B: I don't know. Yeah. I'm not quite sure. I mean I think that Mazio is definitely like your ChatGPT agent app build.
+Speaker A: Oh, 100%.
+Speaker B: Which means.
+Speaker A: And he's like lifestyle booster at business pill. Cuz that's what he Would like. Yes.
+Speaker C: Yes.
+Speaker A: And cuz he is post economic.
+Speaker B: Yeah.
+Speaker A: He's like, why would you not just sit around and self fund a sick business? It's like cuz we don't have the tens of millions of dollars. We have no dollars.
+Speaker B: Yeah.
+Speaker A: We are not bread. We are future bread havers. But that is, I mean like his advice in terms of.
+Speaker B: Yeah.
+Speaker A: We gotta go back in with the.
+Speaker B: More like.
+Speaker A: We'Re gonna try these four things.
+Speaker B: Yeah.
+Speaker A: We need a little bit of money to do it and do it quickly.
+Speaker B: Yeah.
+Speaker A: Because we really do think that like we agree with you. The time is what we were in this like little calm before the tempest here.
+Speaker B: Yeah.
+Speaker A: Do you want to come on this journey with us? And we're not trying to raise. Because he was like, don't raise three.
+Speaker B: Like don't raise a big round.
+Speaker A: Do you want to spend three years on that? Which is like that's what we did with road trip.
+Speaker B: Right.
+Speaker A: We raised $3 million. That's 24 plus months of Runway.
+Speaker C: Yeah.
+Speaker A: But if we're like, we want to raise six months of Runway to see if we can do all this shit and get cash flow positive. Like I agree it's not the raise. One thing is like not traditional kind of like venture type stuff. But it's, it's like it's the bet on us.
+Speaker B: Yeah, it is. And if it's individuals, it's still if the opportunity for, you know, the seed round isn't there.
+Speaker A: Right.
+Speaker B: But it's still possible to be a good business 100% that kicks out dividends to investors.
+Speaker C: Yeah.
+Speaker B: Like you can still do that.
+Speaker C: Yeah.
+Speaker A: That was like Trevor's model for his venture studio.
+Speaker B: Yeah. But that's still, I think the playbook.
+Speaker A: I think so too.
+Speaker B: Yeah. Yeah.
+Speaker A: I think in general fairly affirming.
+Speaker B: Yeah. I think there was good ideas in there. I'm not chatgpt at Agent Pill.
+Speaker A: I'm only long term.
+Speaker B: Yeah.
+Speaker A: I just think that everyone's timelines about all this stuff are wrong.
+Speaker B: Yeah. Right.
+Speaker A: Like in a comical way. Right. Yeah. Like all we need is 18 months.
+Speaker B: Yeah.
+Speaker A: It was supposed to be the year of ages. This is the year of video slot.
+Speaker B: Yeah.
+Speaker A: And I don't know that I don't think their mini apps will really do much.
+Speaker B: I don't think because there's already minias right now and they suck. Yeah. Like using Figma in here.
+Speaker A: Figma has a mini app.
+Speaker B: Yeah.
+Speaker A: In ChatGPT or Claude in ChatGPT. Really?
+Speaker B: These are the apps. Booking.com.
+Speaker A: Oh wait. Try to use booking.com.
+Speaker C: No.
+Speaker A: You do a reservation or does it not?
+Speaker B: Oh, do they have.
+Speaker A: Oh, well, they own open table, but maybe say an Italian place in Greenpoint.
+Speaker B: Oh, go yourself, dumbass. Are they.
+Speaker A: Those are just web links, right? Yeah.
+Speaker B: Okay, let's get me a hotel tonight that has a spy in it.
+Speaker A: In Mallorca.
+Speaker B: In Mallorca. Okay, here are some hotels that have spas.
+Speaker A: Right. And then it's like, do you want to do 32 text back and forths to find the best one or do you want to just do your own research?
+Speaker B: Right.
+Speaker A: And then it's like viewonbooking.com is so funny.
+Speaker C: It's like.
+Speaker B: Yeah, of course they're all links.
+Speaker A: Like you could have gone to booking.com.
+Speaker C: And.
+Speaker B: From trusted sources and individuals.
+Speaker A: Right.
+Speaker B: This is really bad. Yeah.
+Speaker A: And I don't think it'll get better quickly. It requires a super deep integration.
+Speaker B: Yeah.
+Speaker A: Is that it?
+Speaker B: No, it's not. Yeah.
+Speaker A: Classic. That was a classic Mazioke conversation. I think. Very high energy.
+Speaker B: Yes.
+Speaker A: General fountain, fun guy, fountain of ideas. And then you have to like kind of wade through and find the.
+Speaker B: Yes.
+Speaker A: Find what makes most sense.
+Speaker B: God. I mean, yeah, there's just like a. I don't know. You do really want to somehow get into the restaurants.
+Speaker C: Yeah.
+Speaker A: For a booking product.
+Speaker B: Because there is the platform risk with Resi and OpenTable.
+Speaker A: Yeah. That's why it's a speed thing. You just speed run it as fast as you possibly can. Right. Because the same. All that, all the logic applies. It's just these things are like a matter of time. But that's the point of a startup is that you can do the quick shit that people can't do. Like OpenAI can't reverse engineer Resi's API. Then they'll be in a lawsuit for years. But we can do it.
+Speaker B: Yeah.
+Speaker A: And in the time where they. Before they realize that they need to rehire a bot team, we have gone to restaurants and started getting exclusive tables. Also, like the EA network thing I think is real. Like if we can actually get a stupid amount of relationships with the top restaurants, then we don't need like, we can just be like, oh, someone had a search for this rest. Like, they'll hold tables for us. We'll be able to get people tables. The platform starts to go away. Right.
+Speaker B: The platforms start not mad where the table came from.
+Speaker A: It's purely a bootstrapping hack.
+Speaker B: Yeah, it is. You just need to figure out what the. What the pitch is for different restaurants. If you're going for high cavallini it's like we maybe fill last minute reservations. We have this, you know. Yeah.
+Speaker A: This order book, you know, pile of people waiting.
+Speaker B: Yeah.
+Speaker A: For you.
+Speaker B: Yeah. And you can allow people to trade their reservations. Yeah.
+Speaker A: Rachel said that they went there, she went there. And they're like, they were like asking her like how she got a table, blah, blah, blah. And she was like, oh, we live here. And like we tried to come a.
+Speaker B: Couple of times, like to walk in.
+Speaker A: And like this was like our third time or something. We made it. And like the manager was like so stoked on that that he like gave her a cell number and was like, when you needed to like text me.
+Speaker B: Cool. Cause it's like.
+Speaker A: Yeah, that's the most like if you give them the direct access to somebody who lives in that neighborhood. Yeah. Like, I think that's the insight that we have.
+Speaker B: I still, I still think that rings true for the top restaurants.
+Speaker A: Right. I think that's the thing that someone who's not in this doesn't like, there's no amount of like we have to prove that.
+Speaker B: Yeah.
+Speaker A: Somebody like Matt or somebody who doesn't live in New York and hasn't had that experience won't believe us. And it's like, okay.
+Speaker B: Yeah, I guess it's just like, dude, places like I Cavallini need the regular. Like, do they actually.
+Speaker A: I don't know.
+Speaker B: Tbd. Yeah, maybe they do. Like, maybe it's just like for the people who are gonna go on like a Tuesday at 6, you know. Right. Or like that are gonna be the walk ins and they like reserve a good amount of table supply for walk ins because those are the people they want coming in.
+Speaker A: Right, right. Is it like, do we end up getting a little bit of the supply of walk ins? Right.
+Speaker B: Because seated is like kind of this wall, you know, walking model or whatever. Yeah. Where you're not like making bookings.
+Speaker A: Right.
+Speaker B: It just says like, oh, there's a table, new table popped up and you can go in and get it. Something like that.
+Speaker A: Right.
+Speaker C: Yeah.
+Speaker B: Cuz like that's a loom that what the feels like could be a pinch. Like four. Yeah. Goofy at seated. Yeah, it's goofy. And they pay you in money. Like it's just weird. The developer is Voco Chat refill tables and then the restaurant, you get a percentage of your check or something. Like if we wanted to go to Roberta's 19% rewards today. What does that mean? What does that mean?
+Speaker A: I think it's a thing where you can get it back in like Amazon gift cards or some shit.
+Speaker B: Yeah, you can. But get what back.
+Speaker A: It.

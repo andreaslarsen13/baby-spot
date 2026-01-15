@@ -1,0 +1,392 @@
+Speaker A: Oh, interesting.
+Speaker B: What?
+Speaker A: I can't remember if this is intentional or not, but it seems like we kept some logic in there where, like, if you had put a stop time, like, you create a search, whatever. Let's say it's tonight, 6 or 7. The stop time would be 5pm by default, it's an hour before.
+Speaker B: And then if you go back and.
+Speaker A: Edit it and you're like, actually, we want to eat from 7 to 8. It keeps your stop time at 5. I think my best guess is, like, that was done to, like, not change someone's. Like, if they had, like, noticed the stop time. And we don't want to change their expectation of it.
+Speaker B: Mm.
+Speaker A: But it's a little bit goofy because then if you change your meal time, you're almost definitely trying to. You don't want to keep the stop time the same.
+Speaker B: Right.
+Speaker A: But I'm kind of like, why don't we always just move it, especially if it wasn't touched.
+Speaker B: If I set up a stop time intentionally, and I'm like, all right, I'm gonna stop it 48 hours before.
+Speaker A: Yeah.
+Speaker B: And then I change it from six to seven to seven to eight.
+Speaker A: Yeah. I think you almost always want to keep it.
+Speaker B: I think I always want it.
+Speaker A: The Delta. Yeah.
+Speaker B: Yeah. I think you always want to keep the Delta.
+Speaker A: Right. Unless it's the only time we'll need to move it is if it's in the past.
+Speaker B: Yeah.
+Speaker A: Which we handle now.
+Speaker B: But.
+Speaker A: Yeah. I'm not sure why we change it.
+Speaker B: I'm not sure, like, that. I think we should move to the Delta if we can. Yeah.
+Speaker A: I think that's actually fairly easier than some of the logic we have probably.
+Speaker B: Yeah.
+Speaker A: A tangle of some weird logic going on with that.
+Speaker B: All right. It's good to simplify.
+Speaker A: See? It's good to simplify if it works.
+Speaker B: This half time is so goofy. It. All right, I'll fix that after we chat. All right. I think it would be, if you're cool with it, good to start with just the most abstract of how we want to think about occasions. And then we can get down into the details of the brunch lunch grouping. I agree.
+Speaker A: Sounds good.
+Speaker B: Because it feels like at least, like, there's something really nice about, like. Or natural, like, when you're speaking to a friend. Hey, you want to grab drinks after work? Hey, you want to go, you know, grab brunch Saturday? Hey, you want to see whatever, like, coffee?
+Speaker A: Right.
+Speaker B: There's an activity. There's something like, oh, I'm in the mood for a really cozy cocktail. Bar because I, you know, it's winter and I want to grab a drink and I want it to be. There's a certain, like, warmth that you're searching for. What is the infatuation? It's, like, good for. Is that what it is? Perfect for. Perfect for dinner with the parents.
+Speaker A: Right. There's good abstract brunch. They're not garbage. They get really specific. Yeah. Right.
+Speaker B: And then it's cool that you could do that. Right. Like, eventually you could be like, Spot, I.
+Speaker A: You know, super useful on the infatuation.
+Speaker B: Give me a brunch spot that's good for the girls who were going out. Yeah. And it understands what that is. And Rachel said that she gave.
+Speaker A: She couldn't go to Wild Cherry because she's going to drinks with a. Or dinner drinks with a friend who's, like, a student. So doesn't have a lot. Like, didn't want to go somewhere expensive and was like, I want to go somewhere with a shot beer combo. Like, that's so. Right. Right. Like, that's a really specific vibe.
+Speaker B: Right. Pickle shots, like, whatever.
+Speaker A: Like.
+Speaker B: Yeah, like cheap Bud Light. Like, there's vibes that. Right.
+Speaker A: That you can't really.
+Speaker B: You're not, like, you're not going into a resi. You're not going into these platforms knowing.
+Speaker A: That you could talk about it.
+Speaker B: But when you talk with a friend, you're like, yo, let's get cheap beers. And they understand what that is. And it's going to be sick when Spot understands or can interpret that and help you find it.
+Speaker A: And Gobi would probably try it right now.
+Speaker B: Goby would try. Gobi would probably. I mean, let me see. I feel like, what should I do? Should I do this? Let me do brunch. Let me do a bottomless brunch. Ask Goby. I need a good bottomless brunch spot for Saturday, and I'm a loser. So I need your help downtown, please. Okay. Processing your request. Searching Gobi. Processing. Reading online sources. This is new.
+Speaker A: Oh, they fully cloud code UI'd it.
+Speaker B: Yeah, they did.
+Speaker A: It looks so jank.
+Speaker B: It does. Reading online sources. Of course, they rewrote their whole app to be native. Yeah.
+Speaker A: Remember they were, like, flexing that.
+Speaker B: Yeah, that was something that you should tell everyone if you want. Saturday bottomless brunch. That feels like a party in the heart of downtown. Start with the factory. 380 for a slightly quieter. Go to the post, whatever. You know. And it pulls from the infatuation for both of them.
+Speaker A: They had a bottomless French list I was reading yesterday.
+Speaker B: Okay, so that's probably. And then it gives me a bunch of questions I can ask. What's the price range? Does post have a dress code? Is parking available near both venues? Anyway. Anyway, it does. Insane. There's a. It's cool that that's what it could become. And the more, you know, the richer data that we have, the more that you trust the thing. Like, I don't really trust Gobi, so I don't trust those two recommendations. And so it feels like that there's occasion that I think in my mind, I factor brunch into like this type of occasion and not like, not at the same level, of the same importance level as meal time category. I think it's only weird because we're doing like, because we're labeling the times using technically, it's an occasion. It's just the most general. Right.
+Speaker A: Because they blur. That's why it's weird.
+Speaker B: Right. Dinner, breakfast, lunch.
+Speaker A: There's like a generally agreed upon dinner time.
+Speaker B: Lunchtime. Yeah.
+Speaker A: Breakfast time and brunch time.
+Speaker B: Yeah.
+Speaker A: But like, coffee could be afternoon. Right. Or morning.
+Speaker B: Right.
+Speaker A: Drinks. I would say drinks has a pretty agreed upon.
+Speaker B: Yeah. Saturday, it's different because drinks could be anytime.
+Speaker A: Yeah, true.
+Speaker B: And so it, to me, it feels like the place. There's like, occasion that we could build into the restaurant discovery part of it. And then there's like starting with occasion and using that as like really richer input from the user without asking them for information, like time up front. Because, like, you could start with it, right? You could be like, spot, you know, I need a brunch reservation for Saturday.
+Speaker A: And then Spot drinks tonight.
+Speaker B: Yeah, Spot's gonna.
+Speaker A: Right.
+Speaker B: I need drinks tonight. Spot's gonna know that that doesn't go in the lunch category, you know, for the drinks. Doesn't go in the lunch category, doesn't go in the. In the breakfast category. And it really narrows it down. And then it kind of presents you with, okay, you know, I'm going to search for between 7 and 9 for your drinks tonight at these places. Like, let me know if that's good.
+Speaker A: And then you could say, no, you.
+Speaker B: Know, I'm not free until 8. And that's going to be like, once we have the concierge aspect of it that I think that's what the conversations are going to be like more so.
+Speaker A: Yeah.
+Speaker B: And so then with like the times, at least my feeling was just like I was clicking through it and I was like, I don't think of 9:00am as brunch. I don't think of 10:00am as brunch. I still think of them as breakfast, and then I think of brunch as, like, a very specific New York thing. I mean, it's everywhere. But in New York, my idea of brunch is, like, it just didn't fit in with dinner, lunch, breakfast, because it felt like it's mapping the times, and brunch didn't feel like mapping to the time. What do you think? What was your feeling when setting it up? I think.
+Speaker A: I think brunch is funny because I think it does mean different things to different people.
+Speaker B: Yeah.
+Speaker A: And clarity, including the time range, as well as kind of the occasion. And I think. My general, subjective. Like, if someone's like, oh, do you want to get brunch on Saturday? I would, like, target, like, a. I'd be like, you want to go at, like, 10, 11? Like, for me, it's a morning thing.
+Speaker B: It's interesting.
+Speaker A: But if they were like, oh, I'm not awake by then, so. Right.
+Speaker B: Like, yeah.
+Speaker A: Like, I'd be like. They'd be like, no, I want to sleep in. And I'd be like, all right, I'm probably gonna wake up and get coffee and food before that. When are you gonna go? One, two.
+Speaker B: Like.
+Speaker A: I think brunch is funny because it's also. It is. I mean, brunch is the weirdest thing because it's the blend of all of these. It's literally a blend of two meal times. Right. It's literally breakfast, lunch, but also it's frequently a different menu. It's frequently. And looking on. Looking on resi a ton over the past couple of days. It is the common thing where it's like, places do breakfast, lunch, dinner during the week. Most do lunch date. You know, breakfast is like, nothing. But on the weekend, they do brunch.
+Speaker B: Brunch.
+Speaker A: And it's like a specific. Like, yeah, you're like, oh, let's go get brunch. Like, you can't do that on a Thursday.
+Speaker B: It's more like a resi experience where.
+Speaker A: Right. It's a little bit experiential, but it's like, the weird thing is, like, if you are looking on resi for brunch, you are looking for brunch.
+Speaker B: Yeah. And, like, they don't have.
+Speaker A: You know, you're not filtering by the meal time. You're filtering just by a raw, spinny time range. But, like, you are booking a brunch reservation. Like, it's like. It's strange because in some ways, it does fit extremely well with what people are doing and thinking.
+Speaker B: Yeah, it does.
+Speaker A: It's a little odd as a time.
+Speaker B: Filter, but it's just weird to then have, like, when you have the mindset of, okay, it's Saturday. It's Sunday in New York City, springtime, I'm ready to have a good brunch. And then you go in the spot, and then you click the lunch category.
+Speaker A: It just.
+Speaker B: There's a mismatch vibe killer. It is. Because it's like, I don't want lunch. I didn't want. It's not lunch, and it doesn't. It doesn't fit into breakfast, and it doesn't fit into lunch. Because the thing that you're going for, it's like the only resi experience that's like a staple that is, like, it's.
+Speaker A: Also kind of a menu.
+Speaker B: Like. Right. It's not actually an experience.
+Speaker A: It's not an experience. It's just like, different menu, different things. But you do want to make sure that it's the thing. Which is funny.
+Speaker B: Right.
+Speaker A: But you want to go to a place that has, like, a brunch menu.
+Speaker B: Right.
+Speaker A: Like, the Four horsemen technically has lunch on the weekends. You can book it by clicking brunch on spot and choosing the time range, kind of. Whatever. I think that's just something that we can live with for now. Likely. But, yeah, it does get a little bit quirky, but there's, like, vast majority. It's like, brunch is the weekend thing.
+Speaker B: Right. And we can't just substitute out lunch because brunch for some people. So, like.
+Speaker A: And I kind of think we should. I actually wouldn't mind killing practice and.
+Speaker B: Seeing how that feels. That's another thing that we could do because. Yeah.
+Speaker A: The thing that has been most requested is brunch. Is brunch. Yeah. And then the thing that has been requested a couple times is lunch. No one has asked for breakfast.
+Speaker B: No.
+Speaker A: And it is possible that just the places are ass. That we're gonna be able to surface. Especially because we. These lists can only have resi right now.
+Speaker B: Yeah.
+Speaker A: But even with open, like, looking at.
+Speaker B: All the infatuation stuff last night, I.
+Speaker A: Was just like, ugh, they have good wrecks for breakfast. But New York is such a breakfast sandwich or bagel place.
+Speaker B: Yeah.
+Speaker A: None of those places are reservations except for a weekend. And then you want, like, a brunch place.
+Speaker B: I think that it's like, let's say that we remove dinner and lunch. Mm.
+Speaker A: And you open it up.
+Speaker B: It's just the breakfast hours. The experience would probably be, like, horrible. Right. Most places would be.
+Speaker A: I guess not.
+Speaker B: Most places are closed, but they are okay. Most places are closed at that time.
+Speaker A: A lot of places for reservations, it's.
+Speaker B: Possible, like for reservations they might be open, but for reservations. Yeah.
+Speaker A: But I do think in general, you're either like on resi or not.
+Speaker B: Yeah.
+Speaker A: You know, it's like, I don't think people generally do like a half day situation.
+Speaker B: Let me see what it feels like to go into resi and try to go for breakfast. And I can do a little map view so we can see.
+Speaker A: It's gonna spill some out. Be like, you want to eat at this omakase place?
+Speaker B: They start at 6:00am so I'll do nine. I'll do 9:00am I'll do nine. I can, you know, I can make a reservation at Two Hands. Sunday in Brooklyn.
+Speaker A: Yeah, Sunday in Brooklyn is one of the breakfast ones.
+Speaker B: Jack's wife, Frida, Hole in the Wall, Egg Shop, Kafar Crocodile. And so like, there's.
+Speaker A: There are places. Yeah, there are bad.
+Speaker B: No, none of those are bad.
+Speaker A: You actually somehow managed to get resi to filter out. It's junk.
+Speaker B: Yeah. It must be. Yeah, I'm not sure.
+Speaker A: I think it's just cause it's closed. The junk is closed. Yeah. Junk wakes up late.
+Speaker B: It just. It.
+Speaker A: But it's also like, how often have you ever done that?
+Speaker B: Never, I don't think. Never. I've never died.
+Speaker A: And I like a breakfast meaning. But it's always a coffee cafe, coffee walk.
+Speaker B: Mm. Yeah.
+Speaker A: Cause it's just like, why the fuck would we need a reservation? We probably want to go somewhere that doesn't take them.
+Speaker B: Because I think. What?
+Speaker A: We never anyone in there when you walk by.
+Speaker B: Right. And like, we can definitely. I mean, like, you made the lunch list. Well, you know, brunch list, breakfast list. Like, we can make the lunch spots.
+Speaker A: I was like, cool. There's actually spots that I want to eat at here.
+Speaker B: This is sick.
+Speaker A: It's kind of like. It gets into kind of power. Power. Corporate power. Broken lunches.
+Speaker B: Yeah.
+Speaker A: You know, power suit, pantsuit.
+Speaker B: Right.
+Speaker A: Situation. But like, it's fun. It's probably what people want to look for lunch are doing.
+Speaker B: Yeah. Brunch.
+Speaker A: I was like, yeah, there's a handful of places. Yeah, we can get better at recommending these. Yeah, we can.
+Speaker B: And breakfast.
+Speaker A: We're almost. Sorry, you were about to say something. We're almost kind of like. Like, if you think about where the products. Like if you think about the true concierge experience, you want to be like, oh, Spot's gonna Wreck some breakfast places. I want them to be sick. I want them to probably be the best breakfast sandwiches in New York. Best coffee spot. And you, like, tell me that Maru Coffee just opened. If I don't ask, that is what you want. It doesn't work in the reservation game paradigm. We're actually suggesting worse places and kind of like undermining our own credibility of, like, what's.
+Speaker B: What's cool.
+Speaker A: And I don't think people necessarily look.
+Speaker B: At it that way. It's. No, but we. It's true.
+Speaker A: It starts to, like, cause this weird cognitive dissonance of, like, over time. For us to shift into really good wrecks, we actually need to start pulling from everywhere.
+Speaker B: Yeah.
+Speaker A: And not just resi things. Cause we need to be like, hey, we need to. I want to go get drinks after this dinner. Right. That's an occasion. That's a separate thing. But, like, you might not get a res. Maybe you do. But, like, right. I have a breakfast meeting tomorrow. Where should we go around here? Jake, a couple weeks ago was like, oh, I have to get coffee with someone in Williamsburg. Where should we go? And I sent him like five places. He was like, sick.
+Speaker B: Thank you so much.
+Speaker A: None of them were. He wasn't looking to make a res. None of them weren't resi.
+Speaker B: Right. And so it's. It's interesting where for certain occasions, meal times, breakfast, for example, probably a large percentage of the people that are doing something for breakfast, they are really just looking for a recommendation. Not. Not.
+Speaker A: They don't want to rest.
+Speaker B: And right now the app is fully constrained by the supply that's on reservation.
+Speaker A: Platforms, which works great for dinner, which is awesome for dinner and places. People know, like, you know, like Rachel. I saw her this morning.
+Speaker B: She was at the gym.
+Speaker A: And I was like, where are you going for your beer shot thing? Because we had. Had texted me about last night. She was like, oh, we're just going to, like, go over to Cozy Royale. And I'm like, okay, that's the spot in, like, East Williamsburg by her. I don't know if she even made a res. But, like, she probably doesn't need one. You know, Like, I know she didn't have a spot search going, but yeah, she either, like, was able to just get one because she knows the place and didn't need a wreck or. Right. It's not even a. She didn't think that she needed one. And you want the app that's eventually going to be like, you know, where should I go in East Williamsburg? And it's like, oh, your friend Rachel likes cozy right off.
+Speaker B: Right?
+Speaker A: Because the idea of, like, if you're a user, right. You've been texting Brian and Andreas for a month being like, add brunch to Spot.
+Speaker B: Yeah.
+Speaker A: And then it's like, okay, Spot has brunch now. What do you want that to look like? Yeah, obviously you want to be able to pick a time range.
+Speaker B: Yeah.
+Speaker A: I think hitting a button that says brunch is exciting.
+Speaker B: I think so too.
+Speaker A: And then seeing a bunch of different brunch tracks.
+Speaker B: My gut says, kill breakfast, merry brunch, pop lunch, lunch weekdays, brunch weekends.
+Speaker A: I think that's kind of fun.
+Speaker B: And we can. We eventually should bring breakfast into it, but I don't think we should bring breakfast into it until we're displaying restaurants that are not reservation based.
+Speaker A: So the idea of, like, spot has breakfast now, what do you want that to be, right? You want it to be like, here's eight shit reservations. Or do you want it to be like, spot will tell you where to get coffee. Right.
+Speaker B: Go to whatever donut place.
+Speaker A: There's this new bakery.
+Speaker B: Right? That's what you want. That's sick. That is sick. And it tells you what to get there. Right?
+Speaker A: And Spot being like, oh, you can try to book Balthazar for lunch. Or like, I was reading the Infatuation and I didn't even know that Carbone was open for lunch. And in their thing, they were like, they had it on lunch list. And they were like, it's actually way. They were like, we like lunch battery at Carbon than dinner. And it's easier to get a rest. And I was like, that's good. That controls on Spot. It is gonna tell me that. And I'm like, oh, sick. Like, Spot, lunch is actually kind of lit because it's just like, here's these good dinner places that have lunch too.
+Speaker B: Right.
+Speaker A: Because I don't often need a lunch rack.
+Speaker B: Yeah.
+Speaker A: And brunch. We just talked about the breakfast feels like kind of a disappointment.
+Speaker B: Breakfast is a disappointment.
+Speaker A: And it makes more sense in my mind. Have the time picker be like, okay, cool. You selected a weekday, you see lunch. You selected a weekend, you see brunch.
+Speaker B: That makes more sense to me than going from having three options, having two and the time range, and having to.
+Speaker A: Do a little bit of math of, like, what's. I mean, the brunch one will naturally, I think, go a little earlier.
+Speaker B: Yeah.
+Speaker A: Than breakfast, but then lunch. But that's fine.
+Speaker B: It's fine. Yeah.
+Speaker A: All right.
+Speaker B: I like that.
+Speaker A: Thank you. I think.
+Speaker B: I think that Makes more sense too, because brunch is hard to book.
+Speaker A: Right. That's the other thing is, like, it's hard to know what places have good brunch as well as get a rest of them.
+Speaker B: I guess maybe the thinking for us is like, what can we like breakfast? What problem do we need to solve for people?
+Speaker A: Right.
+Speaker B: Occasion wise? Like cocktails. What problem solve for people?
+Speaker A: Drinks is an interesting one because it's like we can do some cool stuff now, but it's more. We cater to like high end drinks right now.
+Speaker B: Yeah.
+Speaker A: Where it's like, you want to go to this bar that takes reservations. Might be pretty expensive. You're gonna be paying $30 for drinks when you include tax and tip.
+Speaker B: Right.
+Speaker A: And that's a use case.
+Speaker B: Like, it is a use case.
+Speaker A: It's not super common, but people want that. And if you want to do like a Lux date night or whatever, that's great. But like, the real drinks case we want is like, yo, I want to get drinks with this girl.
+Speaker B: Right?
+Speaker A: Where do I go? We just went like, whatever. I have an 8 o' clock dinner res tonight so that we can get some stuff beforehand. What's good around this area.
+Speaker B: Right.
+Speaker A: That's a great use case. And it's not.
+Speaker B: Yeah, it is.
+Speaker A: You're not gonna be able to do the double res.
+Speaker B: No. Yeah. And there's a diff, like with food, there's. There's a difference, like the quality wise, like food versus drinks. Yeah. Because sometimes the thing that you do want with drinks is just like not a lot of people and a certain grungy vibe. Yeah.
+Speaker A: You want like a slop because the.
+Speaker B: Thing you're drinking isn't gonna, like, you're not gonna get sick. Right? So like, you're like, you can go anywhere and get a drink because.
+Speaker A: Right.
+Speaker B: Like, it'll come in a bottle or off the tap.
+Speaker A: Like. Yeah. You're not trying to go like, have a, like be at like a cool bar and drink a martini or something or drink your way through like the, like, top mixology, you know, bars in New York.
+Speaker B: Right.
+Speaker A: Martini list or something like every girl was trying to do last year or whatever.
+Speaker B: Right. And coffee, we. Yeah, they're just not on the. It's not a reservation game.
+Speaker A: And it's like coffee is like interesting and specific and we can tell. Crush it. And breakfast sandwiches we can crush, Right. Bagel, you know, breakfast bagel. That type of stuff in bakeries is wonderful.
+Speaker B: But.
+Speaker A: Yeah, you want someone to be like, hey, the Sa Taco does a breakfast burrito. On weekends or something. And it's actually really good.
+Speaker B: Right.
+Speaker A: Like, Rachel and Lane were obsessed with it for, like, a couple weeks last year. And I think there was a weird thing, like, in the beginning was, like, they still didn't open until noon or some shit.
+Speaker B: Yeah.
+Speaker A: So it's like you had to know that they have a breakfast burrito, but it's not even during breakfast time.
+Speaker B: Right, right.
+Speaker A: And that's the thing that SPOT could tell you.
+Speaker B: That is a thing that SPOT can tell you. SPOT is your guide for restaurants. The challenging thing is getting into the places that everybody knows, everybody talks about. There's a lot more information about it. All right. I feel pretty good about cutting. Cutting breakfast. Yeah. For now.
+Speaker A: The list was hard to make and.
+Speaker B: Generally bummed me out because it's so constrained. Yeah.
+Speaker A: Lunch was funny because it's like. Here, I can show it to you again.
+Speaker B: The.
+Speaker A: It's, like, pretty similar. Has no picture, but, like, it's not too different. If you scroll from, like, a lot of the places from, like, the dinner list, like, you'll recognize some of them. It's like, oh, cool. Like, they're open for lunch some days a week.
+Speaker B: When is Mineta Tavern open?
+Speaker A: I don't know.
+Speaker B: We need to put the hours on.
+Speaker A: The restaurant detail pages soon.
+Speaker B: Yeah.
+Speaker A: Because a lot of, like. A lot of the ones. Are you still doing a lunch search?
+Speaker B: I just did a lunch search. That's. So the.
+Speaker A: Everything on there is open for lunch most days a week. But some of them. A lot of them, like, only do lunch, like, Wednesday through Friday or Thursday and Friday. And so we need to be able to let you see that. Otherwise, it's like, why is this on this list?
+Speaker B: Right.
+Speaker A: But I tried to pick ones that if they. A lot of those on, like, Mondays or something, right? Yeah.
+Speaker B: Yeah.
+Speaker A: Thursday is bad, but Thursday, Fridays.
+Speaker B: Okay, I see.
+Speaker A: And sometimes Wednesday are good. Yeah.
+Speaker B: We gotta bring that on here.
+Speaker A: Yeah.
+Speaker B: Close during time window. Right. Like, what should it say?
+Speaker A: Yeah, because it's like, on Wednesday.
+Speaker B: You know what?
+Speaker A: Closed on Wednesdays is, like, good to know, but, like. Right.
+Speaker B: Closed on Thursday. It's good to have that as opposed.
+Speaker A: To, like, closed for lunch on Thursday. And then it's like, that leads you to be like, when is it open for lunch?
+Speaker B: Yeah.
+Speaker A: So I think.
+Speaker B: Right.
+Speaker A: We can do another pass probably, and put the hours on them.
+Speaker B: Yeah. Because I guess, I mean, there's. We'll get to our dynamic list. The list that filter the list that.
+Speaker A: Yeah.
+Speaker B: So we don't need to worry too much about that. Right.
+Speaker A: Now, but, yeah, it's a little funky.
+Speaker B: It's a little funky. But it definitely feels a lot better rolling out lunch and brunch than it does breakfast. There's such limited options.
+Speaker A: It felt like biting uphill a little bit.
+Speaker B: Yeah, that's a great call.
+Speaker A: Let's see what happens. Yeah, I think I can literally just delete the option.
+Speaker B: Yeah. Yeah, that's good. Because then when we do want to reintroduce the breakfast, we really have to think about how we do breakfast, which is how we should be approaching these different occasions. Like, we should. Right.
+Speaker A: Like, then it's like, we can get into more interesting occasions.
+Speaker B: Yeah, we can. Like, we'll have to do the same exercise when we really want to get into, like, bars. Right.
+Speaker A: And even, like, other kind of more special events at some point.
+Speaker B: Right? Yeah. Like, we should be able to, you know, like, it's fun thinking about the occasions, getting into the, like, the resi Experiences. They're more like occasions, like.
+Speaker A: Yeah, right. Like, those are cool. Yeah.
+Speaker B: Breakfast should be banished. Tactics make such a big difference.
+Speaker A: Oh, versus the prototype.
+Speaker B: Yeah. Dinner, brunch.
+Speaker A: Apparently, with some androids, you can control the vibration, and that's one of the ways they make those, like, web haptic SDKs. You, like, manually jack the phone's vibration thing, which is, like, so psycho.
+Speaker B: That is psycho.
+Speaker A: You shouldn't be able to do that from a browser.
+Speaker B: There's one hack that's like, you have a super submission field, and then you keep hitting enter on an invisible submission.
+Speaker A: Field because it gives you the error.
+Speaker B: Dinner, lunch. It's nice.
+Speaker A: Yeah, Yeah.
+Speaker B: I think it's clear. I think it.
+Speaker A: It makes more sense that it's like, oh, cool.
+Speaker B: They did, like.
+Speaker A: Then you're like, oh, they did a smart thing where on weekdays I'm looking for lunch. And I know that, like, I know that places do brunch on weekends.
+Speaker B: And now I click brunch. I see the time range. I realize that, oh, I can do anything.
+Speaker A: Right. You can go earlier. That's fine.
+Speaker B: It's really nice. Very nice.
+Speaker A: Do we need to expand the lunch range or do you think it's fine? I can't remember.
+Speaker B: The lunch range is 11 to 3.
+Speaker A: Oh, it's probably fine.
+Speaker B: I think it's fine.
+Speaker A: And brunch is like 9 to 2 or something?
+Speaker B: I think so. 9 to 2. 39 to 3, I guess.
+Speaker A: And you can book the 3 when it. Yeah, yeah, yeah. That's probably fine.
+Speaker B: It's good, I think now because before it was, like, covering the whole day.
+Speaker A: Except for one hour. Yeah. And that was just because literally we didn't want to add more rows.
+Speaker B: Right. But now it's okay not to have the full day because it's like we don't have the full day. Right.
+Speaker A: And it's kind of like, I do think you associate brunch with like ending. Even if you're booking like a, like, cool. We want to do an afternoon one. In my head that's like, maybe we'll go one or two. You're not going to go probably like 2:30 to 3.
+Speaker B: Right.
+Speaker A: Or if like you see, you know, you do your first thing on spot.
+Speaker B: And you're like, cool.
+Speaker A: Spot can look from two to three. Say, that's all I need.
+Speaker B: Okay. Well, it's very cool. I think something that will be nice to add is labels on like the, you know, the experience part, because the lists are good, but then you go into a different list and you see that the restaurant is open but it doesn't have a brunch. Yes. Like the brunch ones, it should say, you know, like, brunch, experience brunch.
+Speaker A: And like when you're looking for drinks.
+Speaker B: Say like happy hour, you know, like.
+Speaker A: Right.
+Speaker B: These like informative things that you want to know as you're browsing. But we can get to these like.
+Speaker A: Yeah.
+Speaker B: Data pipeline. And then like what smarter information we pull out and put on smart branches. It's going to be pretty cool. Yeah. Once we can do that, it'll be really sick, actually.
+Speaker A: Yeah. I think it's pretty soon, right?
+Speaker B: I think so too. What's your brunch and L. That's where we didn't even put breakfast.
+Speaker A: We knew.
+Speaker B: Yeah, we knew.
+Speaker A: Restaurant pages are kind of part of the pipeline stuff.
+Speaker B: Yeah. Yeah. It's the data pipeline. I think there's probably like the restaurant search and the restaurant pages v2. Change the whole discovery part because it just like it makes it so much smarter and you can do so much with the search and this new data. Yeah. Like, yeah.
+Speaker A: I mean, we're pretty much ready to.
+Speaker B: Build the data pipeline. I think. Sick.
+Speaker A: Because I think we can do upgrades.
+Speaker B: We can keep doing ad hoc for upgrades. We can keep doing ad hoc. I wouldn't want to do upgrades until we're battle tests our hit rate a little bit. Yeah.
+Speaker A: And then. And also probably have a little bit more thinking around, like, I think it'll be nice to know more about how well people convert to 50 because then we can start testing if we want to.
+Speaker B: We have a lot to. We have a lot to Test with price point with hit rate as we scale it a little bit and growth and we can like. It feels like core product now with this is almost entirely there.
+Speaker A: It's really good.
+Speaker B: Now we can really enhance the discovery, help people book more, find places to.
+Speaker A: Go to and like that stuff because it can happen just in the background of like, we get better data once it's. Once we're confident it goes on the restaurant detail page. Once those feel amazing, we can improve search a little bit.
+Speaker B: Right.
+Speaker A: But we don't like roll out a shitty search because.
+Speaker B: No, what's the fast for it? Right?
+Speaker A: Like we're fine. Like we can.
+Speaker B: Yeah, we can take our time. But then we. It's not like we're introducing new functionality. It's just we're enriching the current product and feels nice because we're not changing anything. I like not changing things. Yen 2 and then we get closer to being able to do talk to spot on the homepage or through imessage.
+Speaker A: Which also the fewer features we have in the app, the better that'll be because then we don't have to give it the power to do like 30 fucking unrelated things.
+Speaker B: Oh, spot grid.
+Speaker A: Make me a new list. Rate this restaurant.
+Speaker B: Drop a review, save it to.
+Speaker A: If the surface area is huge, the AI surface area has to be huge. And that's where they break down.
+Speaker B: Yeah, it does. It's got its own tool usage.
+Speaker A: Right.
+Speaker B: 20 different tools. Like, oh, it's like make a. Make a list.
+Speaker A: Save to my head list.
+Speaker B: It's like, what.
+Speaker A: What list do you mean?
+Speaker B: Create list. Yeah, it's gonna be very confusing. Yeah, Create list places.
+Speaker A: Maybe I'll propose to my girlfriend.
+Speaker B: Great.
+Speaker A: Texting your girlfriend for recommendations for proposals.
+Speaker B: Right. There's probably like the location, like once we have the more dated neighborhood. Yeah. Around, you know, near me.
+Speaker A: That one people have asked for. That one's like probably the next most requested out of all the stuff that we. Now that we've shipped. Open table and brunch.
+Speaker B: Right. We're just like, we're not a guide yet.
+Speaker A: Right.
+Speaker B: We're just like an incredible tool and.
+Speaker A: We don't want people to think we're a guide.
+Speaker B: We don't want people to think we're a guide.
+Speaker A: That's why we haven't done a separate discussion.
+Speaker B: Right.
+Speaker A: Because it starts to feel.
+Speaker B: Yeah.
+Speaker A: That's the Web2Guide.
+Speaker B: Yeah. It's Foursquare. Right.
+Speaker A: Which was, I think wasn't the Foursquare tagline like your city guide or something?
+Speaker B: Maybe. But once we become Once we have the data to actually become a guide, it becomes really fun. Yes. The four Square Church. I just don't want to become whatever that experience we just had with Kobe. Yeah. I don't even want, like an AI to like, give me these, like, cards, you know, I wanted to like, send me a really short message.
+Speaker A: Yeah.
+Speaker B: That just says the name of the place. And then like, maybe I can tap on the link and something pops up.
+Speaker A: Yeah. But the, like, it's too much to have to scroll up and down those cards.
+Speaker B: It's so much. And then it's like, I'm just reading a Google search. I want a friend's recommendation.
+Speaker A: Right. Like, when I text someone, I'm like, hey, we could go to like, this, this or this. Yeah, yeah, this. And maybe in parentheses I'll put like, wine bar.
+Speaker B: And then.
+Speaker A: Like, I did like, when I was meeting like, Reggie and our friend who was visiting from us at last weekend. Reggie was like, brian, pick the spot in Williamsburg. And I was like, cool.
+Speaker B: If you're in the.
+Speaker A: If you're feeling wine bar, here's two good ones. If you want to do more, like, here's this goofy kind of tropical cocktail bars over here. And then he just picked like, let's do that wine bar.
+Speaker B: Cool. Right.
+Speaker A: I don't. Maybe he looked some of them up, maybe he didn't.
+Speaker B: Doesn't matter. Right.
+Speaker A: He knew what he needed to know.
+Speaker B: Like, I would like to, as I'm like building trust with this thing to be able to like, almost like hit a drop down on a message. The way that you can do with like the thinking. Yeah. And then have it be. Not like, oh, you know, it's gibberish or it's thinking, but just showing, like, probably like infatuation score. New York Times profile. The reasons why it's recommending this thing. Like, your friend has been there. Like, really meaningful signals of how it arrived at this recommendation.
+Speaker A: Yeah.
+Speaker B: Just so I can know, like, oh, there's something behind it. And it's not just like reading one infatuation profile and then regurgitating.
+Speaker A: Right, Right. Like, I shouldn't be able to know exactly what page it visited. And the snippet of the paragraph.
+Speaker B: It doesn't matter to me. Yeah. It makes it worse because it grounds it.
+Speaker A: When I think I can tell where it came from. I'm like, you are useless. I would have done that. Right. You gotta show me the thing that I wouldn't have done.
+Speaker B: Yeah. All right. I like the decisions we just made.
+Speaker A: Also took, like, no work. How about that.
+Speaker B: Yeah, it did. Right.
+Speaker A: We're done.
+Speaker B: Just had to disable the.

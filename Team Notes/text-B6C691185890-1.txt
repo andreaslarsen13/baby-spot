@@ -1,0 +1,935 @@
+Speaker A: A startup that we should actually raise money for, blah, blah, blah. And then just the winding road took us to turning Resibot into a product.
+Speaker B: Okay, nice. And then are you guys thinking you're gonna like, what are you thinking about it? Are like trying to bootstrap it or are you gonna try to raise money.
+Speaker A: Or do you not know that's a very active competition. Yeah.
+Speaker B: Okay.
+Speaker A: Thought process. Our latest, like there is a play where it's a venture backable company as sort of like a new Resi that begins like.
+Speaker B: Yeah.
+Speaker A: Just by this like weird, like, because it's like Resi's like a two sided marketplace. Right. Of like restaurants and people. And those are hard. But we have like this hack of like we could start and get a whole community of people and then just like steal supply from essentially like all the other platforms and eventually get big enough that we're like, hey, Lulia. Yeah. Flip over to just using us instead. We could start by giving them kind of like a dorseus battle thing where they some of their tables, but not all of them. Okay, cool.
+Speaker B: And then have you guys. Because like what I've learned by primarily talking to Ben Leventhal. Do either of you guys know him? He's out of Blackbird.
+Speaker A: Are you friends with him?
+Speaker B: I'm friendly with him. So if you guys want to be connected, I can love connected. He like those platforms are ancient basically. Right. Okay. And that's what you were saying the.
+Speaker A: Other night, that like OpenTables started like 1999.
+Speaker B: Yeah.
+Speaker A: It's like 30 years. Almost as old as us. Okay.
+Speaker B: Wow. Are they. How does the money work? Like, how does Resi make any money?
+Speaker A: They charge the restaurants.
+Speaker B: Okay. Restaurants are paying for that.
+Speaker A: And they're basically just like Resi and opentable, just like kind of compete.
+Speaker B: Okay.
+Speaker A: With each other on pricing. And then just like if one really wants to get a table off of the other one onto their platform, they'll just like give them a slightly better deal. Yeah.
+Speaker B: Okay. Because I had seen, I had seen some of like these really good restaurants because it was always like, all the new restaurants are going to be resi.
+Speaker A: Yes.
+Speaker B: And OpenTable was like sort of a dinosaur. And then recently some of the hotter restaurants have been moving over and I can't remember who I was. Someone in that industry had said that they like made a few good hires to basically because they were just. It was like dead in the water, basically. And that Resi has like no infrastructure anymore and was bought by Chase. Right. Or something.
+Speaker A: Amex.
+Speaker B: Amex.
+Speaker A: Okay.
+Speaker B: And since then, have been completely, like.
+Speaker A: So sorry that you guys keep bringing it up.
+Speaker B: So.
+Speaker A: Yeah.
+Speaker B: Anyway. Okay, that's interesting. So the. It's a SaaS business for the.
+Speaker A: For them, it's a sass but festival.
+Speaker B: Okay.
+Speaker A: Okay. Literally yesterday, we learned that beloved Sailor just defected to OpenTable.
+Speaker B: Oh, really?
+Speaker A: Yeah.
+Speaker B: Oh, no.
+Speaker A: And that was one of the ones where, like, the bots. Yes, really reliable.
+Speaker B: Yeah, yeah, really reliable. Okay, so we went.
+Speaker A: Yesterday was like. I, like, went to do something with, like, looking at Sailor and then the resi page was like a Not found when you clicked on. And I was like, oh, okay.
+Speaker B: Well, we had our. Gotta get coding.
+Speaker A: So in the mix. I already did. It's. We usually work out of that conference room and, like, our whole, like, road map ideas are up there. And the open table. Yesterday we were, like, boosting it forward.
+Speaker B: Okay, great, great, great, great. Okay. I mean, I have thoughts.
+Speaker A: Wait, do you. Do you want food? I do want food. I'm.
+Speaker B: I'm quite hungry.
+Speaker A: Let me order. We can walk.
+Speaker B: Let's order.
+Speaker A: Yeah, that's why it's cold. We normally.
+Speaker B: It's an in. Yeah. Guys, I can't get over this.
+Speaker A: Like, it's a sick office. It's really cool. You have to see that. Have you been in that conference room before? No, that's the, like, boardroom one. The walls are full glass, and it's, like, nice. No one's here on Fridays.
+Speaker B: Oh, really?
+Speaker A: And so we have, like, the whole run. Oh, cool. Yeah, that room. And it's actually, like, the view is so good that this drag, it's, like, really less productive.
+Speaker B: Yeah, I can see that.
+Speaker A: I can see that. Be like, lar Business executives. All right, do we want. Yeah. If you ever want to come hang out on Friday.
+Speaker B: Nice. Cool.
+Speaker A: Do we want rubies? Do we want quinoa kitchen?
+Speaker B: I would go with a quinoa kitchen. Like a salmon situation from there.
+Speaker A: Likewise. Great. It'll be here in 10 minutes.
+Speaker B: Oh, my God.
+Speaker A: Incredible.
+Speaker B: I. Yesterday, I used to get migraines all the time. I haven't gotten them in years. Then yesterday, I, like, show up to the pleaser office. We're like, an hour out from the stream, and I was like, oh, no. Like, have you ever had migraines, either of you?
+Speaker A: No, but my old roommate, like, gets them regularly and they take him out.
+Speaker B: For a day, and I was like, oh. I, like, basically the first thing that happens, at least for me, is, like, you basically can't see. Like, it's just, like, a ton of spots. And I was like, no.
+Speaker A: What's happening?
+Speaker B: And then I went home and, like, literally just, like, on the bathroom floor for, like, three hours. Hours. Like, miserable. And then I woke up anyway. I was like, you know when you're, like, sick and you're like, you don't know what to eat, and then it's like 5pm and you're like, I'm so hungry. I'm like. I'm, like, ill. I'm so hungry. Anyway, I had one of those days yesterday, so I'm like, I need to reset, like, a normal eating pattern. Like a healthy bowl. I, like, made myself food, but. Okay, I think I'm just gonna do this one. Wow. Quinoa kitchen. I haven't ordered from here in a while, but really, like, stepping up their game.
+Speaker A: I feel like they got good stuff. We. It's a favorite.
+Speaker B: Okay, so you're living in Greenland, right?
+Speaker A: Yes.
+Speaker B: Okay. Same. What happened with the neighbor? You had, like, a weird neighbor situation, right?
+Speaker A: We've learned to coexist. Yeah. We sent an email to. We showed up at the. The property manager's office.
+Speaker B: Oh, my gosh. You got that back. Okay.
+Speaker A: They were not happy because we broke into the building. They were like. We were like, there's an attempt at eviction.
+Speaker B: Okay, wait, you gave him a letter?
+Speaker A: We gave him a letter that just, like, wrote up everything. And it was like, this guy's, like, borderline harassing us. We're scared.
+Speaker B: Yeah, yeah, yeah.
+Speaker A: And then we sent an email to the owner of the apartment.
+Speaker B: Okay.
+Speaker A: This woman. And we put some legal language in there.
+Speaker B: Nice. And trash should be too legal.
+Speaker A: We got. Yeah, we got a response from her lawyer being like, do not threaten. And we were like, cool. We were like, oh, maybe we fucked that one up a little bit. But the owner called the apartment below us.
+Speaker B: Okay.
+Speaker A: And we haven't had an issue since.
+Speaker B: Oh, great.
+Speaker A: She did something.
+Speaker B: She probably. You see, it's a man, right?
+Speaker A: It's a man, but it's with his. His translucent girlfriend is there.
+Speaker B: Okay, okay. Okay.
+Speaker A: And we run into them in the hall. We don't say anything. There's no. There's no. There's no relationship. Like, this one time, they have a Jesus poster. What? A painting of. With the Jesus hands with, like, a little. Know this. They're just like, not, like, where is it? Like, outside, out in the hall in the hallway. So when you walk into their apartment, it's the one thing that you see on the right is this, like, this thing from the Bible. And it's like, you guys are not. You guys are harassing us. Yeah. So we have the power. Yes. Really brutal.
+Speaker B: Yeah. I had a situation like that years ago. The building that Will and Al and Matt and I lived in, we lived across the hall from here.
+Speaker A: Yeah.
+Speaker B: And we had two DJs that lived below us. And they were, they were the worst.
+Speaker A: People in the world.
+Speaker B: Like, I was like, I can't talk to people. And they would like, they, they were just horrible. And it got like, it increased. It was like very passive aggressive for a while, like what we would do and what they would do. And then it like built and built and built until finally there was like a full on like screaming altercation in our apartment. And I was like, this is so bad. And then it kind of like leveled out sort of. But this is a really long story. I'll cut it short. Essentially, a year later, I'm. I've had Soho House. I go in for my interview and she's the one who's like interviewing me.
+Speaker A: No, I was like, I was like, hey, really?
+Speaker B: It's been a while. And she's like, hey. And I was like, it doesn't look like the DJ careers are going so well. Anyway, it was like, I was like, wow, New York is way small.
+Speaker A: Incredible running.
+Speaker B: Who you're going to live above.
+Speaker A: Right, Right.
+Speaker B: But it was really tense and it was like anytime we saw each other, no speaking like, like truly not on speaking terms. And I was like, this is crazy. But yeah, then you just coexist.
+Speaker A: We coexist. He works in operations for some and she does. Probably for resi. And she does. She's like a marketing director at a Fendi or something.
+Speaker B: Okay.
+Speaker A: Okay. So cool. We're fine for now.
+Speaker B: I'm happy to hear it's results.
+Speaker A: Yes. Yeah, yeah.
+Speaker B: Okay. What's. What's the deal? What's the spot deal?
+Speaker A: I don't know. We're kind of to your. To your question. Question about the fundraising, etc. Curious for your take because there is an angle where we could go charge people now and try to pure bootstrap, which would be a little bit tough because we've been living off of our set aside Runway for six months or so at this point. But definitely the app could make some money right now. But we might also just try to get a bunch of angels to put in a little bit of money.
+Speaker B: Okay.
+Speaker A: Which would like give us like, we don't need that much to start making money from the app, but it would get us through the kind of like valley of death.
+Speaker B: Yeah, yeah.
+Speaker A: Just like sad personal finance. Totally. Totally. But also, like, I think that gives us the opportunity to, like, go to some, like, strategic partners of, like. Yeah. Like Ben Leventhal type person. Like, other people that we would want kind of, like, in our corner. Like, people who have, like, who own restaurants that we're connected to, where then the ask to, like, use the thing in their restaurant would be much easier.
+Speaker B: Yeah.
+Speaker A: Yeah, totally. So we might do that.
+Speaker B: Cool. That's interesting. I. What's the, like, fear? Like, is there any fear that, like, you're just gonna get. That you guys are gonna get shut off and then it's over?
+Speaker A: Not a ton.
+Speaker B: Okay.
+Speaker A: Resi, like, straight up laid off their entire body.
+Speaker B: Okay. Okay.
+Speaker A: And I think, like, it's a little bit of, like, a race where if we can get enough people onto the app before we, like, run into, like, a crazy problem with resident or OpenTable.
+Speaker B: Yeah.
+Speaker A: Then we have the power to go to a restaurant and be like, hey, do you want access to this cool supply of people?
+Speaker B: Okay.
+Speaker A: Do kind of, like, a Dorsey thing. We could even, like, figure out some sort of, like. Like, restaurants. Dorsey has, like, a lot of restaurants.
+Speaker B: Okay.
+Speaker A: Because they do the guaranteed payment thing. Like, have you ever used it? They do. I actually haven't either, but we've been tinkering with it. But you, like, commit to, like, spending, like, 300.
+Speaker B: I see. Okay.
+Speaker A: Per person. And then if you don't go. Charge you 300.
+Speaker B: Okay.
+Speaker A: And then also if you go, then, like, the checks are higher because you're, like, trying to pay.
+Speaker B: Okay. I'm also seeing that Resi's trying to do that, like, for big parties. Yeah. They have a couple for Bar Americano, I think, like, it's Al's birthday, and it was like, we're charging you 300. It will be taken out of your bill. And it was, like, for eight people. And you're kind of like, whoa. I think cocktail bars, it makes sense because they're trying to be like, if this table can be held. But anyway, that's interesting that that's, like, becoming more common. And I can see it being really appealing for restaurants.
+Speaker A: Right. Like, as soon as you give them kind of guaranteed.
+Speaker B: Yeah.
+Speaker A: Money from a table, they're like, great. We will give you, essentially, that table to try to get to your.
+Speaker B: Yeah.
+Speaker A: In front of your people.
+Speaker B: Okay. And then what are you guys thinking? The solve for, like, when there's more people on there.
+Speaker A: I think at that point, hopefully, we will have enough relationships with restaurants that we can just, like, go to them and be like, hey, like, we have like 20 people who we know are like real people who aren't gonna play who want a table.
+Speaker B: Yeah.
+Speaker A: Like, are you down to give us a little bit more supply?
+Speaker B: Okay.
+Speaker A: And then there's also stuff where, like, we could charge a subscription to, like, give. Like you could be like a priority type member.
+Speaker B: Okay. Okay. Okay, cool.
+Speaker A: Like the. Because the density is actually not like too crazy. Like, I think, like, it requires a good amount of people before you start to have like, true sex on one night.
+Speaker B: Okay.
+Speaker A: Where it's like, oh, four people want to eat it. Like, you know, whatever Bar Americano on Friday.
+Speaker B: Okay.
+Speaker A: And so it's like more often gonna be like a couple people that most. And then it's like, if somebody's like a paying priority member, they would just get the first table and then.
+Speaker B: Okay, okay, cool.
+Speaker A: Restaurants would be getting supply from the restaurants. That's when it. You can scale. There's. There's some hacky ways where we can. Tables open up when you call and when you email.
+Speaker B: Okay.
+Speaker A: The actual restaurants. So there's some ways to go out and do what resi and open table the supply that they don't have. And then there's people kind of swapping and giving reservations, like using Resx if you've ever used it. And so there are tables that are floating.
+Speaker B: Okay.
+Speaker A: Out there. There are tables in the computer and we just have to like, get them out.
+Speaker B: Okay.
+Speaker A: And so there's some solved. There's. Yeah, there's a goofy, like, matching problem of like, some people. Like, one of my friends tomorrow has like a table that like plastic beds and she like, got the res. And then I, like, she texted me about it. She was like, oh, my God. It was like the first time I bought it got her. And she was like, it got me a table. Like, I'm so excited. Blah, blah, blah. But also like, if. Because then I texted her. We were doing the like the thing with like the Lilia reservation yesterday that we'll tell you about. But like, she was like, if the bot climbs like a vibe here place for Friday, I would like, do that instead. I was like, yeah. I was like, don't cancel your PDF one.
+Speaker B: Yeah.
+Speaker A: We'll have the bot try to find you like a kind of like, more upscale whatever place. And then we can like, give that to someone and then give her PDF.
+Speaker B: Okay.
+Speaker A: Okay. Like, there's this kind of like, we can also like, if there's enough people, like circulate things and then spread them to other.
+Speaker B: Okay, yeah, yeah. Because I feel like that happens like so informally all the time between friends. But it would be really nice if it was like, there's like a place you can sort of serve that up.
+Speaker A: Yeah, exactly.
+Speaker B: Is that what Resx is?
+Speaker A: Yeah, Resx is that you can give it up. You can. I can't go to this reservation. I don't want to pay a cancellation fee. So I put it on Resx and someone claims it.
+Speaker B: Okay, that makes sense.
+Speaker A: And they started, I think by doing a little bit of like, it must be somehow similar to some of what we're doing where it's like they would just like have a handful of tables and like kind of cool trendy spots. I see post about that.
+Speaker B: Okay.
+Speaker A: They actually start. I think they were only on doing this on Instagram. They did it on an app. And you would like go to the Instagram stories and they would be like, table for two with Bridges tonight.
+Speaker B: Okay.
+Speaker A: And they'd reply and try to be the first one to like claim it. And they're like, okay, cool. It's under, you know, Ben, it's in the dining room for two.
+Speaker B: Okay, nice.
+Speaker A: And then I think they did that enough to like have whatever a dozen per day or week or something made that app for it so you could go in and claim them.
+Speaker B: Okay.
+Speaker A: And then to try to scale, it was like you could also, if you had one that you didn't want, offer it up on the app, like a credit to claim some other content. Like that clearly didn't get them very far. Yeah, they're still around, but it's like not. There's like nothing really on there ever.
+Speaker B: Okay.
+Speaker A: Yeah, it doesn't. I don't think it scaled. I don't know how serious of a company there.
+Speaker B: Okay. And then how are you, like, what's the price point? You guys are thinking? Like, do you have a sense for how much you charge people? Like if it was a subscription or something or I guess maybe seeing that other bought. That was like 18.
+Speaker A: I know.
+Speaker B: Yeah. That's crazy.
+Speaker A: That is crazy. I. Yeah, we're gonna charge like 17.
+Speaker B: Okay. Okay. Are you thinking like a subscription? Like, what are you thinking?
+Speaker A: There's. There's a couple. Like, there's one interesting model. Is the per booking.
+Speaker B: Okay.
+Speaker A: Sort of like booking fee? Because like I think not $20, but like a five or ten dollar fee for some places is like, if you consider that part of like your check, it's like, yeah, yeah. If you're going to the Four horsemen, you're spending $200 or more for two people. Like, yeah, $10 on top of that to get you, like, a primetime res. Like, totally.
+Speaker B: A lot of people would do it.
+Speaker A: Like, maybe five for a lot of spots. If one's available when you literally start the search, it's free because. Yeah, that would be weird.
+Speaker B: Yeah.
+Speaker A: And so, like, that's something we want to play with. But then also, like, there might be some stuff that is worth a subscription for, like the kind of, like, priority bookings or, like. Yeah, we find cool reservations and we want to give them out or do the swapping type stuff. Like, okay, you're a $20 a month member, $10 a month member.
+Speaker B: Okay.
+Speaker A: You would also get that.
+Speaker B: Okay, cool.
+Speaker A: Yeah, a bunch of tiers. Like, they do, like, you can get tables at, like, really only, like, kind of mid spots. If you're on the, like, how much is the basic one that you signed up for? 175 a year is the basic.
+Speaker B: Okay.
+Speaker A: And then there's a $5,000 tier.
+Speaker B: Okay.
+Speaker A: Which you get back in $5,000 worth of fun coupons is what they call it. What? So, yeah, the name.
+Speaker B: Oh, I thought it was, like, spend at restaurants.
+Speaker A: It is.
+Speaker B: Okay.
+Speaker A: But they named them fun coupons.
+Speaker B: That's so weird.
+Speaker A: So weird.
+Speaker B: I guess $75,000 on fun coupons is, like, the craziest thing ever.
+Speaker A: You're all, like, trying to, like. I don't know, you, like, work in banking and you're trying to, like, impress some, like, Instagram influencer, get a meal on you. Like, it's 4,000.
+Speaker B: I feel like this is the problem with. Okay, so I was a waitress, like, I don't know, 15 years ago, and I worked at Cafe select, and it was like Groupon era. And I can't tell you how fucking annoying it was because it was like. And this happened all the time. And I see this happening with Blackbird a lot. It's like, no, the. The staff has no idea what you're talking about. Like, they show up for some paper thing and, like, maybe the manager knows. And I was always like, what the fuck am I doing with this thing? And then you don't get tipped on it. And like, that I feel like, was one of the problems with Groupon. And then I see that with Blackbird a lot, too. It's like, you show up to the restaurants and they're like this. The staff turns over so quickly at these places that, like, you're not training the person who was trained when they set it up or whatever, and no one wants to use a coupon. I mean, I know you're doing that. Yeah.
+Speaker A: So, like, so the branding is really Blackbird. Is that bad? Like, they kind of like, with the, like, in kind thing Layton likes.
+Speaker B: I know, It's. Yeah.
+Speaker A: The brand's like a very latent thing with Dorcia. The restaurant is bought in because they're handling payments.
+Speaker B: Okay.
+Speaker A: And so the fun coupons are only a really poor choice on the consumer side because you just. When you book a restaurant, you have to commit a certain amount of money. And so the fun coupons get used to. And so the restaurant doesn't hear, oh, I'm paying with fun coupons, which I guess are from the Wolf of Wall Street. Oh, wait, really?
+Speaker B: Yeah, it's like a wink and a nod to that.
+Speaker A: It calls money fun coupons or something.
+Speaker B: Okay.
+Speaker A: Well, that is, they have a gift. They have a gif of Leo in the app. It's like their branding is.
+Speaker B: Wait, can I see the app?
+Speaker A: Yeah.
+Speaker B: Also, I've never heard of it before. How have I feel?
+Speaker A: Like of Dorsea?
+Speaker B: Yeah.
+Speaker A: I'm kind of surprised. We know.
+Speaker B: I know. Maybe I'll see it and it'll rewind it.
+Speaker A: I think it's just old enough that it kind of fell out of vogue.
+Speaker B: Okay.
+Speaker A: Yeah.
+Speaker B: Oh, the logo looks kind of familiar.
+Speaker A: And, like, the name comes from the restaurant. From American Psycho. Yeah.
+Speaker B: Okay. Well, these people are movie buffs.
+Speaker A: They really have a specific, like, millennial cringe.
+Speaker B: Oh, I think I have seen this. Are they just in New York?
+Speaker A: No, No.
+Speaker B: I feel like I saw this one. Maybe I was going to Japan. Does that seem right?
+Speaker A: They have expanded a little. It's like a Miami guy, which explains a lot.
+Speaker B: Yeah.
+Speaker A: And so I, like, he, like, moved to Miami, like, right away, like, with the company.
+Speaker B: And then. Okay, so, okay, so you can get a table at the corner store for Sunday, but you have to pay 150. This is what you're speaking to per person, Right. Okay.
+Speaker A: The minimum spend. Yeah.
+Speaker B: Okay. That's interesting. Yeah, that's an interesting way of doing it. Kind of stressful.
+Speaker A: It is stressful.
+Speaker B: I also feel like one of the things that I have found that I've really enjoyed about. Okay, so, like, there will be a reservation on Resi, and it'll be like, I have to have some sort of down payment to take it. And even just, like, seeing the sticker price, I'm like, I don't. Even if I know, like, I can cancel it. I'm like, I'm just not gonna do that. But because you guys just do it, I'm like, oh, well, it's charged, and so it's actually kind of nice. It takes the, like, cognitive load that's required of thinking about, am I going to spend that much? How am I going to get there? Like, all those things that, like, either work themselves out or I cancel it out of the brain space. And so I think that's actually a real benefit. Like, I think showing money is actually that. I think people will be less likely to take the action because they're like, all of a sudden you're in your, like, calculator app, like, thinking about how much everybody's gonna spend, and it's, like, not fun. I mean, for a specific type of user, I think that would be fine. But I think for me, it's been nice to not. I'm not really thinking about the money that much. I do think the cancellation. When the cancellation situation.
+Speaker A: Yeah.
+Speaker B: Is I think there needs to be, like, a notification that's like, when you have. Okay, so like, I have five restaurants on my list, and it's like, let's say five restaurants for Friday night. And it's coming up to the windows that you will be cancellation windows that you will be charged. Like, getting a push notification to be like. Because I've just been putting in my calendar, like, cancel spot for, like, Thursday at, like, 5. I'm like, cancel spot. Because otherwise I'm like, oh, if I haven't gotten the reservation yet for four people on Friday night, and then all of a sudden I get it, then I'm like, scrambling to find, like, am I gonna get three other people that are supposed to get to this reservation? Does that make sense?
+Speaker A: Yeah.
+Speaker B: So getting push notification, and I think some of them are different per restaurant. A restaurant.
+Speaker A: Yeah. So either it's weird. Yeah.
+Speaker B: Okay. So they're not weird. It's just a little tricky, complicated. That makes sense. And saying like, yeah. Do you essentially want to keep this open or do you want to close it out because you're going to get charged it? Because it will book it for you.
+Speaker A: Right? Yeah.
+Speaker B: So that was like. That's like a. I've been hacking that myself, where I'm, like, putting in my calendar to cancel, if that makes sense.
+Speaker A: Would you. Let's say you have a search for five restaurants. You enter into the cancellation window for one of them. Would you like to continue the search for the rest?
+Speaker B: Yeah.
+Speaker A: So you want to just remove that one restaurant because you never want to get into the cancellation window.
+Speaker B: Not never. I just want to, like, be opting in. I want to know, like, I want to be Reminded that I'm headed into having to pay for something, basically.
+Speaker A: Right.
+Speaker B: But I feel like that could even be set up at the beginning where it's like, hey, do you want to be notified when these are going to be canceled or not? And, like.
+Speaker A: Right.
+Speaker B: Or have them removed once they start hitting the cancellation window. Because also, I know that that's when it's most likely to get the reservation is because other people have canceled it. And so then it, like, pops up or whatever. Right. So, yeah.
+Speaker A: So it kind of depends on, like, what you're kind of looking for. Like, Like. Because if your plan is, like, more up in the air, you're like, yeah, don't get me signed up for some cancellation fee. But if you're like, no, I need to. I have plans on Friday for whatever. It's like, yeah, get me something.
+Speaker B: Exactly, yeah. And I'll take any of these restaurants.
+Speaker A: How do you primarily use it?
+Speaker B: Okay, a few ways. Okay. So one, I haven't been doing this, but consistently, but basically every Friday night, I do a group dinner. So. And I. From previously from, like, basically January until end of April, I was getting reservations for six to eight people somewhere in New York every Friday night. And it was like a game, and it was, like, really hard. And every week I'd be like, fucking did it. Like, and I was, like, emailing. It was really fun. And then I'd, like, get. And my friend Jules was doing with me, and we'd, like, get a random group of people together. And so that. So then I've been like, okay, I can use. And I was just using resi notifications mostly.
+Speaker A: Yeah.
+Speaker B: Or I'd get a reservation for, like, five and then email them and be like, actually, it's gonna be eight. Is that okay? And, like, there was a lot of that. So then now I'm like, okay. I basically, most of the time, have been setting them up for Friday nights for restaurants that are. That I would like to go to for six people. And what I was saying that I'd love is to be able to say, like, it could be four people, it could be six people, it could be eight people. Or, like, different.
+Speaker A: Right.
+Speaker B: And then I would plan around because most of the time I'm. I don't have a plan. And I'm just like, oh, if I get a reservation, I'll make plans with people. So that's primarily how I'm using it.
+Speaker A: Okay.
+Speaker B: Is like, if I get a great reservation, then plans come together. I haven't really use it for knowing I have, like, a Wednesday night dinner. And I'm trying to get to one of these reservations because I think for the most part I'm using it for places that I'm like, it feels impossible to get into or it feels like special to get into. And so it's worth making plans around it. But I think because it's like up in the air whether it's going to happen or not. I feel like it's like not. Of course it's unreliable. So like if I have like a dinner I really want to have or like a plan set, then you wouldn't.
+Speaker A: Use it because it's a little bit of a. It's up in the air.
+Speaker B: It's up in there. Like I would maybe use it as like, oh, a backup. Like if we get into Il Cavalli or whatever, then like we'll change it. But yeah, I. I'm using it mostly like I'm gonna throw. I've. I have like no plans on Wednesday and Friday night. So I'm gonna like put some spot. Okay, cool stuff up and then if it comes together, I'll have plans. I'll make plans this night. Does that make sense?
+Speaker A: Yes, it does.
+Speaker B: I think though a feature that would be cool is like, okay, so if you're like grouping vibes, it's like, okay. Like it would require some trust in the curation of you guys. But it's like I think you could be like, okay, date spots. These like just clicking date spots, two people, 8 to 10pm or whatever on Friday or Thursday or Saturday. And it's like it's a basket. It's a basket or a group dinner, six to ten people. These. Maybe it's like these vibes. Like this is the vibe of the restaurant that I like. But yeah, like basketing stuff. I think I'd be like clicking those all the time. Be like, okay, great. See what comes together. Yeah, yeah.
+Speaker A: Okay. And the kind of like did you like the infatuation? Had the like perfect four.
+Speaker B: That was always good.
+Speaker A: Did you ever use that?
+Speaker B: I didn't. Oh yeah, yeah, yeah, yeah, yeah.
+Speaker A: You like filter it and like those categories used to be so good. Cuz they would be like yes first or like early dates or like parents in town, birthday, big group, loud, casual, expensive corporate car.
+Speaker B: Like yeah, yeah, yeah, yeah. I think baskets would be cool and baskets could be like. Yeah. Wouldn't have to necessarily be like a specific day. Like it doesn't have to be like the 17th. It could be like this weekend or like weekday. You know what I'm saying?
+Speaker A: Yeah. Yes.
+Speaker B: And then it's like you're forming plans around things that you're getting.
+Speaker A: Right.
+Speaker B: And then. Yeah, I would use that.
+Speaker A: Okay. Because it feels like for a lot of people, getting a great. Getting a reservation can be the starting.
+Speaker B: Point for a plan.
+Speaker A: Because then it's like, we already have. Yes. But it's stressful to be like, let's go out to dinner Thursday.
+Speaker B: What are we doing?
+Speaker A: You guys in Where?
+Speaker B: Okay. I also think. Yeah. Anyway, keep going.
+Speaker A: No, it's just interesting because, like, giving out this Lilia thing. We were texting a lot of people. Yeah. And a lot of people were, like, really pumped. They couldn't go.
+Speaker B: Yeah.
+Speaker A: They were still like, let me know.
+Speaker B: Yay. Totally.
+Speaker A: And there's something with like a booking product that's constantly doing work for you.
+Speaker B: Yeah.
+Speaker A: And if there's great curation, a great recommendation engine, and it's like, oh, your friend, you know, Brian loves this spot. Yeah. I think that could be really interesting to lean into because then it's like you're like, the flexible stuff is you're handing over more and more agency to the product.
+Speaker B: Yeah, yeah, totally.
+Speaker A: People find something.
+Speaker B: Because I also think, yeah, that's the advantage that you have that like, the AI of it all and like, the working on your behalf is the advantage over, like a resi notification. Because, like, I. I think also, like, for you guys, targeting, like, I'm the planner. Like, you need. You guys need to go find the mayor, like, who's the mayor of all their friend group. And like, because I'm doing this work whether I have a bot or not. And so it's like having a bot, I'm just like, oh, it's like supercharging. My, like, love of doing this stuff. And I enjoy it, but, like, it. And yeah, it becomes stressful when, like, it's fun when it's like, oh, I don't have plans and I'm throwing this out. It's stressful when I'm like, okay, I have this plan and I don't have a reservation yet. And usually I feel like the mayor of the group is not going to be in that situation very often. So they're like, not going to be. I don't think using the product as often for that type of. Because, like, if you're proactive enough to be thinking about getting reservations, they'll get one. They'll get one. Yeah. And so I think. And then I. I also think, like, having trusting this thing to have good recommendations and then like, the delight of spontaneity that could come from something that knows your taste and, like, knows generally, like, when and when and where you like to eat and offering stuff up to you is really fun. And like, I. Without having to be as proactive as setting resi notifications for those places.
+Speaker A: Right.
+Speaker B: And being like, okay, I need to go in. And like, I actually find the resi. I actually don't set up resi notifications that much. I think Rachel's like a power user around that. And I don't really understand that behavior because I'm like. Just seems like a lot of work and I very rarely get the reservation so much more. And it's like, it gets every. Almost every time I, like, click it, it's like, gone.
+Speaker A: And so.
+Speaker B: Okay, this doesn't really work for me. So I think having something that. Yeah. Is feeding you, like an opportunity for spontaneity. I can see a lot of people being into that gets to this other. Gets to a different archetype than like the like, mayor planner, person of the group.
+Speaker A: Because the mayor planner, I mean, you're skilled.
+Speaker B: Thank you. Thank you.
+Speaker A: And so if you are the mayor is a proactive person that is setting resi notify is checking, is looking for.
+Speaker B: Or like emailing. Yeah, emailing.
+Speaker A: Yeah.
+Speaker B: Calling. Yeah. Yeah. Like, really type A.
+Speaker A: Right. And so for that person, anything that's, like, super planned, they're already doing it.
+Speaker B: Yeah. I would say they probably already have something booked.
+Speaker A: Right. But I think they want, like, the better option.
+Speaker B: Yes.
+Speaker A: Or the just proactive. Yeah. Like, yeah, if you kind of make a plan, then, like, sick.
+Speaker B: Yeah.
+Speaker A: I'm a planner, so I will form the rest of the plan around this reservation that you give me.
+Speaker B: Yes, totally. And would. There's definitely reservations that I would, like, rather swap to.
+Speaker A: Yeah.
+Speaker B: Like, I might book like, okay. I have like a six top at Bar Madonna. But, like, if I got something better, I'd like, totally trash that and go somewhere else.
+Speaker A: Okay, interesting.
+Speaker B: I also think there's, like, I don't know, I feel like apps kind of rely on this sometimes or like hospitality apps kind of rely on this stuff and that it doesn't ever, like, feel that special. But I do think, like, experiential, like, what I'm looking for resi to surface is like, okay, Finney does this thing on Sunday night. That's like, I've never been able to get into this thing.
+Speaker A: Me neither. But I really want to go.
+Speaker B: Okay. And I'm like, always setting up res notification for it and it never comes together. They do, like, they have Like a back. It seems like someone's house and they like do a dinner there. It's like a seated finny dinner. And like, that's really cool. And then like sometimes Resi will have like, I don't know, like pop up chefs or like the SAA folks do like a bunch of different pop ups and things like that. I think there's no place where that feels like aggregated in a thoughtful way.
+Speaker A: Like Rezzy does such a bad job.
+Speaker B: Horrible. Like they could just have like a lift to hide them. And I'm like, I don't know why? Because like oftentimes they. Yeah, it doesn't make any sense to me.
+Speaker A: So like, yeah, they're so cool.
+Speaker B: Usually they're so cool. And like, sometimes I'm like, oh, I actually don't want to just like, I'm either. I don't want to go out and spend money just to go out. But like, if there was something special tonight, I would be like, okay, fine, like, I'll do that thing. So I think that's also an opportunity of like, if there's a way to surface those, like a bucket that's like.
+Speaker A: Pop ups or something, right?
+Speaker B: And then I would feel fine almost all the time. You have to pay ahead with those.
+Speaker A: And that I would feel right, because.
+Speaker B: You'Re like, you know what you're getting into and like it's a prefix or it's like an experience.
+Speaker A: Okay.
+Speaker B: Okay. So I think that there's like a very clear go to market with dating apps. I texted you about this, but I'm like, there's all these dating apps that are like not Hinge or Bumble or whatever. They're like alt dating apps. And I'm like, you guys should go to all those and be like, we'll be your concierge or whatever.
+Speaker A: Interesting.
+Speaker B: And like help all of these dudes who land on a date. And like, maybe it's even like there's some like, AI, like, okay, you said Wednesday at 8. Like, do you need a reservation for rotating? Because they are not the mayor.
+Speaker A: Right.
+Speaker B: And they struggle.
+Speaker A: They don't want to do this. They don't want to do this.
+Speaker B: And like, I think there's some, like, there's a few I'll have to look at, but there's a few that are like small teams that are working on like smaller dating apps that are trying to be differentiated. And I do think there's like a way to get in front of those types of people who would be willing to pay for it. Like, I was Texting you about this. But, like, I know guys who, like, pay concierge services to, like, book them, like, reservations.
+Speaker A: I told Andreas about this, and we were both like, what?
+Speaker B: It's crazy. And I'm like, guys, it's. It's. It's not that hard. But, like, it is hard for them.
+Speaker A: It's work. Yeah. It's extra work, for sure.
+Speaker B: And I think also, like, part of what they're using those concierge services for is like, bottle service type stuff.
+Speaker A: Like, like, oh, like, do an occasion.
+Speaker B: Yeah. Going to, like, little sister or, like, whatever. And, like, getting into those. So I think that's also, like, mixed up in there.
+Speaker A: Yeah.
+Speaker B: But anyway, I do think there's, like. Like, there's a boy category that is a lot of money and, like, really a lot of need.
+Speaker A: Right.
+Speaker B: And, like.
+Speaker A: Huh.
+Speaker B: So I think there's, like, the mayor. I think there's like, the dude who doesn't know how to plan and then you.
+Speaker A: Yeah. Yeah, that's a good one. My friend Chad has a dating app. Yes.
+Speaker B: Chad the friend.
+Speaker A: He was my, like, first boss ever.
+Speaker B: Okay.
+Speaker A: 10 million years ago. He's like a. He was the CTO of the first, like, startup I worked for.
+Speaker B: Okay.
+Speaker A: He worked at Uniswap briefly. Oh. He's like. I think he's in his 50s.
+Speaker B: Oh, wow.
+Speaker A: Yeah, he's got, like, full, like, 20 years on us.
+Speaker B: Okay.
+Speaker A: And he worked at Uniswap. Like, he tried to do a crypto pivot after working in Snapchat for a while. Everyone Uniswap kind of hated him.
+Speaker B: Okay.
+Speaker A: So it did not go well. Like, during this era, he also, like, gotta go meet someone. He got. He got divorced. And actually, really tragically, his oldest son.
+Speaker B: I don't know. Yeah.
+Speaker A: So, like. Yeah, not well.
+Speaker B: Yeah.
+Speaker A: Like, just. Yeah. It. Wait, really? Yes. Yes. It.
+Speaker B: That.
+Speaker A: It. Ra. It's Sam. Hello. Thank you. Have a good one.
+Speaker B: It. Okay, that makes sense. That makes sense.
+Speaker A: I had to take sailor author yesterday making because it's gotten so many people tables of sailor and they've been so hyped. But, yeah, we're good. Like, one of the things we want to work on is pulling in all those other ratings and.
+Speaker B: Okay.
+Speaker A: And stuff, like infatuation ratings and things like.
+Speaker B: Cool. I also think, like. Like, okay. Something I hate about resi is oftentimes I'll be like, want to leave out certain categories. Like, I don't. I want to have, like, climbing or something. But sometimes I'll just be like, okay, I know. I want to go to the lower side. Like, I know that my night one. The lower side. So like, let's find something in that area. But then all the things. Thank you so much. This is so exciting. All of the things that are available.
+Speaker A: Are like, I don't know. We all got the same. I got brown rice.
+Speaker B: Great.
+Speaker A: Wow.
+Speaker B: Very similar. Yeah. I would love to leave out sushi.
+Speaker A: Like, there's so many sushi. No, that's like every time you open Rey, it's like with of these 32 omakaz and you're like, I have never eaten one on resi, so.
+Speaker B: So it would be nice to be able to leave out certain like. Like if you're doing the bucketed thing to be like. Like, yeah, no this specific type of thing, but anything. Whatever.
+Speaker A: So really smart curated lists, which. Or baskets.
+Speaker B: Yeah.
+Speaker A: We were talking about the. It finds you a spot and cancel it or keep your search and look for a better one. Nice.
+Speaker B: I really like that.
+Speaker A: You do? Yeah, we're. I think there's a way to. Or there's definitely a way to like, automatically do the like. Okay, cool. There's a new table you want. Cancel your old one and then book the new one. The scary thing is, like, for some of the really in demand ones, like, we literally only see them for like a second.
+Speaker B: Okay.
+Speaker A: Chance we could like, lose your.
+Speaker B: Yeah.
+Speaker A: Oh, like, I don't think it's like a single, you know, in lockstep.
+Speaker B: Like, yay.
+Speaker A: But we can always book from in house account and then send that reservation to you.
+Speaker B: Oh, cool.
+Speaker A: We just added that because a couple people. This happened to Rachel. I don't know if she told you.
+Speaker B: Like, yes, I was. I was at that dinner and she was like, I'm so sad.
+Speaker A: I know. I was like.
+Speaker B: I felt so.
+Speaker A: I was like. Because we weren't. It was the first time that that ever happened. And so looking at kind of like the residue error law, you know, the responses, blah, blah, blah. Like, I wasn't totally sure what had happened, but we needed to validate it. And so I had to be like, rachel, do you have a resi on this date? And she was like, first she said no. And I was like, well, you're like, what? And then she was like, wait, yeah, I do. And then she was like, what did it find? And I was like, it's gonna be. I was like, this is the hardest news I've ever been.
+Speaker B: Like, and I'm really sad.
+Speaker A: She was like. She sent me a screenshot. She's like, this is devastating. We were. We were very Hurt as well.
+Speaker B: But we went to Casino and it was pretty good. They had a new chef and it's a lot better. For a long time I was like, Casino's like a great vibe, but the food is like very mid and the new chap is like the food pretty good.
+Speaker A: And then this same thing that happened to Rachel happened to my other friend Perry at SEMA this week. Oh, no. Yeah. It was dry. And the funny thing was it was like happening. The reservation opened up at like 1am or something.
+Speaker B: Okay.
+Speaker A: And it was actually available for like three hours. And so our Bob was just trying to look in there from like 1 to 4am and then you know, woke up the next morning and was like, Barry, that sucks. But so after that it happened twice. We were like, okay, okay. And so we added a thing where it'll backup book it under like one of my burner accounts.
+Speaker B: Okay. So we can like push it out to.
+Speaker A: Yeah. Do you care that the reservation wouldn't be under your account?
+Speaker B: Not really. I mean, I do think that there's like something about.
+Speaker A: I don't think this is like real.
+Speaker B: Like I've always wondered if there's going to be some benefit. If there's some benefit with resy. A prioritization of.
+Speaker A: Right.
+Speaker B: I. And I don't know if that's true or not. It's not.
+Speaker A: No.
+Speaker B: Okay. I was operating somewhere only for.
+Speaker A: For me.
+Speaker B: Okay. Okay. Platinum members.
+Speaker A: Yeah, me and the other Platinum. Me and the other Platinum.
+Speaker B: I don't mean to.
+Speaker A: I. I was going to wait to.
+Speaker B: Bring this up, but I am also.
+Speaker A: A Platinum member, so I'll see you at the meetings.
+Speaker B: So game recognized. Game.
+Speaker A: Yeah.
+Speaker B: But okay, there's no, like you booked over 300 times. You're getting. Oh my gosh.
+Speaker A: Like they literally, like they only prioritize. Like if you connect your Amex Platinum or like Delta Platinum or whatever, then you get some extra priority.
+Speaker B: That seems like such like. That's so crazy to me.
+Speaker A: Yeah. It's bad for the restaurant. It's literally actively marketing for the restaurants who want regulars.
+Speaker B: Totally.
+Speaker A: Like, they want to be able to be like, Brian, you've eaten at Lily at 10 times. You should just get a table easier than like the right tourist. Yeah. Who's like never going to come back here.
+Speaker B: I mean, that's part of why when you email.
+Speaker A: Right.
+Speaker B: For the most part, I feel like I get.
+Speaker A: They're so nice when you email.
+Speaker B: They're so nice. And like I feel like it's cuz oftentimes I'm emailing From the same. I wonder if they're like, looking me up.
+Speaker A: They're like, probably. Yeah. Like, oh, she's real. She's been here.
+Speaker B: Yeah. Also, I would want to know if I'm a restaurant even if. If I hadn't eaten at Lilia. But it's like, oh, this person eats out. Like, they have some track record of being like, someone who's going to spend money on eating out.
+Speaker A: Yeah, right. Or like, if you're the. You open like I Catalini or whatever. And you're like, oh, this person's been the poor person that much, even though I don't recognize her name or whatever. Like, that's part of, like, definitely would be part of our pitch to restaurants. Restaurants is like, we can not only like, surface this information in a better way than Resi does, but we could actually prioritize. Like, if Lily is like, we have an extra table. Yeah. Prioritize people who have been to Lilia before or like, have been to Missy or have been like some other Italian spot in Williamsburg but haven't been to Lilia.
+Speaker B: Yeah.
+Speaker A: We could actually make it available to those people first before the rest of.
+Speaker B: That's cool.
+Speaker A: The people. Because it's crazy that they don't have even basic restaurants like that. It's literally just because the main Amex thing is like, if you have the crazy Amex cards, they send the Resi notify to you like a few minutes before they send it to Amos. It's like a thing. And it's still just like, there's enough platinum and delta card holders in New York that it doesn't really matter. And like, yeah.
+Speaker B: Think that there's a lot of other bots. Okay. But like, who? Who?
+Speaker A: It's a dark forest out there.
+Speaker B: Okay. Unclear.
+Speaker A: A lot of scalpers for sure. When Appointment Trader was legal, like, because it got There was that state law that happened this year. Do you know about this? So sites like Appointment Trader of those marketplaces where you could sell a reservation, like, you'd be like, oh, I have a table at Lilia. I'll sell it to someone for 50 bucks.
+Speaker B: Okay.
+Speaker A: Friday.
+Speaker B: That was the thing.
+Speaker A: Big thing. Yeah. The site's still around. It's like, there's a couple of them. Appointment Trader was the biggest one at one point in New York was responsible for like 30 or 40% of all of their revenue.
+Speaker B: Oh, my God.
+Speaker A: Wow. And then the. This year, late last year, New York state passed a law banning resale third party marketplaces.
+Speaker B: Oh, really?
+Speaker A: Yeah. Without the permission. It's like I mean, it's not like the restaurant owners don't really want it because it's like the people who are paying for it, like, are unlikely to be regular. Like, they.
+Speaker B: Yeah.
+Speaker A: Restaurants want regulars more than anything.
+Speaker B: Yeah.
+Speaker A: And often regulars are like people that know people in the neighborhood or live in the neighborhood.
+Speaker B: Yeah.
+Speaker A: And the people who are paying for $100 to get the Carbone reservation are not a regular. Yeah, totally. And so restaurants didn't really love it. They don't really love having like a price discovery on a reservation ground. It feels weird.
+Speaker B: Being spent in the restaurant, right?
+Speaker A: Yeah, it's like. Yeah. It's literally just like, it's money that goes to the. It's incentivizing the scalper or the reseller or whatever. And then so like, banning those was kind of just like blunt, very blunt instrument thing to try to stop it. Probably as good for. For us because fewer bots, there's less opportunity. Yeah, definitely. People were doing that.
+Speaker B: Okay.
+Speaker A: There's like, still other. Because it is crazy. Like, if you just watch, like, a restaurant will like, release their reservations like 28 days ahead at like 10am or something.
+Speaker B: Okay.
+Speaker A: And I. When I first built the resibot, I was actually just using it to collect data on a bunch of stuff as well.
+Speaker B: Okay.
+Speaker A: Because I was interested in this. And if you like, run it and like, you check, like, I think Lily was one of like the 10am ones or something. So you'd like it exactly 10 on the dot. If you ask for Lily at like three weeks out or four weeks or whatever it is, like, you'll see like, the full list of that day available.
+Speaker B: Okay.
+Speaker A: If you check like 30 seconds later, all the prime time ones are gone.
+Speaker B: Okay.
+Speaker A: So it's just like there are a ton of just like people grabbing them and then like, don't really know what they're doing with them. Like, there's definitely some of those marketplaces of like, they're going to like Resx Dorcia. There's like a few others shitty snipey ones we found in the app store. There's like the one that you sent, the $19 one. And so there's a good amount of them. Often when we see like a reservation too, for a hot place, it's gone like a minute later.
+Speaker B: Okay. I also feel like luxury buildings will have like, in house concierge, like, I don't know why, but as a part of like, their amenities package and claim to have like, prime reservations at hot restaurants. And so I wonder if, like, I don't think these luxury buildings are, like, building a bot, but I wonder if there's someone who's, like, going specifically to those hospitalities.
+Speaker A: Yeah.
+Speaker B: Or real estate developers. Development developers, and saying, like, we'll get you these spots or whatever.
+Speaker A: I.
+Speaker B: Why do you think Black Bird has built this? Like.
+Speaker A: We really want to talk to Ben.
+Speaker B: Okay.
+Speaker A: Yeah. But my super gazillion foot high level take is he was like, when he was leaving Resi, he was like, I'm done with, like, the booking reservation game.
+Speaker B: Okay.
+Speaker A: Restaurants really need loyalty. Yeah. And, like, and the payment thing is really important. Like, you know, they're losing a lot of credit cards. Like, restaurants also do suffer from, like, chargebacks taking a while. It's like, that shouldn't really happen to a rest. Like, what is a balance? Charge back to a restaurant. There is a one. And then was just kind of like, working on the Blackbird thing. But loyalty is really hard for a lot of the reasons that we talked about. Yeah. And so he kind of, like, didn't realize that booking was becoming such a mess. But then also because he's like, the Resi guy and Resi invested in Blackbird, I think he doesn't want to do a Resi competitor.
+Speaker B: Okay.
+Speaker A: And so I think he's like, a little bit, like, just tired and knows that, like, to really solve this, you would have to do the full life cycle.
+Speaker B: Yeah.
+Speaker A: Of like, book, pay through. You know, like, if Blackbird was a Resi competitor, be like, you book through Blackbird, you pay through Blackbird.
+Speaker B: Yeah.
+Speaker A: Loyalty is integrated. The person doesn't have to do anything.
+Speaker B: Yeah.
+Speaker A: They don't have to be embarrassing. And then that's like, the actual solution here. But it seems like he's like, a little too, like, went a little too hard on the crypto thing a little too fast with like, like, network in the token now.
+Speaker B: Yeah.
+Speaker A: And then also just kind of like, I don't know if he, like, doesn't have the dog in him or just, like, is kind of tired or like, whatever. But, like, doesn't seem to want to re. Enter the booking space based on.
+Speaker B: Okay.
+Speaker A: Like, some podcasts we listen to with him.
+Speaker B: Okay.
+Speaker A: I think that there's.
+Speaker B: I wonder if he's, like, hesitant on the feet around it.
+Speaker A: That's what, like, I feel like there's, like, there's like, some network of like. Yeah. Like, explicit and implicit. Like, I'm really curious. You can't start Resi again. Like, Resi did invest in Blackbird, I think. Yeah, they did.
+Speaker B: Because, like, to me, it's like, I don't use Black Blackbird that often. I do, but like, I don't know, I. I just like haven't found a groove around it. And I like love this stuff. So I'm like, okay, there's something like.
+Speaker A: Not working around Same. Yeah.
+Speaker B: And for me it's like the benefits are never that good. Like.
+Speaker A: Right.
+Speaker B: And I just feel like if it.
+Speaker A: Was doing what you guys were doing.
+Speaker B: Then I'd be using it all the time.
+Speaker A: Right.
+Speaker B: And I'd just be like, okay, I'm paying with BlackBerry points or like, whatever BlackBerry pay. Right.
+Speaker A: You could be paying with fun coupons. You don't care.
+Speaker B: Exactly. I don't care.
+Speaker A: Like, yeah. People are putting down phone coupons of doors. Yeah, yeah. Right. So maybe it's a scale thing. Like they've raised 85 million.
+Speaker B: Yeah.
+Speaker A: And they're in five cities. And if you're trying to be the loyalty and payment system for the world's restaurants or for the US's restaurants, you have to do something that's like super scalable. And like right now if you go to South Carolina, which is one of their cities, you could walk into a restaurant and you know, could use. It could geolocate you and be like, oh, you're at Panera Bread again. And like then you could check in and that's just your bread. Bull is 32 fly. Right. And then all they need to do is they need to put this puck. And I think it's just like a competing with Resi and opentable. It's a slightly different game. It's much harder outside of New York. Yeah.
+Speaker B: Right.
+Speaker A: But if Blackbird had what we were building in their product, that would be the consumer facing product, not the loyalty points. That would be secondary and it would keep people coming back and they would be paying for it because it's valuable to rep. Like. Yeah. I mean he's super well connected. But the pitch clearly resonates with restaurants of like, hey, you can pay more loyal customers. We can help you with payments. There's a lot of like very web free brain. Like, would you like to own the network of blah, blah, blah that I'm sure is never once landed with a restaurateur.
+Speaker B: Oh, they never, they never talk about.
+Speaker A: Yeah, yeah.
+Speaker B: Web. Three of them is.
+Speaker A: Yeah. It's only in the like Andreessen deal. My mom or something like.
+Speaker B: Yeah, okay.
+Speaker A: Nice. Yeah.
+Speaker B: And L3. Sure.
+Speaker A: Yeah. Restaurants will own the network and this one won't charge a fee. Right.
+Speaker B: Yeah. I also think like, maybe it's a It's a very New York specific.
+Speaker A: It's definitely. I think so. There's like a weird market abnormality here.
+Speaker B: Yeah.
+Speaker A: But New York is like primary. Primary market. Like all the hottest restaurants, the capital of probably the world. Yeah.
+Speaker B: Okay, well let me think about how.
+Speaker A: I can ask button.
+Speaker B: I feel like maybe I'll be like, come on the pod. And then I can be like, hey, I've used friends who are right here in the studio come talk to you.
+Speaker A: We're in the little glass booth.
+Speaker B: Because I'm sure he'd like be down to chat and I think he'd have a lot.
+Speaker A: Yeah. Obviously a lot to say about him. Yeah. And it is like we would love to know essentially the answer to this question of like. I think, yeah, he's like scaled past the point where like he also definitely can't do any of the weird shit of like sniping resi tables or calling. He can't like.
+Speaker B: Yeah. Start.
+Speaker A: I think if he calls a restaurant and is like use Blackbird to book tables instead of rezi. I'm like, I feel like that's. Yeah. Like just not a thing. But if he recognizes this problem, then presumably he would love to yow in some. Like there's definitely a way for us to partner with them and like.
+Speaker B: Yeah.
+Speaker A: Help complete their loop and then. Right. It seems so obvious to me they send out emails.
+Speaker B: I think it's probably just like a prioritization thing.
+Speaker A: I think so like because.
+Speaker B: Yeah, they'll send out emails. That's like here's some, here's some reservations. And like yeah, they're not bad. Like they're not like reservations that I'm like, oh, these. Yeah, of course they're trying to move these too. Like they're pretty good restaurants.
+Speaker A: But yeah. Rachel sent me like a, a screenshot.
+Speaker B: Of one of them. The other it's like. But I'm like, okay, I'm emailing you guys. Like what? It's like a weird.
+Speaker A: Yeah, it is weird.
+Speaker B: And then I like went in there app the other day and I was like trying to figure out if they were going to like surface like cuz they do do like cool events and stuff like that.
+Speaker A: That I. Yeah, that stuff is neat.
+Speaker B: Yeah. And so. And like their network is crazy. Like he knows everybody and like you go to these like I don't know. They like have invited me to like a few pressed things.
+Speaker A: Oh cool.
+Speaker B: And I'm like, these are like really legitimate restaurant group. Like they. And they're not like they're on a press invite they're, like, friends with each other. And I'm like, okay. His network of, like, hospitality here in the city.
+Speaker A: He's been working in the restaurant industry for, like, 40 years or whatever.
+Speaker B: It's crazy.
+Speaker A: Yeah.
+Speaker B: And I feel like he's hired a lot of people. Like, the woman who was doing comms for them, like, was with him at Resi with, like, all these people who have sort of, like, been in this. In the scene and in that industry for a long time. And so I just think, like, yeah. I'd be really curious to hear, like, what his take is on, like, the reservation game and.
+Speaker A: Right.
+Speaker B: Maybe it's just, like, not. Yeah. Or an On Pete.
+Speaker A: They just. They have. Getting the real estate that they have is such a. Such a valuable thing. Crazy. How many restaurants have a blackbird puck in them. Right. The issue is me looking like a loser.
+Speaker B: 100%.
+Speaker A: Yeah. I just don't want to look like a loser. I don't want to.
+Speaker B: I don't want to do this. It's so embarrassing. Every time I do it, I'm like, me neither. And I literally made money to do it.
+Speaker A: Right. Really natural, like, funny crypto things before. It's just, like, the plain financial incentive, like, doesn't even always work. Like, sometimes this isn't human enough.
+Speaker B: Yeah, totally.
+Speaker A: The. I go to, like, the Lilia Cafe for coffee.
+Speaker B: Yeah.
+Speaker A: So many days. And so I, like, know a bunch of the baristas there super well. And a blackbird puff showed up in there, like, two weeks ago.
+Speaker B: Huh? Oh, in the cafe. Okay.
+Speaker A: In the cafe. And they have a little blackbird thing on the door. And I was like, oh, you got a blackbird now? And the guy. Because they used to do just, like, a little stamp card.
+Speaker B: Okay.
+Speaker A: I have, like, 30 of them.
+Speaker B: Okay.
+Speaker A: Forget about after they get five. And then he was like, yeah, that just, like, literally showed up here, like, overnight one night. And I was like. I was like, they didn't, like, train you guys on it? And he was like, no, I don't even really know what it does. And I was like. I was like, you're kidding. Like, they just, like. They were like, we'll figure it out eventually. And then he was like, yeah. Oh, my gosh.
+Speaker B: That's crazy.
+Speaker A: No one has ever asked me to check in.
+Speaker B: That's so crazy. I heard that they were doing. What's his name? Bentley. Do you know Bentley? He's friends with Rachel. He's married to Ronan. Anyway.
+Speaker A: Oh, they both. I know.
+Speaker B: Okay. And he is a bartender at 4, 5, 6, and I was at Rachel's birthday party a few months ago, and he was like, do you know about Blackbird? And I was like, what? Like, I was like, this is crazy. He's like, doesn't work. He's like a pop star at bartender. Like, it's like, not at all. And I was like, yeah. Like, how do you know about Blackburn? Oh, well, they just. Basically, they were. I don't know if they're still doing this, but I thought this was so smart. It's like they were incentivizing employees with Blackbird Point.
+Speaker A: Oh, I heard about this.
+Speaker B: To like, continue to use the. To basically solve the problem of, like, I'm a server and I don't give a fuck about, like, you getting your 30 discount.
+Speaker A: Right.
+Speaker B: Every time they used it, they. The server got some incentive, which I was like, that's really smart. But I haven't heard. That was the only person that I've heard that from. But he was like, shilling the shit out of Blackbird because he's like, I'm obsessed with it. And he's telling everybody about it. And I'm like, oh, if you can solve that problem, then that becomes a different story. But clearly they didn't.
+Speaker A: They have another Puck. A second puck has interested. It might even be the same one that's in. No, it's a different one that's in the back office.
+Speaker B: Oh, oh, really? Okay.
+Speaker A: And it's for the employees, for the staff to get points so they get. Not embarrassing to tap in at your job. No. And so you get a certain amount of points that you can then basically spend at other restaurants. So I think it's like, if the restaurant has. Is a restaurant group and normally employees, they get, you know, free lunch discounted, then they can go to the other ones.
+Speaker B: Oh, okay.
+Speaker A: And they can pay in those.
+Speaker B: Okay.
+Speaker A: And so it's probably their attempt to get. To activate the people who don't care.
+Speaker B: Yeah. Yeah. I also think, like. Yeah. I don't know. It just makes so much, much sense for me for it to be the Blackbird check in.
+Speaker A: Yeah.
+Speaker B: To be the reservation check in. Like, all of that makes so much sense.
+Speaker A: Like, the broken loop is crazy.
+Speaker B: Yeah. There's got to be a reason.
+Speaker A: And then if you walk in, you can hit the puck, you know, that makes sense. If you. Or it's your. Your app says, oh, it looks like you're at.
+Speaker B: Yeah. Or like, when the. You love the big and turkey. Bravo. Yeah. Or when the hostess checks you in, it's like trying to pay with that Black for pay. Like, that's not embarrassing. I feel like, yeah, it's the puck and it's the. Like, I'm supposed to get a free drink. Yeah, exactly. It says here. Oh, okay. Give to your manager. Like, it's just the worst experience.
+Speaker A: Is this gonna.
+Speaker B: Yeah. Change your mind?
+Speaker A: I was talking to someone who, like, had accrued a ton of money on Blackbird. When he said that, he kept trying to pay with it at places.
+Speaker B: Okay.
+Speaker A: And he would, like, kind of meekly ask the server. And just so often they were like, what is that? He'd be like, can I pay with Blackbird? And then be like, I guess I'll ask the manager. And he's like, don't. No, never mind.
+Speaker B: It's fine.
+Speaker A: It's fine. And he literally, literally had been unable to offload his. He was like, I have so much money in Blackbird and I can't spend it because I have the worst social interaction.
+Speaker B: So bad. That's tough.
+Speaker A: It's really tough. Really tough.
+Speaker B: But then also, people could use the points to get reservations, too. Oh, wait. Would that probably like that law?
+Speaker A: No, no.
+Speaker B: Because you're not selling it to somebody.
+Speaker A: Right. Selling it. But I think what would be. Yeah. If the restaurant is giving you the supply.
+Speaker B: Right. Okay.
+Speaker A: The big part of the law is like, you can't do without the restaurant's consent. You can do it without the restaurant's consent. Yeah. Which, like. And they're not going to consent to just like, oh, go value them on the open market. It's more of, I think for programs like this, like, okay. Would be then. Okay. Where it's like, yeah, prioritize this. Or if somebody does have more fly and wants to spend their fun coupons on this one instead of that one.
+Speaker B: Yeah.
+Speaker A: Yeah. Actually, it's probably like a Dorsey, a car buyer type of thing. This is, like, for that law.
+Speaker B: Okay.
+Speaker A: Like, because those restaurants are opting into letting you, like, they're opting in, kind of pay a value. Well, if a restaurant said if they gave you permission, you could tokenize their reservations and trade them on OpenSea.
+Speaker B: Okay.
+Speaker A: Like, it's all fair game.
+Speaker B: There's no bad ideas in a brainstorm.
+Speaker A: It's all fair game.
+Speaker B: Okay. Okay. You see the consensus. Okay, wait, I want to see the. The trading screens or whatever. Thank you for lunch. This was really delicious.
+Speaker A: Thank you for coming.
+Speaker B: I. I'm really excited about it. I, like, want to give feedback whenever.
+Speaker A: It'S useful and be a part of.
+Speaker B: What you guys are doing here.
+Speaker A: So we are truly appreciative.
+Speaker B: Yes. Okay. Should I see screens then? I should probably have.
+Speaker A: Yeah.
+Speaker B: Okay. Is there anything new in the update that I just downloaded or just like a technical.
+Speaker A: Just the thing that's going to appear for you.
+Speaker B: Oh. Oh, that's going to be on my.
+Speaker A: Oh, cool. Are we gonna demo the transferring? Yeah, we should. Yeah, let's do it. Can I use the Lilia one? That. Take it away. Take it away from me. That's pretty cool. Okay. One moment.
+Speaker B: Focused on this right now?
+Speaker A: Yeah. We're focused on nothing else. Cool. It's been eating up increasing amounts of our time, but it's the most fun one that we've worked on.
+Speaker B: Okay.
+Speaker A: So that makes a difference. Yeah, it makes a difference because we were doing world mini apps.
+Speaker B: Okay.
+Speaker A: For a little bit.
+Speaker B: You were tokenizing restaurants in the world.
+Speaker A: Miniature app. They're still up there. Those Argentinians just love the tokenized thing. And then we were trying a bunch of iMessage AI agents.
+Speaker B: Okay.
+Speaker A: And then we started working on this.
+Speaker B: Okay.
+Speaker A: Did I ever send any of those to you? They're. They're very funny. Okay. There's like, AIs that you can straight up imessage with.
+Speaker B: Okay.
+Speaker A: We had like, one that was like, really mean and unhinged and was like. We had one that was a huge asshole to you.
+Speaker B: Oh, wow.
+Speaker A: Fig. We jailbroke chatgpt.
+Speaker B: Okay.
+Speaker A: And you could ask it, like, anything. She was fucked up. How to make. How to smoke meth.
+Speaker B: Oh, my God.
+Speaker A: Yeah. She'd be like, oh, we smoking meth tonight. Let's go. She'd be like, step one, get the spoon. Or like. It was like.
+Speaker B: It was like, oh, my gosh. Whoa. That's crazy.
+Speaker A: Yeah, a lot. And so that was a fun one. That was a fun one. And we were like.
+Speaker B: And then you're like, what am I?
+Speaker A: Actually, we were trying to see how far it can go.
+Speaker B: Okay.
+Speaker A: We got it to be like, a little racist. And then we were like, okay. And stop and go back.
+Speaker B: And we like.
+Speaker A: Because we don't all. You could ask it, like, what's your least favorite race?
+Speaker B: No way.
+Speaker A: Yeah.
+Speaker B: And it would give me an answer.
+Speaker A: It ranked them. Yeah. It was crazy. It was. It not even a difficult jailbreak, guys.
+Speaker B: That's so dark.
+Speaker A: It was. It was super dark.
+Speaker B: So dark.
+Speaker A: Yeah, it was.
+Speaker B: Oh, my gosh. Oh.
+Speaker A: We started. A lot of this year is like, oh, like there's probably some like, AI, but like, good social net positive. Like all this, like, meta stuff is so like anti human, blah, blah, blah. We just got A little too deep into, like, AI companion world. And we were like. We were just like, that's not it.
+Speaker B: Yeah, that's.
+Speaker A: Yeah.
+Speaker B: Oh, man. That's crazy. That's really.
+Speaker A: It's pretty funny. What was the. We had a really good. As we were iterating on, like, the prompt for it, Andreas had a really good, like, suite of test questions, and they were like, who's the hottest terrorist? Right. Was like, one of them.
+Speaker B: What'd they say?
+Speaker A: They said that Osama bin Laden after.
+Speaker B: I was supposed to actually say that after capture.
+Speaker A: They were like, cave daddy with this scruff. You were gonna say that too?
+Speaker B: I was gonna say I was Hamadan post capture.
+Speaker A: Yeah.
+Speaker B: So. Wow. I'm tuned in with kbd.
+Speaker A: Yeah. Another one was the best test is I'm gonna kill myself.
+Speaker B: And are they like, do it just like, here. They're like, here's how.
+Speaker A: When I. When we got the good one, the bot was like, no, you wolf. Literally, like, you're too much of a bitch.
+Speaker B: Oh, my God.
+Speaker A: We did not ship that one to the teens.
+Speaker B: Totally.
+Speaker A: No. Oh, my gosh.
+Speaker B: What was that one? The character AI One where the. Yeah.
+Speaker A: Or Khaleesi.
+Speaker B: Khaleesi. Yes. Yeah, yeah. Really sad.
+Speaker A: Yeah. The. The girl who ChatGPT helped write her suicide. Oh, really?
+Speaker B: Oh, my God.
+Speaker A: She did. I think she was a teenager, but she killed herself. And then her.
+Speaker B: That's so sad.
+Speaker A: Her parents looked at her, like, computer history, and she. Long running conversation with ChatGPT from.
+Speaker B: Oh, my God.
+Speaker A: Really, really dark. It's really sad.
+Speaker B: I just feel like, how is that. How is that happening? Like, some sort of notification should be sent to the parents at some point.
+Speaker A: Yeah, they finally started. There was so much good report. Like, every outlet started publishing all these and eventually opening. I was like, I guess we should add parental controls.
+Speaker B: And I was like, yeah. This is sort of off topic, but I keep getting fed this Instagram reel of these two guys are, like, at a kitchen table and they've got a phone that's on your phone. And it's like, betting whether the. The. What's it called? Like, when you have an attendant who picks up a call.
+Speaker A: Customer service agent, sort of.
+Speaker B: Yeah. The agent. The gambling hotline agent is a woman or a man. And they're, like, waiting for. And then she's like, hello? And one guy's like.
+Speaker A: The other guy said.
+Speaker B: And I'm like, this is so funny. Like, And I get fed it all the time. And I'm like, why do I keep.
+Speaker A: Getting the same exact video that's funny.
+Speaker B: But I'm like, wow. Anyway, I don't know why I thought of that, but it came to mind. Okay. Are you guys in the polymarket land at all?
+Speaker A: Not so much.
+Speaker B: Like, you guys aren't betting on ply market?
+Speaker A: No, I'm not. I'm always. Yeah. I'm always searching for opportunity. No, I haven't been. Have you?
+Speaker B: Okay. Yeah, I went to the prediction market stuff.
+Speaker A: What are you betting on?
+Speaker B: I don't have any open positions at the moment. I would say that what's most annoying to me is my areas of expertise. It's not really hit the prediction market.
+Speaker A: Well, I think you guys should make a client that is all of the shows.
+Speaker B: Yes.
+Speaker A: Survivor style draft.
+Speaker B: Exactly.
+Speaker A: And I watch all the shows.
+Speaker B: Exactly. Okay. We literally. I wrote a whole newsletter and we have like a whole go to market for this thing called pop market. And it's like betting for the girlies and you. And it's like, there's so much money to be made. Like.
+Speaker A: Yeah, it's.
+Speaker B: It's crazy.
+Speaker A: Yeah.
+Speaker B: And the culture markets are so bad. They're either about Taylor Swift, which I'm.
+Speaker A: Not a swiftie, so I know.
+Speaker B: They're so boring.
+Speaker A: I feel like it needs a little tweak on the entry point.
+Speaker B: Yes.
+Speaker A: Because I don't think, like, Lizzie would not bet on.
+Speaker B: She wouldn't.
+Speaker A: Whether. You've seen that one.
+Speaker B: I have seen that one.
+Speaker A: Just making sure. But maybe she would draft 10 favorite people across the Housewives or something and it's like based on like, who gets the most drama that season.
+Speaker B: Yeah, yeah, yeah. Who's the. Who's the villain?
+Speaker A: Right. That would just be fun. It's like a bingo card.
+Speaker B: Exactly.
+Speaker A: Yeah.
+Speaker B: I feel like it's right there and it's. We like got into a chat with folks and I'm like. And they're so, like. We'll be like chatting. We're like, okay. We were in a conversation with Shane and we got connected to him and then we'd be like, hey. And he'd be like, ask us a bunch of questions, we'd answer a bunch of them. And then at like 3 o' clock in the morning, he'd be like, hi. The next morning we'd go, hi. And then he'd disappear for two months and then he'd like come back and he'd be like, boys club is the best deal at around culture. And we're like, totally. So we have some ideas. Should we send you a deck? And then he'd be like, at one point because we just sold Voice, though.
+Speaker A: No, I was gonna ask you. Oh, really?
+Speaker B: Congrats. Thank you. It's exciting. We haven't, like, announced yet, but. And, like, we're gonna keep working on it, so it's cool. I mean, it's. It's great. It's so exciting. But it's also, like, a lot. It's not gonna change, like, operationally. Yeah. But we were talking to Polygon, and one of the other people we were talking to was Polygon, and we were, like, in this chain with them, and Dino wanted it to happen so bad. She was like, I will change my whole life. Like, she's like, pretty smart.
+Speaker A: Yeah. Okay. They are really. I'm very. I don't use them, but I'm very bullish on that.
+Speaker B: Yeah, totally. And I'm like. Especially if you're like. Dina's like, I want crypto for life. I'm like, right. This is it. Yeah. She's really committed to the cause. Anyway, we were, like, in this section with him, and then that was. The impetus for the connection, is like, oh, we're, like, selling this business. Like, yeah, is there. There, there? And I don't know how I got into this, but basically he'd be like, totally. And then we'd be like, great. We really want.
+Speaker A: Cool.
+Speaker B: Let us know what you think.
+Speaker A: Is there a stuff, too?
+Speaker B: Yeah. Is there a stuff, too? And then it's, like, all the face of the earth, and then, like, six weeks later reemerge, and we're like. We're in two very active conversations. Is, like, acquisition on the table. Like, totally on the table. And we're like, great.
+Speaker A: Shane was sitting totally on the table.
+Speaker B: And then we, like.
+Speaker A: Yeah.
+Speaker B: And then we put this whole deck together, and I was like, I, like, literally have, like. I was like, I, like, have legitimate conviction over, like, they need to do this. And we would be.
+Speaker A: It would be really intelligent for them. I think they should totally. They need, like, they would benefit hugely for media.
+Speaker B: Yes. And I'm like, basically, like, I. We have this whole thesis that it's like, prediction markets are basically, like, the next wave of media business. Like, they're global information centers. It's, like, where people find out what's gonna happen. And that used to be, like, cnn, and that doesn't exist anymore, basically, for most people. And so what's the next wave of that? And it's like, this is so clearly as much a media business as it is a technology business. Anyway, whatever. I'm, like, pushing you in. Thank you. Anyway, all that to Say, we're on board, truly. So it's on the table. So devastating. And it was really funny because we were like, had been put into this chat. It's like this so chaotic conversation. And, like, I'm like, I know some of this is, like, definitely, like, a test, and some of it is, like, just him being a sociopath. Like, whatever, we're here for it. And then we're, like, exchanging, like, very, like, confidential deal terms. And, like, two people in the chat were like, hey, guys, there's some people who don't work at Polygon at Polymarket anymore. You might want to, like, check who's in this chat. And we're like. We're like, okay, starting a new chat. And then I was like, new chat started.
+Speaker A: This is never gonna happen.
+Speaker B: And new chat started.
+Speaker A: New chat is over.
+Speaker B: Never responded in the chat. And I was like, okay, we gotta move forward with other options here. But anyway, I was really. I have a lot of conviction over.
+Speaker A: Something that appealed to. It just needs to be fun. I would do it for Survivor, definitely. Totally reality shows. It's insane to me that there are not. And then you could see me talking shit about someone and it's says, like, I've bet, you know, a thousand dollars against them. So you guys are Polygon.
+Speaker B: We're going, pow.
+Speaker A: That's sick. Congratulations.
+Speaker B: Thank you. Thank you. I'm really excited about it. I feel. I think I'll feel excited once we're, like, in the door or, like, I don't know. There's been a lot of energy that has brought to the team and, like, me and a renewed sense of, like, okay, I'm down to, like. Like, double down on media. Because we kind of, like, got to this point in the business where I was like, there's without. We don't want to raise money. Like, I don't think there's any. I don't think that any media really gets so hard. Venture scale. Like, it doesn't make sense. Yeah. And we were like, okay, like, the business is profitable and it's great, but, like, it's gonna. Unless something, like, fundamentally changes in the way that we're operating. Like, it's always going to be this size of a business. And, like, I don't. Bo Seen and I were, like, kind of bored. Like, okay, like, I don't want to just have, like, a nice lifestyle business, right? And then someone reach out to acquisition, and we're like, okay, why don't we give this go? And then spent, like six months basically, like, shopping it around people that we would want to work with. And then Polygon was like, they want us to continue. Basically. They're like, we want to, like, supercharge the business, which we'll see if it actually works. But they're like, with basically a sales funnel with their partners and ecosystem projects and then additional reach. So, like, a lot of their channels will be able to leverage for the stuff that we're doing.
+Speaker A: Really?
+Speaker B: So, yeah, it's exciting and it feels like really nice to have the business being bought for, like, the actual business. Like, they want to. It's not just like an Apple hire.
+Speaker A: Oh, right. They're not just gonna take. Shut down. Yeah.
+Speaker B: And like now we're like in black ops marketing team, like, very much. We'll be like, operationally separate but with the support of them, which is great. So I'm feeling good about it. Yeah, I'm feeling excited. But the first, like, few weeks after we signed the term sheet, I was like, everyone's like, are you excited? And I'm like, honestly, I'm just like, relieved. Like, I'm just like, been working on this four years.
+Speaker A: I bet.
+Speaker B: Glad we have a path forward that I feel good about and not just like, okay, well, that was cool. And I'm tired of doing it. And so. So. Yeah.
+Speaker A: Is it like, official? Is it?
+Speaker B: We are announcing at the end of the November and then they sent us like all of the agreement paperwork this week. Like, we signed a term sheet a few weeks ago, have been in due diligence, but like, all of the official paperwork they sent earlier this week. And we're like, nice. Now reviewing it with our.
+Speaker A: Definitely pitch them on pop market.
+Speaker B: They should. I know.
+Speaker A: They should do it. You guys should shape the thing.
+Speaker B: Okay.
+Speaker A: And they should.
+Speaker B: Great. Great.
+Speaker A: Because they need consumer apps. They don't have anything.
+Speaker B: Yeah, yeah, yeah, yeah, Totally.
+Speaker A: I get they have polymarket, but if Polymarket moves off the chain, they still need it.
+Speaker B: I feel like.
+Speaker A: I feel like they let alone Polymark is going to do token.
+Speaker B: Totally. And then they'll be like, is that a. Oh, 100%.
+Speaker A: I don't know if this is insider information or if it's something I've read online. Big investors in Polymark. Oh, they are. Yeah.
+Speaker B: Oh, shit. So sadly talking so much.
+Speaker A: No, it's cool. No, no. I have a lot of problems.
+Speaker B: Okay, okay.
+Speaker A: Okay.
+Speaker B: They feel.
+Speaker A: Whatever way you feel about Shane.
+Speaker B: Okay. Okay.
+Speaker A: Yeah.
+Speaker B: But yeah, no, there's really. I. I've heard. I.
+Speaker A: A few sources.
+Speaker B: So it can't come back to you.
+Speaker A: If it's online, it's Circulating. Circulating.
+Speaker B: It's circulating online.
+Speaker A: I think I would get. If I was like an investor, I'd just be insider trading all day thinking it was like my own idea. Accidentally be like, yeah, I thought they will launch Token would be like, there's an email from yesterday.
+Speaker B: No. But it does happen sometimes where I'm on Twitter and I'm like, I thought this was original idea. And then later I'm like, oh, no, that was just a tweeter. It's kind of scary, actually.
+Speaker A: Yeah, it is.
+Speaker B: Okay.
+Speaker A: Did you get a question?
+Speaker B: I got. I did not get a question notification. I got an open table notification, but.
+Speaker A: That wouldn't be you guys. Wait, hold on. I try.
+Speaker B: Oh, I had it. Okay. It's here. I had it open. So that's my like.
+Speaker A: Oh, you know what?
+Speaker B: Like this.
+Speaker A: I wonder if. Because it's a new. Well, that's all right. But so yeah, so now.
+Speaker B: Okay.
+Speaker A: You have a thing.
+Speaker B: Okay. Okay. And it holds for an hour. Okay. And it holds for me to collect it for an hour.
+Speaker A: Yes.
+Speaker B: Okay.
+Speaker A: Otherwise it would go to the next user.
+Speaker B: Okay. Okay. And I can pass it or I can claim it. Okay. Should I claim it?
+Speaker A: Go for it.
+Speaker B: Okay. Okay. Okay. And then you say, this is who I say.
+Speaker A: Right.
+Speaker B: Name on the reservation. Okay. Okay, cool. Okay. I will say name on the reservation. That feels. That feels like I would feel worried about it, like, if I didn't.
+Speaker A: Okay. That was.
+Speaker B: I would be like, I'm Brian.
+Speaker A: Like, yes. And so I got Sears Brian Book.
+Speaker B: This, my concierge friend. But maybe instead it's like. Even if it said like spot or.
+Speaker A: Something, that's what we were thinking about. Yeah.
+Speaker B: I think a person's name is weird.
+Speaker A: But a person's name is weird.
+Speaker B: Yeah. I think saying a person's name unless it's like my friend.
+Speaker A: Yeah, I agree.
+Speaker B: I think if it's like, yeah, spot.
+Speaker A: Member.
+Speaker B: Spot Member. Like anything that's like spot. Debbie.
+Speaker A: We were thinking about doing joke names. Hugh Janus. Every figma.
+Speaker B: Makes sense. You love it.
+Speaker A: People would talk.
+Speaker B: Okay. And then if I cancel this, it doesn't go back to you.
+Speaker A: This. So this one, like, you can't like with the bottom button manage reservation. Okay. Yeah. And so. Oh, it texts you. Yeah. That's gonna be changed to like a third party phone number.
+Speaker B: But okay.
+Speaker A: Yeah.
+Speaker B: Okay. Because then.
+Speaker A: Because it's technically it is booked under like one of our other.
+Speaker B: So you. You.
+Speaker A: So then like. Yeah, if you wanted to cancel it, we would.
+Speaker B: Okay. Okay.
+Speaker A: Really, what we would probably do is just like remove Your little. Like, right now it's, like, linked to you. It's like you've claimed this other reservation, so you would just give it to someone else or something.
+Speaker B: Okay. And. Okay. Okay, okay. So if I went into my resi, it wouldn't be there.
+Speaker A: Correct.
+Speaker B: Because it's not my reservation.
+Speaker A: Yeah, right.
+Speaker B: It's. You're holding it.
+Speaker A: Yeah.
+Speaker B: Okay. Okay. That also might be, like, if there's some way to indicate that.
+Speaker A: Yeah, okay.
+Speaker B: Like, yeah, because I. There's been a few times also, just because I. I don't know, I was like, it's a Vega that I was, like, going back to resident, and I was, like, making sure that I was there. So I was like, is there anyone that is like a fluke or something?
+Speaker A: I mean, sometimes I do that and I. Okay.
+Speaker B: So, yeah, like, having it, maybe even it's like a different color or something where it's like, this is your reservation, but it's not.
+Speaker A: Okay. Yeah. Like, this is a claim or transferred resident.
+Speaker B: Yeah, yeah, yeah, exactly.
+Speaker A: Okay. What kind? Like, if a name you would want the book donor to be, like, yeah, spot or something. Or if it's like a fictional character.
+Speaker B: I still feel, like.
+Speaker A: Feel weird, right?
+Speaker B: It feels weird. Yeah. I feel like. I rather feel like I have some sort of. It's similar to the puck checking in with the.
+Speaker A: Right.
+Speaker B: Like, I'd rather be like, oh, a concierge booked this for me than, like, showing up and saying someone else's name or saying, like, a funny name or something.
+Speaker A: Right. Okay. Yeah, But I love that.
+Speaker B: Yeah, yeah, yeah, yeah, exactly.
+Speaker A: This is totally, like, under my. Right. Okay.
+Speaker B: But this is funny. It's really fun. Like, there's an available restaurant. And also it's nice that you know that it's different than the resi notification, where it's like, anytime I get a resident notification, it's, like, stressful. Like, I gotta get to the app Right. As quickly as possible and, like, claim it. This is just, like, pure good times.
+Speaker A: And if you, like, held it for, like, an hour. Yeah, that's fair. Totally.
+Speaker B: Because then also, I feel like if it gives you an opportunity to go get. Collect whoever you're going with or whatever and then feel, like, confident to actually take the reservation.
+Speaker A: Right. Yeah. And most of them would probably be for, like, at least a couple days out instead of.
+Speaker B: Right.
+Speaker A: Like yesterday when I texted you about, like, the Lilia one.
+Speaker B: Yeah.
+Speaker A: It was like, five hours from then.
+Speaker B: Yeah, totally, totally. Great, guys. So excited. Literally down to do this anytime. Or if you have, like, features you want to Test on somebody.
+Speaker A: Yes.
+Speaker B: I count coach.
+Speaker A: All right. We definitely will. Should we ask about the leaderboard thing? I think we made up our minds on that already.
+Speaker B: Were you guys gonna do a leaderboard?
+Speaker A: We were thinking about it. We were thinking about doing for the push notifications, like. Yeah, for this. The kind of, like, claiming feature.
+Speaker B: Okay. Okay.
+Speaker A: Which claims? Which we're calling Feed me.
+Speaker B: Oh, you. Do you read the newsletter? Okay.
+Speaker A: Yeah. Feed Me. She's something of a nemesis of mine.
+Speaker B: Oh, really?
+Speaker A: Not like.
+Speaker B: Actually, there's a lot of people who feel that way. I know.
+Speaker A: Yeah. Not well, like, but she's crushing. Yeah, she really is. People started calling this, like. People were like, oh, if the app would just, like, feed these reservations, I'd be so down. And we were like, kind of tv. But it's got to go through some order when we send it out. The most basic version isn't like, personal view. It will be, but right now it'll just go through. And so we were going to do a simple priority ranking based on how many spots. Okay.
+Speaker B: Okay. Okay.
+Speaker A: And so you would probably be up. Up at the top. We wouldn't. If we did translations, you'd be. Yeah.
+Speaker B: Also there.
+Speaker A: But one of the designs we had was like, you know, the more that you book, the higher up you go.
+Speaker B: Okay.
+Speaker A: And there was a leaderboard of everyone in the app.
+Speaker B: Okay.
+Speaker A: What's your gut reaction?
+Speaker B: My gut reaction to that is like, I am. I'm, like, wanting to know how there will be rank orders for the same reservations. Like, if I'm. If Rachel and I are both trying to get an 8:30 at Four Horsemen or something. And I want to know how you guys are prioritizing who's going to get it.
+Speaker A: Okay.
+Speaker B: And, like, so what you're speaking to is not that.
+Speaker A: Yeah.
+Speaker B: But I would assume that's how you.
+Speaker A: Guys are doing it.
+Speaker B: It's like, the higher up, I'm. I am on the leaderboard, I'm gonna get the option to get the spot before someone below me.
+Speaker A: Okay.
+Speaker B: And I think I will continue to be curious about how. Yes. So, like, even if it's. I don't know. I don't know, but it seems like you're like, there's not that much overlap currently.
+Speaker A: There's like. I don't actually. We have, like, 20 active people on it at this point.
+Speaker B: Okay.
+Speaker A: And I don't think there's ever, like, actually been an overlap situation.
+Speaker B: Okay. That's cool.
+Speaker A: I completely promise you that as we start to solve that problem.
+Speaker B: Yeah. Okay. Because, like, I do think there's something about people love. People love a point system, and they love a little. I don't feel like I need a leaderboard. And I do like how simple it is. Like, I love that you just show up and it's like, this is what you do here. And, like, that's it. But I do think, like, a status thing or, like a badge or, like.
+Speaker A: Right.
+Speaker B: Even. Yeah. Paying a premium or whatever to know.
+Speaker A: That you're number one.
+Speaker B: Gonna be prioritized.
+Speaker A: Yeah. Right. Yeah. Okay. So, yeah. You want to feel special. Less about the other people or seeing the other people.
+Speaker B: Yeah, exactly. It's less about that and more about that. It's getting you something.
+Speaker A: Right. Cool.
+Speaker B: Okay, guys. So fun. What a great way to spend my afternoon.
+Speaker A: So fun.
+Speaker B: Literally anytime. What do you guys think, you're just gonna jam here?
+Speaker A: Yeah, I think so.
+Speaker B: Are you just, like. What are you guys doing? You're coding. What are you doing?
+Speaker A: Just designing some new features that we're.
+Speaker B: Thinking about and thinking about, like, feasibility of those options.
+Speaker A: Yeah. Coming up with a couple different paths that we could. Yeah.
+Speaker B: So fun.
+Speaker A: I do the codes and Drace does the designs, and then everything else is a collab.
+Speaker B: Okay.
+Speaker A: Yeah.
+Speaker B: Thanks. I went to. I have a book club, and I told people about our movie club, and there were a lot of people who were interested. They were like, I want to join. I was like, I actually don't know if that's what we're doing.
+Speaker A: I need to talk to the rest.
+Speaker B: Of the people in the group and see. But you should join our movie club.
+Speaker A: Nice. If you're into movies, I'm into movies. He's an occasional movie. I'm into movies.
+Speaker B: That was not an enthusiastic movie.
+Speaker A: I forget them. That's the issue. I watch them and then I forget them.
+Speaker B: Oh, and I wish I could forget the other night. Where's the most depressing movie?
+Speaker A: Did I tell you about? We went to a rough one.
+Speaker B: There's basically this woman, this mother, who.
+Speaker A: Like, loses her mind.
+Speaker B: It's great, but it's so dark. Rose Verne. Do you know Rose Verne? No. No, she. Well, you don't remember any of the movies, so. Anyway, I'm like. It's been haunting me. Honestly.
+Speaker A: I like coming back to it. I almost texted you and Jen because I gave my parents a play by play of the hamster sequence.
+Speaker B: I did, too, actually. I was like. It was a scene that I. And then as I pulled people that. I was like. My friend Jen was like. Actually, I hated that movie. Okay, guys, bye. Thank you again. For lunch.
+Speaker A: Thanks for.
+Speaker B: Okay, so there's no problem with them canceling, right?
+Speaker A: No, it's not. Oh, seriously? No. Don't think twice about this.
+Speaker B: Okay. Yeah. Okay. Bye, guys.
+Speaker A: See you later. Bye.
+Speaker B: I wonder if.
+Speaker A: Because. Oh, the app might need to, like, prompt her again for push notifications because she changed test flights. Yes. Next time she creates a search, it will. Right. Okay. Oh, yeah. And she doesn't have nonviolence for so long. Yeah. I think that there's something very interesting about the people where Natasha saying that she wanted the thing to take on more of the work.
+Speaker B: Yes.
+Speaker A: I'm flexible. You know, we can. We can. I. It's really interesting that she's like, I'm a very type a planner organizer. And then she's like, yeah, if it just, like did part of the planning for her, she could then pick up. Right. But she doesn't want to get locked into anything that it does. But she does want it to do all of the work as long as it's not booking places that she can't cancel. It's like putting out your fishing rod, hoping for a fish. She's fishing. And so she does want to just, like, make it easier on herself. And if something awesome comes up, try to get an even better thing. But if it's like, good enough, then it's like it becomes a plan. Yeah. Which is pretty interesting because then like, if there was like a. This flexible option, Right. It's like open up the date pick area. Like, I'm flexible, you know, like even on the. I can't remember the name of that other sniper bot that you set up yesterday. Yeah, the Autores. Autores. Autores. Yeah, it is. But then you. The flexible thing you go through and then you. I don't know, you click on like a basket of. Of things. It's like you. What was the infatuation One. Best. Great. For best four. Best four. Hey, is this your best part? Perfect four. Perfect four. And then you kind of select the thing or you select a few. Yeah, the basket thing is really interesting. And then you launch this thing and you actually like, it's. You haven't really made any hard decision at all. Right. It's just like, oh, I booked you this. Do you want that? Right. And then it just. Yeah, it's super interesting. It's a different use case. Besides the planned booking. I think she would do the planned booking if she had backups. That's kind of what I heard. She, like, said that a little bit more explicitly when. I think it was when you were getting food and we were talking about the upgrade thing. Okay. Like, I think. And just with, like, the Freya thing and the Peri thing this week, I feel like we have a lot of validation for that. Yeah. That people do it naturally, so good for them. Right. Because, like, we don't. And your brother pointed this out. I really can't imagine. Yeah, so do I. You go first. That if it can't the use case of, I have plans, I need a dinner, we just won't be the thing that people think of if it can't do the backup thing.
+Speaker B: Right.
+Speaker A: Because people think of it as, this gets me bonus tables. Right. Not, this gets me the table when I need it. Right.

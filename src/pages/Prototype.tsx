@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Settings, ChevronLeft, ChevronRight, Calendar, X } from 'lucide-react';
 import { restaurants } from '@/data/restaurants';
 
@@ -262,10 +263,18 @@ const usePersistedState = <T,>(key: string, defaultValue: T): [T, React.Dispatch
 };
 
 const Prototype: React.FC = () => {
+  const navigate = useNavigate();
   const { getVersion, setVersion } = useVersion();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [currentStep, setCurrentStep] = usePersistedState('currentStep', 0);
   const [showVersionSwitcher, setShowVersionSwitcher] = useState(false);
+
+  // Detect mobile/PWA mode
+  const isMobile = typeof window !== 'undefined' && (
+    'ontouchstart' in window ||
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.innerWidth <= 768
+  );
 
   // Double-space hotkey to toggle version switcher
   const lastSpaceTime = useRef<number>(0);
@@ -316,6 +325,11 @@ const Prototype: React.FC = () => {
   const [editingField, setEditingField] = useState<'date' | 'time' | 'party' | 'spots' | 'stopTime' | null>(null);
   const [stopTimeOffset, setStopTimeOffset] = usePersistedState<number>('stopTimeOffset', 60); // minutes before start time
   const [activeSearches, setActiveSearches] = usePersistedState<ActiveSearch[]>('activeSearches', []);
+
+  // Clear active searches on mount (temporary - remove after testing)
+  useEffect(() => {
+    setActiveSearches([]);
+  }, []);
 
   const handleNextStep = () => {
     setCurrentStep((prev) => prev + 1);
@@ -405,7 +419,12 @@ const Prototype: React.FC = () => {
     <>
       {/* Top Navigation */}
       <div className="flex items-center justify-between px-4 py-4">
-        <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
+        <button
+          onClick={() => isMobile && navigate('/onboarding')}
+          className={isMobile ? "active:opacity-70 transition-opacity" : ""}
+        >
+          <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
+        </button>
         <button className="p-2 active:bg-white/10 rounded-full transition-colors">
           <Settings className="w-6 h-6 text-zinc-400" />
         </button>
@@ -413,10 +432,14 @@ const Prototype: React.FC = () => {
 
       {/* Home Content */}
       <div className="px-4 py-2 flex-1 overflow-y-auto">
-        <h3 className="text-xl tracking-tight">
-          <span className="font-light text-[#898989]">Good morning, </span>
-          <span className="font-semibold text-[#D6D6D6]">Andreas</span>
-        </h3>
+        {/* Empty state message */}
+        {activeSearches.length === 0 && (
+          <p className="text-[20px] leading-[28px] tracking-[-0.4px]">
+            <span className="font-light text-[#898989]">Welcome, </span>
+            <span className="font-semibold text-[#D6D6D6]">Antonio</span>
+            <span className="font-light text-[#898989]">. Start a search to find a table.</span>
+          </p>
+        )}
 
         {/* Active Search Cards */}
         {activeSearches.length > 0 && (

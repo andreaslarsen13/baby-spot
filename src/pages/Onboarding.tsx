@@ -142,7 +142,9 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="h-[100dvh] bg-[#151515] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden">
+    <div className="h-[100dvh] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden">
+      {/* Fixed background that covers entire viewport including safe areas */}
+      <div className="fixed inset-0 bg-[#151515] z-[-1]" />
       {step === 'splash' && (
         <SplashScreen onTap={() => setStep('phone')} />
       )}
@@ -201,25 +203,32 @@ interface SplashScreenProps {
   onTap: () => void;
 }
 
+// Chair icon asset
+const CHAIR_ICON = "/images/chair-icon.svg";
+
 const SplashScreen: React.FC<SplashScreenProps> = ({ onTap }) => {
   return (
     <button
       onClick={onTap}
-      className="flex flex-col h-full w-full items-center justify-center animate-in fade-in duration-500"
+      className="h-full w-full animate-in fade-in duration-500 relative text-left"
     >
-      {/* Large SPOT text */}
-      <div className="relative">
-        <h1 className="text-[80px] font-bold text-white tracking-[-4px] leading-none">
-          SPOT
-        </h1>
-        {/* Subtle glow effect */}
-        <div className="absolute inset-0 blur-[60px] bg-white/10 -z-10" />
-      </div>
+      {/* SPOT logo */}
+      <h1
+        className="absolute left-[39px] top-[263px] text-[54px] font-bold text-white leading-[41px] font-['Alte_Haas_Grotesk']"
+        style={{ fontFeatureSettings: "'dlig' 1" }}
+      >
+        SPOT
+      </h1>
 
-      {/* Tap hint - fades in after delay */}
-      <p className="text-[14px] text-[#4a4a4a] mt-8 animate-pulse">
-        Tap to continue
+      {/* Tagline */}
+      <p className="absolute left-[39px] top-[311px] text-[22px] text-[#d6d6d6] leading-[33px] tracking-[-0.25px] w-[254px]">
+        Get the best reservations in New York City.
       </p>
+
+      {/* Chair icon with arrow */}
+      <div className="absolute bottom-[47px] right-[38px]">
+        <img src={CHAIR_ICON} alt="" className="w-[100px] h-[82px]" />
+      </div>
     </button>
   );
 };
@@ -447,12 +456,17 @@ interface WaitlistScreenProps {
   onContinue: () => void;
 }
 
-const waitlistReasons = [
-  "A friend invited me",
-  "I am a top 1% eater",
-  "I own a restaurant",
-  "Take my money",
-  "I'm a nepo baby",
+// Chairs icon asset
+const CHAIRS_ICON = "/images/chairs-icon.svg";
+
+// SMS number for Spot
+const SPOT_SMS_NUMBER = "+1234567890"; // Replace with actual number
+
+const skipReasons = [
+  { label: "A friend invited me", message: "Hey Spot, a friend invited me to skip the waitlist!" },
+  { label: "I own a restaurant", message: "Hey Spot, I own a restaurant and would love early access." },
+  { label: "Take my money", message: "Hey Spot, I'm ready to pay for early access!" },
+  { label: "I'm a nepo baby", message: "Hey Spot, I know people. Let me in?" },
 ];
 
 const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
@@ -460,75 +474,94 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
   onTap,
   onContinue,
 }) => {
-  // For "on waitlist" state, whole screen is tappable
+  const handleGetNotified = () => {
+    // Request push notification permission
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+    onTap?.();
+  };
+
+  const handleSkipReason = (message: string) => {
+    const smsUrl = `sms:${SPOT_SMS_NUMBER}?body=${encodeURIComponent(message)}`;
+    window.open(smsUrl, '_self');
+  };
+
+  // For "on waitlist" state
   if (isOnWaitlist) {
     return (
-      <div
-        onClick={onTap}
-        className="flex flex-col h-full w-full items-center animate-in fade-in zoom-in-95 duration-200 cursor-pointer"
-      >
-        {/* Top spacer */}
-        <div className="flex-1" />
+      <div className="h-full w-full animate-in fade-in duration-300 relative bg-[#151515] flex flex-col">
+        {/* Main content - centered */}
+        <div className="flex-1 flex flex-col items-center justify-center px-[39px]">
+          {/* Chairs icon */}
+          <img
+            src={CHAIRS_ICON}
+            alt="Spot chairs"
+            className="w-[120px] h-[64px] mb-[24px]"
+          />
 
-        {/* Large gradient exclamation mark */}
-        <div
-          className="text-[143px] font-medium leading-none mb-4"
-          style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(237,237,237,0.04) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
-        >
-          !
+          {/* Title - 34px bold (Large Title) */}
+          <h1
+            className="text-[34px] font-bold text-white tracking-[-0.5px] leading-[41px] font-['Alte_Haas_Grotesk'] text-center"
+            style={{ fontFeatureSettings: "'dlig' 1" }}
+          >
+            You're on the list.
+          </h1>
+
+          {/* Subtitle - 17px secondary (Body) */}
+          <p
+            className="text-[17px] text-white/60 leading-[22px] tracking-[-0.25px] font-['Alte_Haas_Grotesk'] text-center mt-[12px]"
+            style={{ fontFeatureSettings: "'dlig' 1" }}
+          >
+            We'll let you know when you're in.
+          </p>
+
+          {/* Get Notified button - chunky pill with tactile feedback */}
+          <button
+            onClick={handleGetNotified}
+            className="mt-[40px] h-[54px] px-[44px] bg-[#fe3400] rounded-[27px] flex items-center justify-center active:scale-[0.97] transition-transform"
+          >
+            <span
+              className="text-[17px] font-semibold text-white font-['Alte_Haas_Grotesk']"
+              style={{ fontFeatureSettings: "'dlig' 1" }}
+            >
+              Get Notified
+            </span>
+          </button>
         </div>
 
-        {/* Title */}
-        <h1 className="text-[33px] text-white text-center tracking-[0.25px] leading-[45px]">
-          You're on the waitlist.
-        </h1>
+        {/* Skip ahead section - pinned to bottom */}
+        <div className="pb-[calc(32px+env(safe-area-inset-bottom))]">
+          {/* Section label - 14px tertiary */}
+          <p
+            className="text-[14px] text-white/30 tracking-[0.5px] uppercase px-[39px] mb-[16px] font-['Alte_Haas_Grotesk'] text-center"
+            style={{ fontFeatureSettings: "'dlig' 1" }}
+          >
+            Trying to cut the line? Text us.
+          </p>
 
-        {/* Subtitle */}
-        <p className="text-[16px] text-[#e9e6df]/50 text-center mt-5 max-w-[235px] leading-[21px] tracking-[0.25px]">
-          Get notified when we open up more spots.
-        </p>
+          {/* Scrolling reason pills */}
+          <div className="relative">
+            {/* Fade overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-[39px] bg-gradient-to-r from-[#151515] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-[39px] bg-gradient-to-l from-[#151515] to-transparent z-10 pointer-events-none" />
 
-        {/* Get notified button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            // Could trigger notification signup
-          }}
-          className="mt-5 h-[44px] px-[53px] bg-[#242424] backdrop-blur-sm rounded-[80px] flex items-center justify-center"
-        >
-          <span className="text-[16px] text-white tracking-[0.25px]">
-            Get notified
-          </span>
-        </button>
-
-        {/* Bottom spacer */}
-        <div className="flex-1" />
-
-        {/* Bottom scrolling reasons */}
-        <div className="w-full pb-[calc(24px+env(safe-area-inset-bottom))] relative">
-          {/* Fade overlay on right */}
-          <div className="absolute right-0 top-0 bottom-0 w-[40px] bg-gradient-to-l from-[#151515] to-transparent z-10 pointer-events-none" />
-
-          <div className="flex gap-[5px] overflow-x-auto no-scrollbar px-4">
-            {waitlistReasons.map((reason) => (
-              <button
-                key={reason}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onTap?.();
-                }}
-                className="flex-shrink-0 h-[47px] px-[15px] bg-[#272727] rounded-[23px] flex items-center justify-center"
-              >
-                <span className="text-[14px] text-[#dcdcdc] whitespace-nowrap">
-                  {reason}
-                </span>
-              </button>
-            ))}
+            <div className="flex gap-[10px] overflow-x-auto no-scrollbar px-[39px] justify-center">
+              {skipReasons.map((reason) => (
+                <button
+                  key={reason.label}
+                  onClick={() => handleSkipReason(reason.message)}
+                  className="flex-shrink-0 h-[44px] px-[20px] bg-[#1e1e1e] border border-white/10 rounded-[22px] flex items-center justify-center active:bg-[#2a2a2a] active:border-white/20"
+                >
+                  <span
+                    className="text-[15px] text-white/60 whitespace-nowrap font-['Alte_Haas_Grotesk']"
+                    style={{ fontFeatureSettings: "'dlig' 1" }}
+                  >
+                    {reason.label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -537,12 +570,13 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
 
   // "Off waitlist" state - shows SPOT background and swipe hint
   return (
-    <div
+    <button
       onClick={onContinue}
-      className="flex flex-col h-full w-full relative animate-in fade-in zoom-in-95 duration-200 cursor-pointer"
+      className="flex flex-col h-full w-full relative animate-in fade-in zoom-in-95 duration-200 cursor-pointer text-left"
     >
       {/* Large SPOT background text */}
       <div
+        aria-hidden="true"
         className="absolute left-1/2 top-[calc(50%-100px)] -translate-x-1/2 -translate-y-1/2 text-[200px] font-medium leading-none whitespace-nowrap"
         style={{
           background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(237,237,237,0.04) 100%)',
@@ -555,11 +589,16 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
       </div>
 
       {/* Page indicator on left side */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 z-20">
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20"
+        role="group"
+        aria-label="Page 1 of 5"
+      >
         <div className="bg-[#232323]/80 backdrop-blur-sm rounded-r-full py-2 px-3 flex flex-col gap-[2px]">
           {[0, 1, 2, 3, 4].map((i) => (
             <div
               key={i}
+              aria-hidden="true"
               className={cn(
                 "w-[5px] h-[5px] rounded-full",
                 i === 0 ? "bg-[#d9d9d9]" : "bg-[#d9d9d9]/25"
@@ -582,7 +621,7 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
           Swipe up to get started
         </p>
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -658,26 +697,26 @@ const RestaurantPin: React.FC<{
 const carouselSlides = [
   {
     title: "Spot is your reservation agent.",
-    subtitle: "Tell Spot where you want to eat and Spot starts searching for openings.",
+    subtitle: "Tell Spot where you want to eat and Spot starts searching for tables.",
     background: 'orb',
   },
   {
-    title: "Spot autobooks the table for you.",
-    subtitle: "When a table you want becomes available, Spot immediately books it.",
+    title: "Spot books the table for you.",
+    subtitle: "The moment a table becomes available, Spot grabs it.",
     background: 'restaurant',
   },
   {
-    title: "Book across both Resy and OpenTable.",
-    subtitle: "Spot has the widest selection of restaurants across all of NYC.",
+    title: "Resy + OpenTable in one place.",
+    subtitle: "Spot searches both for the best coverage in NYC.",
     background: 'map',
   },
   {
-    title: "Get access to the top rated spots in NYC.",
+    title: "Become a regular at NYC's hardest to book spots.",
     subtitle: "",
     background: 'coverage',
   },
   {
-    title: "Join Spot to start making reservations.",
+    title: "Start booking with Spot.",
     subtitle: "",
     background: 'membership',
   },
