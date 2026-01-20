@@ -4,8 +4,8 @@
   "description": "Restaurant booking app",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#151515",
-  "theme_color": "#151515",
+  "background_color": "#191919",
+  "theme_color": "#191919",
   "orientation": "portrait",
   "icons": [
     {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import ChairMorphAnimation from '@/components/ChairMorphAnimation';
 
 type OnboardingStep =
   | 'splash'
@@ -203,8 +204,12 @@ interface SplashScreenProps {
   onTap: () => void;
 }
 
-// Chair icon asset
-const CHAIR_ICON = "/images/chair-icon.svg";
+// Arrow icon for splash screen
+const ArrowForwardIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M7.29175 17.5H27.7084M27.7084 17.5L17.5001 7.29169M27.7084 17.5L17.5001 27.7084" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onTap }) => {
   return (
@@ -212,22 +217,35 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onTap }) => {
       onClick={onTap}
       className="h-full w-full animate-in fade-in duration-500 relative text-left"
     >
-      {/* SPOT logo */}
-      <h1
-        className="absolute left-[39px] top-[263px] text-[54px] font-bold text-white leading-[41px] font-['Alte_Haas_Grotesk']"
-        style={{ fontFeatureSettings: "'dlig' 1" }}
-      >
-        SPOT
-      </h1>
+      {/* Text content - centered horizontally, positioned at 362px from top */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-[362px] w-[286px] flex flex-col gap-[8px]">
+        {/* SPOT logo */}
+        <h1
+          className="text-[38px] font-bold text-white leading-[41px] font-['Alte_Haas_Grotesk']"
+          style={{ fontFeatureSettings: "'dlig' 1" }}
+        >
+          SPOT
+        </h1>
 
-      {/* Tagline */}
-      <p className="absolute left-[39px] top-[311px] text-[22px] text-[#d6d6d6] leading-[33px] tracking-[-0.25px] w-[254px]">
-        Get the best reservations in New York City.
-      </p>
+        {/* Tagline */}
+        <p
+          className="text-[18px] text-white leading-[21px] tracking-[0.25px] uppercase w-[218px] font-['Alte_Haas_Grotesk']"
+          style={{ fontFeatureSettings: "'dlig' 1" }}
+        >
+          Get the best TABLES in New York City.
+        </p>
+      </div>
 
-      {/* Chair icon with arrow */}
-      <div className="absolute bottom-[47px] right-[38px]">
-        <img src={CHAIR_ICON} alt="" className="w-[100px] h-[82px]" />
+      {/* Morphing chair icon with arrow at bottom right */}
+      <div className="absolute left-[235px] top-[678px] flex items-center gap-[6px]">
+        <ChairMorphAnimation
+          width={59}
+          height={81}
+          fillColor="white"
+          morphDuration={800}
+          pauseDuration={1500}
+        />
+        <ArrowForwardIcon />
       </div>
     </button>
   );
@@ -456,18 +474,12 @@ interface WaitlistScreenProps {
   onContinue: () => void;
 }
 
-// Chairs icon asset
-const CHAIRS_ICON = "/images/chairs-icon.svg";
+// Waitlist assets from Figma
+const WAITLIST_CHAIRS_ICON = "https://www.figma.com/api/mcp/asset/d12a16e0-7f03-473d-94cc-0bd5108ff44b";
+const ARROW_FORWARD_ICON = "https://www.figma.com/api/mcp/asset/f8bdd2ce-0f23-4461-b7f1-0a328c17e8dd";
 
 // SMS number for Spot
 const SPOT_SMS_NUMBER = "+1234567890"; // Replace with actual number
-
-const skipReasons = [
-  { label: "A friend invited me", message: "Hey Spot, a friend invited me to skip the waitlist!" },
-  { label: "I own a restaurant", message: "Hey Spot, I own a restaurant and would love early access." },
-  { label: "Take my money", message: "Hey Spot, I'm ready to pay for early access!" },
-  { label: "I'm a nepo baby", message: "Hey Spot, I know people. Let me in?" },
-];
 
 const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
   isOnWaitlist,
@@ -482,7 +494,8 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
     onTap?.();
   };
 
-  const handleSkipReason = (message: string) => {
+  const handleTextUs = () => {
+    const message = "Hey Spot, a friend referred me!";
     const smsUrl = `sms:${SPOT_SMS_NUMBER}?body=${encodeURIComponent(message)}`;
     window.open(smsUrl, '_self');
   };
@@ -492,78 +505,66 @@ const WaitlistScreen: React.FC<WaitlistScreenProps> = ({
     return (
       <div className="h-full w-full animate-in fade-in duration-300 relative bg-[#151515] flex flex-col">
         {/* Main content - centered */}
-        <div className="flex-1 flex flex-col items-center justify-center px-[39px]">
-          {/* Chairs icon */}
-          <img
-            src={CHAIRS_ICON}
-            alt="Spot chairs"
-            className="w-[120px] h-[64px] mb-[24px]"
-          />
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center gap-[48px]">
+            {/* Chairs icon */}
+            <img
+              src={WAITLIST_CHAIRS_ICON}
+              alt=""
+              className="w-[97px] h-[131px]"
+            />
 
-          {/* Title - 34px bold (Large Title) */}
-          <h1
-            className="text-[34px] font-bold text-white tracking-[-0.5px] leading-[41px] font-['Alte_Haas_Grotesk'] text-center"
-            style={{ fontFeatureSettings: "'dlig' 1" }}
-          >
-            You're on the list.
-          </h1>
+            {/* Text content */}
+            <div className="flex flex-col items-center gap-[17px]">
+              {/* Title */}
+              <h1
+                className="text-[30px] font-bold text-white leading-[41px] font-['Alte_Haas_Grotesk'] text-center w-[237px]"
+                style={{ fontFeatureSettings: "'dlig' 1" }}
+              >
+                YOU'RE ON THE WAITLIST
+              </h1>
 
-          {/* Subtitle - 17px secondary (Body) */}
-          <p
-            className="text-[17px] text-white/60 leading-[22px] tracking-[-0.25px] font-['Alte_Haas_Grotesk'] text-center mt-[12px]"
-            style={{ fontFeatureSettings: "'dlig' 1" }}
-          >
-            We'll let you know when you're in.
-          </p>
+              {/* Subtitle */}
+              <p
+                className="text-[16px] text-white leading-[23px] tracking-[0.25px] font-['Alte_Haas_Grotesk'] text-center w-[209px]"
+                style={{ fontFeatureSettings: "'dlig' 1" }}
+              >
+                We'll be opening up more spots soon.
+              </p>
 
-          {/* Get Notified button - chunky pill with tactile feedback */}
-          <button
-            onClick={handleGetNotified}
-            className="mt-[40px] h-[54px] px-[44px] bg-[#fe3400] rounded-[27px] flex items-center justify-center active:scale-[0.97] transition-transform"
-          >
-            <span
-              className="text-[17px] font-semibold text-white font-['Alte_Haas_Grotesk']"
-              style={{ fontFeatureSettings: "'dlig' 1" }}
-            >
-              Get Notified
-            </span>
-          </button>
-        </div>
-
-        {/* Skip ahead section - pinned to bottom */}
-        <div className="pb-[calc(32px+env(safe-area-inset-bottom))]">
-          {/* Section label - 14px tertiary */}
-          <p
-            className="text-[14px] text-white/30 tracking-[0.5px] uppercase px-[39px] mb-[16px] font-['Alte_Haas_Grotesk'] text-center"
-            style={{ fontFeatureSettings: "'dlig' 1" }}
-          >
-            Trying to cut the line? Text us.
-          </p>
-
-          {/* Scrolling reason pills */}
-          <div className="relative">
-            {/* Fade overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-[39px] bg-gradient-to-r from-[#151515] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-[39px] bg-gradient-to-l from-[#151515] to-transparent z-10 pointer-events-none" />
-
-            <div className="flex gap-[10px] overflow-x-auto no-scrollbar px-[39px] justify-center">
-              {skipReasons.map((reason) => (
-                <button
-                  key={reason.label}
-                  onClick={() => handleSkipReason(reason.message)}
-                  className="flex-shrink-0 h-[44px] px-[20px] bg-[#1e1e1e] border border-white/10 rounded-[22px] flex items-center justify-center active:bg-[#2a2a2a] active:border-white/20"
+              {/* Get notified button */}
+              <button
+                onClick={handleGetNotified}
+                className="h-[54px] w-[181px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:scale-[0.97] transition-transform"
+              >
+                <span
+                  className="text-[18px] font-medium text-white tracking-[0.25px]"
+                  style={{ fontFeatureSettings: "'dlig' 1" }}
                 >
-                  <span
-                    className="text-[15px] text-white/60 whitespace-nowrap font-['Alte_Haas_Grotesk']"
-                    style={{ fontFeatureSettings: "'dlig' 1" }}
-                  >
-                    {reason.label}
-                  </span>
-                </button>
-              ))}
+                  Get notified
+                </span>
+              </button>
             </div>
           </div>
         </div>
+
+        {/* Bottom red bar - Referred by a friend */}
+        <button
+          onClick={handleTextUs}
+          className="bg-[#fe3400] h-[74px] w-full flex items-center justify-center gap-[10px] px-[63px] active:bg-[#e52f00] transition-colors"
+        >
+          <span
+            className="text-[16px] font-medium text-white text-center tracking-[0.25px] leading-[21px]"
+            style={{ fontFeatureSettings: "'dlig' 1" }}
+          >
+            Referred by a friend? Text us
+          </span>
+          <img
+            src={ARROW_FORWARD_ICON}
+            alt=""
+            className="w-[23px] h-[23px]"
+          />
+        </button>
       </div>
     );
   }

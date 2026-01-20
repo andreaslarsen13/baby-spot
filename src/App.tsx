@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { VersionProvider } from './components/library/VersionContext';
 import Prototype from './pages/Prototype';
 import Library from './pages/Library';
 import UIKit from './pages/UIKit';
 import Onboarding from './pages/Onboarding';
+import Spotlight from './pages/Spotlight';
 
 // Helper to persist auth state
 const useAuthState = () => {
@@ -29,18 +31,30 @@ const useAuthState = () => {
   return { isAuthenticated, login, logout };
 };
 
+// Animated routes wrapper
+function AnimatedRoutes({ onLogin }: { onLogin: () => void }) {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Prototype />} />
+        <Route path="/spotlight" element={<Spotlight />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/ui" element={<UIKit />} />
+        <Route path="/onboarding" element={<Onboarding onComplete={onLogin} />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 function App() {
   const { login } = useAuthState();
 
   return (
     <VersionProvider>
       <Router>
-        <Routes>
-          <Route path="/" element={<Prototype />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/ui" element={<UIKit />} />
-          <Route path="/onboarding" element={<Onboarding onComplete={login} />} />
-        </Routes>
+        <AnimatedRoutes onLogin={login} />
       </Router>
     </VersionProvider>
   );

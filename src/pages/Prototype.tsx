@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Settings, ChevronLeft, ChevronRight, Calendar, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { TopNav } from '@/components/ui/TopNav';
 import { restaurants } from '@/data/restaurants';
 
 // Active booking search type
@@ -32,6 +34,7 @@ import {
   PartySizeCard,
 } from '@/components/ui/cards';
 import { cn } from '@/lib/utils';
+
 
 // Stop Time Picker - Stepper based design
 interface StopTimePickerProps {
@@ -418,17 +421,11 @@ const Prototype: React.FC = () => {
   const screenContent = (
     <>
       {/* Top Navigation */}
-      <div className="flex items-center justify-between px-4 py-4">
-        <button
-          onClick={() => isMobile && navigate('/onboarding')}
-          className={isMobile ? "active:opacity-70 transition-opacity" : ""}
-        >
-          <h2 className="text-2xl font-bold tracking-tight">Spot</h2>
-        </button>
-        <button className="p-2 active:bg-white/10 rounded-full transition-colors">
-          <Settings className="w-6 h-6 text-zinc-400" />
-        </button>
-      </div>
+      <TopNav
+        onLogoClick={() => isMobile && navigate('/onboarding')}
+        onSpotlightClick={() => navigate('/spotlight')}
+        onProfileClick={() => {}}
+      />
 
       {/* Home Content */}
       <div className="px-4 py-2 flex-1 overflow-y-auto">
@@ -480,9 +477,19 @@ const Prototype: React.FC = () => {
   );
 
   return (
-    <div
-      ref={setContainer}
-      className="h-[100dvh] bg-[#191919] text-white relative flex flex-col font-['Inter'] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] overflow-hidden"
+    <>
+      <motion.div
+        ref={setContainer}
+        className="bg-[#191919] text-white flex flex-col font-['Inter']"
+        style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+      initial={{ x: '-30%', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: '-30%', opacity: 0 }}
+      transition={{
+        type: 'tween',
+        duration: 0.25,
+        ease: [0.32, 0.72, 0, 1],
+      }}
     >
       {/* Version Switcher Overlay - toggle with [space][space] */}
       <VersionSwitcherOverlay
@@ -1109,7 +1116,8 @@ const Prototype: React.FC = () => {
             </DrawerContent>
           </Drawer>
 
-    </div>
+      </motion.div>
+    </>
   );
 };
 

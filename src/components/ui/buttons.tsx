@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // =============================================================================
@@ -12,11 +12,11 @@ export const PlusButton: React.FC<{
   <button
     onClick={onClick}
     className={cn(
-      'w-48 h-16 bg-gradient-to-b from-[#313131] to-[rgba(49,49,49,0.5)] rounded-[46px] flex items-center justify-center shadow-lg active:opacity-80 transition-opacity',
+      'w-48 h-16 bg-gradient-to-b from-[#313131] to-[rgba(49,49,49,0.5)] rounded-[46px] flex items-center justify-center',
       className
     )}
   >
-    <Plus className="w-6 h-6 text-white" />
+    <img src="/images/plus-icon.svg" alt="" className="w-6 h-6" aria-hidden="true" />
   </button>
 );
 
