@@ -292,19 +292,12 @@ const Prototype: React.FC = () => {
     window.innerWidth <= 768
   );
 
-  // Double-space hotkey to toggle version switcher
-  const lastSpaceTime = useRef<number>(0);
+  // Cmd+A hotkey to toggle version switcher
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' && !e.repeat) {
-        const now = Date.now();
-        if (now - lastSpaceTime.current < 400) {
-          e.preventDefault();
-          setShowVersionSwitcher(prev => !prev);
-          lastSpaceTime.current = 0;
-        } else {
-          lastSpaceTime.current = now;
-        }
+      if (e.metaKey && e.key === 'a') {
+        e.preventDefault();
+        setShowVersionSwitcher(prev => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -358,7 +351,7 @@ const Prototype: React.FC = () => {
       startMinutes: 19 * 60 + 30, // 7:30 PM
       endMinutes: 22 * 60, // 10:00 PM
       partySize: 4,
-      restaurantIds: ['2', '4', '8'], // Lilia, Via Carota, Don Angie
+      restaurantIds: ['1', '2', '3', '4'], // Misi, Winson, Caffè Panna, Bodega's Hall
       stopTimeOffset: 60,
       createdAt: Date.now(),
     }]);
@@ -369,7 +362,7 @@ const Prototype: React.FC = () => {
     tomorrow.setHours(0, 0, 0, 0);
     setReservations([{
       id: 'demo-1',
-      restaurantId: '2', // Lilia
+      restaurantId: '1', // Misi
       date: tomorrow.toISOString(),
       timeMinutes: 19 * 60 + 30, // 7:30 PM
       partySize: 2,
@@ -485,59 +478,101 @@ const Prototype: React.FC = () => {
           </p>
         )}
 
-        {/* Reservation Cards */}
+        {/* Booked Reservations */}
         {reservations.length > 0 && (
-          <div className="flex flex-col gap-3 mt-2">
-            {reservations.map((reservation) => {
+          <div className="flex flex-col gap-2 mt-4">
+            {reservations.map((reservation, resIndex) => {
               const resDate = new Date(reservation.date);
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const tomorrow = new Date(today);
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              const isToday = resDate.toDateString() === today.toDateString();
+              const isTomorrow = resDate.toDateString() === tomorrow.toDateString();
+              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : resDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
               const restaurant = restaurants.find(r => r.id === reservation.restaurantId) || restaurants[0];
 
               return (
-                <button
+                <motion.div
                   key={reservation.id}
-                  onClick={() => setSelectedReservation(reservation)}
-                  className="bg-[#252525] rounded-[10px] p-4 border-[0.75px] border-[#30302e] w-full text-left active:bg-[#2a2a2a] transition-colors">
-                  {/* Top row: Date/time/guests + Booked status */}
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="text-[16px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
-                        {resDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                      </div>
-                      <div className="text-[13px] text-[#898989] mt-1 tracking-[0.25px]">
-                        {formatTimeShort(reservation.timeMinutes)} for {reservation.partySize} {reservation.partySize === 1 ? 'guest' : 'guests'}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: resIndex * 0.1 }}
+                  className="relative"
+                >
+                  {/* Reservation card container */}
+                  <button
+                    onClick={() => setSelectedReservation(reservation)}
+                    className="relative rounded-[14px] overflow-hidden w-full text-left active:bg-white/5 transition-colors border-[0.5px] border-white/[0.1]"
+                    style={{ background: '#1c1c1e' }}
+                  >
+                    {/* Header - date + status */}
+                    <div className="flex items-center justify-between px-4 pt-3 pb-2">
+                      <span
+                        className="text-[17px] font-semibold text-white tracking-[-0.4px]"
+                        style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" }}
+                      >
+                        {dateLabel}
+                      </span>
+                      <div
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-full"
+                        style={{ background: 'rgba(48,209,88,0.12)' }}
+                      >
+                        <div className="w-[6px] h-[6px] rounded-full bg-[#30d158]" />
+                        <span
+                          className="text-[12px] font-medium tracking-[-0.2px]"
+                          style={{ color: '#30d158' }}
+                        >
+                          Booked
+                        </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-[7px] h-[7px] rounded-full bg-[#04ff3f]" />
-                      <span className="text-[11px] text-[#898989] tracking-[0.25px]">Booked</span>
-                    </div>
-                  </div>
 
-                  {/* Bottom row: Restaurant image + name/neighborhood */}
-                  <div className="flex items-center gap-4 mt-4">
-                    <div
-                      className="w-[42px] h-[61px] rounded-[10px] flex-shrink-0"
-                      style={{ backgroundColor: restaurant?.color || '#3a3a3c' }}
-                    />
-                    <div>
-                      <div className="text-[16px] font-semibold text-[#d4d4d4] tracking-[0.25px]">
-                        {restaurant?.name || 'Restaurant'}
+                    {/* Content row */}
+                    <div className="flex items-center gap-4 px-4 pb-4">
+                      {/* Restaurant card - image only */}
+                      <div className="w-[96px] h-[96px] rounded-[12px] overflow-hidden flex-shrink-0">
+                        {restaurant.image ? (
+                          <img
+                            src={restaurant.image}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="w-full h-full"
+                            style={{ backgroundColor: restaurant.color }}
+                          />
+                        )}
                       </div>
-                      <div className="text-[13px] text-[#898989] mt-0.5 tracking-[0.25px]">
-                        {restaurant?.neighborhood || ''}
+
+                      {/* Restaurant details */}
+                      <div className="flex-1 flex flex-col items-start gap-1">
+                        <span
+                          className="text-[20px] font-bold text-white tracking-[-0.5px]"
+                          style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" }}
+                        >
+                          {restaurant.name}
+                        </span>
+                        <span className="text-[13px] text-[#8e8e93] tracking-[-0.2px]">
+                          {formatTimeShort(reservation.timeMinutes)} · {reservation.partySize} {reservation.partySize === 1 ? 'guest' : 'guests'}
+                        </span>
+                        <span className="text-[13px] text-[#8e8e93] tracking-[-0.2px]">
+                          Dining Room
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </button>
+                  </button>
+                </motion.div>
               );
             })}
           </div>
         )}
 
-        {/* Active Search Cards */}
+        {/* Active Searches */}
         {activeSearches.length > 0 && (
-          <div className="flex flex-col gap-3 mt-4">
-            {activeSearches.map((search) => {
+          <div className="flex flex-col gap-2 mt-2">
+            {activeSearches.map((search, searchIndex) => {
               const searchDate = new Date(search.date);
               const today = new Date();
               today.setHours(0, 0, 0, 0);
@@ -545,52 +580,118 @@ const Prototype: React.FC = () => {
               tomorrow.setDate(tomorrow.getDate() + 1);
               const isToday = searchDate.toDateString() === today.toDateString();
               const isTomorrow = searchDate.toDateString() === tomorrow.toDateString();
-              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : searchDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : searchDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 
               return (
-                <button
+                <motion.div
                   key={search.id}
-                  onClick={() => setSelectedSearch(search)}
-                  className="bg-[#1f1f1f] rounded-[10px] p-4 border-[0.75px] border-[#30302e] w-full text-left active:bg-[#252525] transition-colors"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: searchIndex * 0.1 }}
+                  className="relative"
                 >
-                  {/* Top row: Date + Searching status */}
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="text-[16px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
-                        {dateLabel}
-                      </div>
-                      <div className="text-[13px] text-[#898989] mt-1 tracking-[0.25px]">
-                        {formatTimeShort(search.startMinutes)} - {formatTimeShort(search.endMinutes)} for {search.partySize} {Number(search.partySize) === 1 ? 'guest' : 'guests'}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-[7px] h-[7px] rounded-full bg-[#ffce04]" />
-                      <span className="text-[11px] text-[#898989] tracking-[0.25px]">Searching</span>
-                    </div>
-                  </div>
+                  {/* Ambient glow */}
+                  <motion.div
+                    className="absolute -inset-[1px] rounded-[14px] pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,206,4,0.15) 0%, rgba(255,206,4,0) 50%, rgba(255,206,4,0.1) 100%)',
+                    }}
+                    animate={{
+                      opacity: [0.5, 0.8, 0.5],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
 
-                  {/* Bottom row: Restaurant pills */}
-                  <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar">
-                    {search.restaurantIds.map((id) => {
-                      const restaurant = restaurants.find(r => r.id === id);
-                      if (!restaurant) return null;
-                      return (
-                        <div
-                          key={id}
-                          className="flex items-center gap-2 bg-[#252525] rounded-full px-2 py-1.5 flex-shrink-0"
+                  {/* Search card container */}
+                  <div
+                    className="relative rounded-[14px] overflow-hidden border-[0.5px] border-white/[0.1]"
+                    style={{ background: '#1c1c1e' }}
+                  >
+                    {/* Header */}
+                    <button
+                      onClick={() => setSelectedSearch(search)}
+                      className="w-full flex items-center justify-between px-4 pt-3 pb-2 active:bg-white/5 transition-colors"
+                    >
+                      <div className="flex flex-col items-start gap-0.5">
+                        <span
+                          className="text-[17px] font-semibold text-white tracking-[-0.4px]"
+                          style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" }}
                         >
-                          <div
-                            className="w-[24px] h-[24px] rounded-full flex-shrink-0"
-                            style={{ backgroundColor: restaurant.color }}
-                          />
-                          <span className="text-[13px] text-[#d4d4d4] tracking-[0.25px] pr-1">
-                            {restaurant.name}
-                          </span>
-                        </div>
-                      );
-                    })}
+                          {dateLabel}
+                        </span>
+                        <span className="text-[13px] text-[#8e8e93] tracking-[-0.2px]">
+                          {formatTimeShort(search.startMinutes)} · {search.partySize} {Number(search.partySize) === 1 ? 'guest' : 'guests'}
+                        </span>
+                      </div>
+                      <div
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-full"
+                        style={{ background: 'rgba(255,206,4,0.12)' }}
+                      >
+                        <motion.div
+                          className="w-[6px] h-[6px] rounded-full bg-[#ffce04]"
+                          animate={{
+                            scale: [1, 1.4, 1],
+                            opacity: [1, 0.6, 1],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                        <span
+                          className="text-[12px] font-medium tracking-[-0.2px]"
+                          style={{ color: '#ffce04' }}
+                        >
+                          Searching
+                        </span>
+                      </div>
+                    </button>
+
+
+                    {/* Restaurant cards - horizontal scroll */}
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 pb-3">
+                      {search.restaurantIds.map((id, cardIndex) => {
+                        const restaurant = restaurants.find(r => r.id === id);
+                        if (!restaurant) return null;
+                        return (
+                          <motion.button
+                            key={id}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: 0.2 + cardIndex * 0.08,
+                              ease: [0.25, 0.1, 0.25, 1],
+                            }}
+                            onClick={() => setSelectedSearch(search)}
+                            className="flex-shrink-0 active:scale-95 transition-transform duration-150"
+                          >
+                            {/* Trading card - compact */}
+                            <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden">
+                              {restaurant.image ? (
+                                <img
+                                  src={restaurant.image}
+                                  alt=""
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <div
+                                  className="w-full h-full"
+                                  style={{ backgroundColor: restaurant.color }}
+                                />
+                              )}
+                            </div>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </button>
+                </motion.div>
               );
             })}
           </div>
@@ -619,7 +720,7 @@ const Prototype: React.FC = () => {
         ease: [0.25, 0.1, 0.25, 1],
       }}
     >
-      {/* Version Switcher Overlay - toggle with [space][space] */}
+      {/* Version Switcher Overlay - toggle with Cmd+A */}
       <VersionSwitcherOverlay
         componentName="TimeWindowSlider"
         currentVersion={getVersion('TimeWindowSlider', 'v16')}
