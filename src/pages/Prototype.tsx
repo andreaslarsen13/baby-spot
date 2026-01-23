@@ -292,19 +292,12 @@ const Prototype: React.FC = () => {
     window.innerWidth <= 768
   );
 
-  // Double-space hotkey to toggle version switcher
-  const lastSpaceTime = useRef<number>(0);
+  // ⌘A hotkey to toggle version switcher
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' && !e.repeat) {
-        const now = Date.now();
-        if (now - lastSpaceTime.current < 400) {
-          e.preventDefault();
-          setShowVersionSwitcher(prev => !prev);
-          lastSpaceTime.current = 0;
-        } else {
-          lastSpaceTime.current = now;
-        }
+      if (e.metaKey && e.key === 'a') {
+        e.preventDefault();
+        setShowVersionSwitcher(prev => !prev);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
