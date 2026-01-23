@@ -1,5 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { MorphIcon } from './MorphIcon';
 
 interface TopNavProps {
   onLogoClick?: () => void;
@@ -26,14 +28,22 @@ export const TopNav: React.FC<TopNavProps> = ({
 
       {/* Right Actions */}
       <div className="flex items-center gap-[7px]">
-        {/* Spotlight Button */}
-        <button
+        {/* Spotlight Button - shared element with back button */}
+        <motion.button
+          layoutId="spotlight-back-button"
           onClick={onSpotlightClick}
-          className="w-10 h-10 bg-[#242424] rounded-[13px] flex items-center justify-center active:bg-[#303030] transition-colors"
+          className="w-10 h-10 bg-[#242424] rounded-[13px] flex items-center justify-center active:bg-[#303030]"
           aria-label="Spotlight"
+          transition={{
+            layout: {
+              type: 'tween',
+              duration: 0.35,
+              ease: [0.25, 0.1, 0.25, 1],
+            },
+          }}
         >
-          <img src="/images/sparkle-icon.svg" alt="" className="w-[23px] h-[23px]" aria-hidden="true" />
-        </button>
+          <MorphIcon isChevron={false} className="w-6 h-6" />
+        </motion.button>
 
         {/* Profile Button */}
         <button

@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import { VersionProvider } from './components/library/VersionContext';
+import { Agentation } from 'agentation';
 import Prototype from './pages/Prototype';
 import Library from './pages/Library';
 import UIKit from './pages/UIKit';
 import Onboarding from './pages/Onboarding';
 import Spotlight from './pages/Spotlight';
+import Profile from './pages/Profile';
+import Account from './pages/Account';
 
 // Helper to persist auth state
 const useAuthState = () => {
@@ -36,15 +39,19 @@ function AnimatedRoutes({ onLogin }: { onLogin: () => void }) {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Prototype />} />
-        <Route path="/spotlight" element={<Spotlight />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/ui" element={<UIKit />} />
-        <Route path="/onboarding" element={<Onboarding onComplete={onLogin} />} />
-      </Routes>
-    </AnimatePresence>
+    <LayoutGroup>
+      <AnimatePresence initial={false}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Prototype />} />
+          <Route path="/spotlight" element={<Spotlight />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/ui" element={<UIKit />} />
+          <Route path="/onboarding" element={<Onboarding onComplete={onLogin} />} />
+        </Routes>
+      </AnimatePresence>
+    </LayoutGroup>
   );
 }
 
@@ -56,6 +63,7 @@ function App() {
       <Router>
         <AnimatedRoutes onLogin={login} />
       </Router>
+      {import.meta.env.DEV && <Agentation />}
     </VersionProvider>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronLeft } from 'lucide-react';
+import { MorphIcon } from '@/components/ui/MorphIcon';
 
 // Restaurant images from Figma
 const IMAGES = {
@@ -9,6 +9,15 @@ const IMAGES = {
   wenWen: 'https://www.figma.com/api/mcp/asset/99f71627-d94c-4e96-bf91-fe7411ed8219',
   llamaInn: 'https://www.figma.com/api/mcp/asset/db167f43-80c5-4fa1-a801-f366ad05dbb3',
 };
+
+// Preload images on module load for instant display
+const preloadImages = () => {
+  Object.values(IMAGES).forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+};
+preloadImages();
 
 // Mock data for available tables
 const availableTables = [
@@ -57,11 +66,21 @@ const availableTables = [
 interface SpotlightCardProps {
   table: typeof availableTables[0];
   onClaim: () => void;
+  index: number;
 }
 
-const SpotlightCard: React.FC<SpotlightCardProps> = ({ table, onClaim }) => {
+const SpotlightCard: React.FC<SpotlightCardProps> = ({ table, onClaim, index }) => {
   return (
-    <div className="relative w-full h-[158px] rounded-[7px] overflow-hidden flex flex-col items-start justify-end px-[16px] py-[18px]">
+    <motion.div
+      className="relative w-full h-[158px] rounded-[7px] overflow-hidden flex flex-col items-start justify-end px-[16px] py-[18px]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.4,
+        delay: 0.15 + index * 0.06,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+    >
       {/* Background image */}
       <img
         src={table.image}
@@ -82,61 +101,53 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ table, onClaim }) => {
       {/* Content */}
       <div className="relative flex items-end justify-between w-full gap-[5px]">
         {/* Left - Info */}
-        <div className="flex flex-col gap-[3px] flex-1 min-w-0">
+        <div className="flex flex-col gap-[2px] flex-1 min-w-0">
           <h3
-            className="text-[22px] text-white leading-[23px]"
+            className="text-[22px] text-white leading-[26px] tracking-[-0.02em]"
             style={{
-              fontFamily: "'Alte Haas Grotesk', sans-serif",
-              fontWeight: 700,
-              letterSpacing: '0.25px',
-              fontFeatureSettings: "'dlig' 1"
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+              fontWeight: 600,
             }}
           >
             {table.restaurant}
           </h3>
           <p
-            className="text-[14px] text-white leading-[23px] h-[18px] flex flex-col justify-center"
+            className="text-[14px] text-white/75 leading-[20px] tracking-[-0.01em]"
             style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif",
-              fontWeight: 500,
-              letterSpacing: '0.25px',
-              fontFeatureSettings: "'dlig' 1"
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+              fontWeight: 400,
             }}
           >
-            {table.date} • {table.time}
+            {table.date} · {table.time}
           </p>
           <p
-            className="text-[14px] text-white leading-[23px] h-[18px] flex flex-col justify-center"
+            className="text-[14px] text-white/50 leading-[20px] tracking-[-0.01em]"
             style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif",
-              fontWeight: 500,
-              letterSpacing: '0.25px',
-              fontFeatureSettings: "'dlig' 1"
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+              fontWeight: 400,
             }}
           >
-            {table.partySize} Guests
+            {table.partySize} guests
           </p>
         </div>
 
         {/* Right - Claim button */}
         <button
           onClick={onClaim}
-          className="h-[37px] w-[84px] rounded-[49px] bg-[#fe3400] active:scale-[0.97] transition-all flex items-center justify-center flex-shrink-0 focus:outline-none p-[10px]"
+          className="h-[38px] px-[20px] rounded-[46px] bg-gradient-to-b from-[#313131] to-[rgba(49,49,49,0.5)] active:opacity-80 transition-opacity flex items-center justify-center flex-shrink-0 focus:outline-none"
         >
           <span
-            className="text-[15px] text-white leading-[23px]"
+            className="text-[15px] text-white/90 tracking-[-0.01em]"
             style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif",
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
               fontWeight: 500,
-              letterSpacing: '0.25px',
-              fontFeatureSettings: "'dlig' 1"
             }}
           >
             Claim
           </span>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -157,40 +168,38 @@ const Spotlight: React.FC = () => {
       exit={{ x: '100%' }}
       transition={{
         type: 'tween',
-        duration: 0.25,
-        ease: [0.32, 0.72, 0, 1],
+        duration: 0.35,
+        ease: [0.25, 0.1, 0.25, 1],
       }}
     >
       {/* Fixed top bar - solid background + back button + fade */}
       <div className="absolute top-0 left-0 right-0 z-10 pointer-events-none pt-[env(safe-area-inset-top)]">
-        {/* Solid background for back button area */}
-        <div className="h-[95px] bg-[#151515] pointer-events-auto">
-          <div className="pt-[35px] pl-[25px]">
-            <button
-              onClick={() => navigate(-1)}
+        {/* Solid background for back button area - matches TopNav px-4 py-4 */}
+        <div className="h-[72px] bg-[#151515] pointer-events-auto">
+          <div className="px-4 py-4">
+            <motion.button
+              layoutId="spotlight-back-button"
+              onClick={() => navigate('/')}
               aria-label="Go back"
-              className="w-[40px] h-[40px] flex items-center justify-center active:opacity-50 transition-opacity bg-[#2a2a2a] rounded-[10px]"
+              className="w-10 h-10 flex items-center justify-center active:opacity-50 bg-[#242424] rounded-[13px]"
+              transition={{
+                layout: {
+                  type: 'tween',
+                  duration: 0.35,
+                  ease: [0.25, 0.1, 0.25, 1],
+                },
+              }}
             >
-              <ChevronLeft className="w-[24px] h-[24px] text-white" strokeWidth={2.5} aria-hidden="true" />
-            </button>
+              <MorphIcon isChevron={true} className="w-6 h-6" />
+            </motion.button>
           </div>
         </div>
         {/* Fade gradient extending from solid area */}
-        <div className="h-[30px] bg-gradient-to-b from-[#151515] to-transparent" />
+        <div className="h-[8px] bg-gradient-to-b from-[#151515] to-transparent" />
       </div>
 
       {/* Scrollable content - header + cards */}
-      <motion.div
-        className="h-full overflow-y-auto pt-[calc(35px+40px+23px)]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          type: 'tween',
-          duration: 0.2,
-          delay: 0.1,
-          ease: 'easeOut',
-        }}
-      >
+      <div className="h-full overflow-y-auto pt-[72px]">
         {/* Header section */}
         <div className="flex flex-col gap-[8px] px-[25px] w-full">
           <h1
@@ -205,29 +214,28 @@ const Spotlight: React.FC = () => {
             Spotlight
           </h1>
           <p
-            className="text-[18px] text-[#949494] leading-[23px] max-w-[329px]"
+            className="text-[17px] text-[#6e6e73] leading-[22px] max-w-[320px] tracking-[-0.01em]"
             style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif",
-              fontWeight: 600,
-              letterSpacing: '0.25px',
-              fontFeatureSettings: "'dlig' 1"
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+              fontWeight: 400,
             }}
           >
-            A selection of the hardest to book tables, released every Sunday at noon.
+            The hardest tables to book, released every Sunday at noon.
           </p>
         </div>
 
         {/* Table List */}
         <div className="flex flex-col gap-[14px] px-[14px] pt-[21px] pb-8">
-          {availableTables.map((table) => (
+          {availableTables.map((table, index) => (
             <SpotlightCard
               key={table.id}
               table={table}
+              index={index}
               onClaim={() => handleClaim(table.id)}
             />
           ))}
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

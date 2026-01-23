@@ -12,7 +12,7 @@ export const PlusButton: React.FC<{
   <button
     onClick={onClick}
     className={cn(
-      'w-48 h-16 bg-gradient-to-b from-[#313131] to-[rgba(49,49,49,0.5)] rounded-[46px] flex items-center justify-center',
+      'w-[117px] h-[54px] bg-gradient-to-b from-[#313131] to-[rgba(49,49,49,0.5)] rounded-[46px] flex items-center justify-center active:opacity-80 transition-opacity',
       className
     )}
   >

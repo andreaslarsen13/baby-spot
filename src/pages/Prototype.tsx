@@ -16,6 +16,19 @@ interface ActiveSearch {
   stopTimeOffset: number;
   createdAt: number;
 }
+
+// Confirmed reservation type
+interface Reservation {
+  id: string;
+  restaurantId: string;
+  date: string;
+  timeMinutes: number;
+  partySize: number | string;
+  confirmationCode: string;
+  seatingArea?: string;
+  specialRequests?: string;
+  createdAt: number;
+}
 import {
   Drawer,
   DrawerContent,
@@ -328,10 +341,42 @@ const Prototype: React.FC = () => {
   const [editingField, setEditingField] = useState<'date' | 'time' | 'party' | 'spots' | 'stopTime' | null>(null);
   const [stopTimeOffset, setStopTimeOffset] = usePersistedState<number>('stopTimeOffset', 60); // minutes before start time
   const [activeSearches, setActiveSearches] = usePersistedState<ActiveSearch[]>('activeSearches', []);
+  const [reservations, setReservations] = usePersistedState<Reservation[]>('reservations', []);
+  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [selectedSearch, setSelectedSearch] = useState<ActiveSearch | null>(null);
+  const [showCancelDrawer, setShowCancelDrawer] = useState(false);
 
-  // Clear active searches on mount (temporary - remove after testing)
+  // Initialize with demo data (temporary - for testing)
   useEffect(() => {
-    setActiveSearches([]);
+    // Demo active search
+    const dayAfterTomorrow = new Date();
+    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+    dayAfterTomorrow.setHours(0, 0, 0, 0);
+    setActiveSearches([{
+      id: 'demo-search-1',
+      date: dayAfterTomorrow.toISOString(),
+      startMinutes: 19 * 60 + 30, // 7:30 PM
+      endMinutes: 22 * 60, // 10:00 PM
+      partySize: 4,
+      restaurantIds: ['2', '4', '8'], // Lilia, Via Carota, Don Angie
+      stopTimeOffset: 60,
+      createdAt: Date.now(),
+    }]);
+
+    // Demo reservation for testing
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    setReservations([{
+      id: 'demo-1',
+      restaurantId: '2', // Lilia
+      date: tomorrow.toISOString(),
+      timeMinutes: 19 * 60 + 30, // 7:30 PM
+      partySize: 2,
+      confirmationCode: 'SPT-2847',
+      seatingArea: 'Dining Room',
+      createdAt: Date.now(),
+    }]);
   }, []);
 
   const handleNextStep = () => {
@@ -356,7 +401,7 @@ const Prototype: React.FC = () => {
   };
 
   const handleFinish = () => {
-    // Save the active search
+    // Save the active search and show confirmation
     if (selectedDate && timeRange.startMinutes !== null && timeRange.endMinutes !== null && selectedPartySize && selectedRestaurants.length > 0) {
       const newSearch: ActiveSearch = {
         id: Date.now().toString(),
@@ -369,6 +414,8 @@ const Prototype: React.FC = () => {
         createdAt: Date.now(),
       };
       setActiveSearches(prev => [newSearch, ...prev]);
+      // Show Search in Progress drawer as confirmation
+      setSelectedSearch(newSearch);
     }
     resetBookingFlow();
   };
@@ -424,13 +471,13 @@ const Prototype: React.FC = () => {
       <TopNav
         onLogoClick={() => isMobile && navigate('/onboarding')}
         onSpotlightClick={() => navigate('/spotlight')}
-        onProfileClick={() => {}}
+        onProfileClick={() => navigate('/profile')}
       />
 
       {/* Home Content */}
       <div className="px-4 py-2 flex-1 overflow-y-auto">
-        {/* Empty state message */}
-        {activeSearches.length === 0 && (
+        {/* Empty state message - only show if no reservations AND no active searches */}
+        {reservations.length === 0 && activeSearches.length === 0 && (
           <p className="text-[20px] leading-[28px] tracking-[-0.4px]">
             <span className="font-light text-[#898989]">Welcome, </span>
             <span className="font-semibold text-[#D6D6D6]">Antonio</span>
@@ -438,9 +485,58 @@ const Prototype: React.FC = () => {
           </p>
         )}
 
+        {/* Reservation Cards */}
+        {reservations.length > 0 && (
+          <div className="flex flex-col gap-3 mt-2">
+            {reservations.map((reservation) => {
+              const resDate = new Date(reservation.date);
+              const restaurant = restaurants.find(r => r.id === reservation.restaurantId) || restaurants[0];
+
+              return (
+                <button
+                  key={reservation.id}
+                  onClick={() => setSelectedReservation(reservation)}
+                  className="bg-[#252525] rounded-[10px] p-4 border-[0.75px] border-[#30302e] w-full text-left active:bg-[#2a2a2a] transition-colors">
+                  {/* Top row: Date/time/guests + Booked status */}
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-[16px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
+                        {resDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                      </div>
+                      <div className="text-[13px] text-[#898989] mt-1 tracking-[0.25px]">
+                        {formatTimeShort(reservation.timeMinutes)} for {reservation.partySize} {reservation.partySize === 1 ? 'guest' : 'guests'}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-[7px] h-[7px] rounded-full bg-[#04ff3f]" />
+                      <span className="text-[11px] text-[#898989] tracking-[0.25px]">Booked</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom row: Restaurant image + name/neighborhood */}
+                  <div className="flex items-center gap-4 mt-4">
+                    <div
+                      className="w-[42px] h-[61px] rounded-[10px] flex-shrink-0"
+                      style={{ backgroundColor: restaurant?.color || '#3a3a3c' }}
+                    />
+                    <div>
+                      <div className="text-[16px] font-semibold text-[#d4d4d4] tracking-[0.25px]">
+                        {restaurant?.name || 'Restaurant'}
+                      </div>
+                      <div className="text-[13px] text-[#898989] mt-0.5 tracking-[0.25px]">
+                        {restaurant?.neighborhood || ''}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {/* Active Search Cards */}
         {activeSearches.length > 0 && (
-          <div className="flex flex-col gap-3 mt-6">
+          <div className="flex flex-col gap-3 mt-4">
             {activeSearches.map((search) => {
               const searchDate = new Date(search.date);
               const today = new Date();
@@ -449,20 +545,52 @@ const Prototype: React.FC = () => {
               tomorrow.setDate(tomorrow.getDate() + 1);
               const isToday = searchDate.toDateString() === today.toDateString();
               const isTomorrow = searchDate.toDateString() === tomorrow.toDateString();
-              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : searchDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+              const dateLabel = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : searchDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
               return (
-                <div key={search.id} className="bg-[#2c2c2e] rounded-2xl border border-[#3a3a3c] p-4">
-                  {/* Date as title */}
-                  <div className="text-[17px] font-semibold text-white">
-                    {dateLabel}
+                <button
+                  key={search.id}
+                  onClick={() => setSelectedSearch(search)}
+                  className="bg-[#1f1f1f] rounded-[10px] p-4 border-[0.75px] border-[#30302e] w-full text-left active:bg-[#252525] transition-colors"
+                >
+                  {/* Top row: Date + Searching status */}
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-[16px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
+                        {dateLabel}
+                      </div>
+                      <div className="text-[13px] text-[#898989] mt-1 tracking-[0.25px]">
+                        {formatTimeShort(search.startMinutes)} - {formatTimeShort(search.endMinutes)} for {search.partySize} {Number(search.partySize) === 1 ? 'guest' : 'guests'}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-[7px] h-[7px] rounded-full bg-[#ffce04]" />
+                      <span className="text-[11px] text-[#898989] tracking-[0.25px]">Searching</span>
+                    </div>
                   </div>
 
-                  {/* Info */}
-                  <div className="text-[13px] text-[#636366] mt-1">
-                    {formatTimeShort(search.startMinutes)}–{formatTimeShort(search.endMinutes)} · {search.partySize} guests · {search.restaurantIds.length} spot{search.restaurantIds.length > 1 ? 's' : ''}
+                  {/* Bottom row: Restaurant pills */}
+                  <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar">
+                    {search.restaurantIds.map((id) => {
+                      const restaurant = restaurants.find(r => r.id === id);
+                      if (!restaurant) return null;
+                      return (
+                        <div
+                          key={id}
+                          className="flex items-center gap-2 bg-[#252525] rounded-full px-2 py-1.5 flex-shrink-0"
+                        >
+                          <div
+                            className="w-[24px] h-[24px] rounded-full flex-shrink-0"
+                            style={{ backgroundColor: restaurant.color }}
+                          />
+                          <span className="text-[13px] text-[#d4d4d4] tracking-[0.25px] pr-1">
+                            {restaurant.name}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -482,13 +610,13 @@ const Prototype: React.FC = () => {
         ref={setContainer}
         className="bg-[#191919] text-white flex flex-col font-['Inter']"
         style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
-      initial={{ x: '-30%', opacity: 0 }}
+      initial={{ x: '-30%', opacity: 0.5 }}
       animate={{ x: 0, opacity: 1 }}
-      exit={{ x: '-30%', opacity: 0 }}
+      exit={{ x: '-30%', opacity: 0.5 }}
       transition={{
         type: 'tween',
-        duration: 0.25,
-        ease: [0.32, 0.72, 0, 1],
+        duration: 0.35,
+        ease: [0.25, 0.1, 0.25, 1],
       }}
     >
       {/* Version Switcher Overlay - toggle with [space][space] */}
@@ -1113,6 +1241,268 @@ const Prototype: React.FC = () => {
                   setCurrentStep(5);
                 }}
               />
+            </DrawerContent>
+          </Drawer>
+
+          {/* Reservation Details Drawer */}
+          <Drawer open={selectedReservation !== null} onOpenChange={(open) => !open && setSelectedReservation(null)}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              {selectedReservation && (() => {
+                const restaurant = restaurants.find(r => r.id === selectedReservation.restaurantId) || restaurants[0];
+                const resDate = new Date(selectedReservation.date);
+                const formattedDate = resDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric'
+                });
+
+                // Mock address based on restaurant (in real app this would come from data)
+                const addresses: Record<string, string> = {
+                  '1': '115 St Marks Pl',
+                  '2': '567 Union Ave',
+                  '3': '652 10th Ave',
+                  '4': '51 Grove St',
+                  '5': '119 Delancey St',
+                  '6': '10 Columbus Cir',
+                  '7': '104 E 30th St',
+                  '8': '103 Greenwich Ave',
+                  '9': '134 Eldridge St',
+                  '10': '29 Hudson Yards',
+                };
+                const address = addresses[selectedReservation.restaurantId] || '123 Restaurant St';
+
+                return (
+                  <div className="flex flex-col gap-[25px] pt-5 px-5 pb-[calc(24px+env(safe-area-inset-bottom))]">
+                    {/* Header */}
+                    <div className="flex flex-col gap-3">
+                      <h2 className="text-[15px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
+                        Reservation details
+                      </h2>
+                      <p className="text-[15px] text-[#848486] tracking-[0.25px] leading-[23px]">
+                        Spot booked you a table for {selectedReservation.partySize} on {formattedDate} at {formatTimeShort(selectedReservation.timeMinutes)}.
+                      </p>
+                    </div>
+
+                    {/* Restaurant Card */}
+                    <div className="flex items-center gap-[17px]">
+                      <div
+                        className="w-[58px] h-[85px] rounded-[10px] flex-shrink-0"
+                        style={{ backgroundColor: restaurant?.color || '#3a3a3c' }}
+                      />
+                      <div className="flex flex-col gap-[3px]">
+                        <div className="text-[16px] font-semibold text-[#d4d4d4] tracking-[0.25px] leading-[23px]">
+                          {restaurant?.name || 'Restaurant'}
+                        </div>
+                        <div className="text-[13px] text-[#898989] tracking-[0.25px] leading-[23px]">
+                          {address}
+                        </div>
+                        {selectedReservation.seatingArea && (
+                          <div className="text-[13px] text-[#898989] tracking-[0.25px] leading-[23px]">
+                            {selectedReservation.seatingArea}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      <button className="w-full h-[54px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:bg-[#303030] transition-colors">
+                        <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+                          Manage Reservation
+                        </span>
+                      </button>
+                      <button
+                        onClick={() => setShowCancelDrawer(true)}
+                        className="w-full h-[54px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:bg-[#303030] transition-colors"
+                      >
+                        <span className="text-[15px] font-medium text-[#f13d37] tracking-[0.25px]">
+                          Cancel Reservation
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </DrawerContent>
+          </Drawer>
+
+          {/* Cancel Confirmation Drawer (With Fee) */}
+          <Drawer open={showCancelDrawer} onOpenChange={(open) => !open && setShowCancelDrawer(false)}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              {selectedReservation && (() => {
+                const restaurant = restaurants.find(r => r.id === selectedReservation.restaurantId) || restaurants[0];
+                const feePerGuest = restaurant?.fee || 25;
+                const partySize = typeof selectedReservation.partySize === 'string' ? 9 : selectedReservation.partySize;
+                const totalFee = feePerGuest * partySize;
+
+                return (
+                  <div className="flex flex-col gap-5 pt-1 px-5 pb-[calc(24px+env(safe-area-inset-bottom))]">
+                    {/* Header */}
+                    <div className="flex items-center gap-[15px] py-2">
+                      <button
+                        onClick={() => setShowCancelDrawer(false)}
+                        className="w-10 h-10 flex items-center justify-center rounded-full active:bg-white/10 transition-colors -ml-2"
+                      >
+                        <ChevronLeft className="w-6 h-6 text-white" />
+                      </button>
+                      <h2 className="text-[15px] font-bold text-[#d6d6d6] tracking-[0.25px]">
+                        Confirm cancellation
+                      </h2>
+                    </div>
+
+                    {/* Warning Text */}
+                    <p className="text-[15px] text-[#848486] tracking-[0.25px] leading-[23px]">
+                      This reservation is within the cancellation window. The restaurant may charge a cancellation fee at their discretion.
+                    </p>
+
+                    {/* Fee Breakdown Card */}
+                    <div className="bg-[#252525] rounded-[16px] p-4 border border-[#30302e]">
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[14px] text-[#d4d4d4] tracking-[0.25px]">Cancellation fee</span>
+                          <span className="text-[14px] text-[#898989] tracking-[0.25px]">${feePerGuest} per guest</span>
+                        </div>
+                        <div className="h-[1px] bg-[#3d3d3d]" />
+                        <div className="flex items-center justify-between">
+                          <span className="text-[14px] text-[#d4d4d4] tracking-[0.25px]">Via Resy</span>
+                          <span className="text-[14px] text-[#898989] tracking-[0.25px]">{restaurant?.name}</span>
+                        </div>
+                        <div className="h-[1px] bg-[#3d3d3d]" />
+                        <div className="flex items-center justify-between">
+                          <span className="text-[15px] font-semibold text-[#d4d4d4] tracking-[0.25px]">Total</span>
+                          <span className="text-[15px] font-semibold text-[#d4d4d4] tracking-[0.25px]">${totalFee}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      <button
+                        onClick={() => {
+                          setReservations(prev => prev.filter(r => r.id !== selectedReservation.id));
+                          setShowCancelDrawer(false);
+                          setSelectedReservation(null);
+                        }}
+                        className="w-full h-[54px] bg-[#fe3400] rounded-[46px] flex items-center justify-center active:opacity-90 transition-opacity"
+                      >
+                        <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+                          Confirm Cancellation
+                        </span>
+                      </button>
+                      <button
+                        onClick={() => setShowCancelDrawer(false)}
+                        className="w-full h-[54px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:bg-[#303030] transition-colors"
+                      >
+                        <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+                          Contact Support
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </DrawerContent>
+          </Drawer>
+
+          {/* Search in Progress Drawer */}
+          <Drawer open={selectedSearch !== null} onOpenChange={(open) => !open && setSelectedSearch(null)}>
+            <DrawerContent
+              container={container}
+              className="bg-[#191919] border-0 text-white outline-none !absolute h-auto max-h-[85%]"
+              overlayClassName="!absolute"
+            >
+              {selectedSearch && (() => {
+                const searchDate = new Date(selectedSearch.date);
+                const formattedDate = searchDate.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  month: 'long',
+                  day: 'numeric'
+                });
+                const partySize = typeof selectedSearch.partySize === 'string' ? '9+' : selectedSearch.partySize;
+
+                // Calculate stop time
+                const stopMinutes = selectedSearch.startMinutes - selectedSearch.stopTimeOffset;
+                const stopTime = formatTimeShort(stopMinutes > 0 ? stopMinutes : stopMinutes + 24 * 60);
+
+                return (
+                  <div className="flex flex-col gap-5 pt-5 px-5 pb-[calc(24px+env(safe-area-inset-bottom))]">
+                    {/* Header */}
+                    <div className="flex flex-col gap-3">
+                      <h2 className="text-[15px] font-semibold text-[#d6d6d6] tracking-[0.25px]">
+                        Search in progress
+                      </h2>
+                      <p className="text-[15px] text-[#848486] tracking-[0.25px] leading-[23px]">
+                        Spot is searching for a table for {partySize} on {formattedDate} between {formatTimeShort(selectedSearch.startMinutes)} and {formatTimeShort(selectedSearch.endMinutes)}.
+                      </p>
+                    </div>
+
+                    {/* Restaurant List */}
+                    <div className="flex flex-col gap-2">
+                      {selectedSearch.restaurantIds.map((id) => {
+                        const restaurant = restaurants.find(r => r.id === id);
+                        if (!restaurant) return null;
+                        return (
+                          <div
+                            key={id}
+                            className="flex items-center gap-3 bg-[#252525] rounded-[12px] p-3"
+                          >
+                            <div
+                              className="w-[40px] h-[40px] rounded-[8px] flex-shrink-0"
+                              style={{ backgroundColor: restaurant.color }}
+                            />
+                            <span className="text-[15px] text-[#d4d4d4] tracking-[0.25px]">
+                              {restaurant.name}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Search stops at row */}
+                    <button className="flex items-center justify-between py-3">
+                      <span className="text-[14px] text-[#898989] tracking-[0.25px]">
+                        Search stops at
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[14px] text-[#d4d4d4] tracking-[0.25px]">
+                          {stopTime}
+                        </span>
+                        <ChevronRight className="w-4 h-4 text-[#636366]" />
+                      </div>
+                    </button>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      <button
+                        className="w-full h-[54px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:bg-[#303030] transition-colors"
+                      >
+                        <span className="text-[15px] font-medium text-white tracking-[0.25px]">
+                          Edit Search
+                        </span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          cancelSearch(selectedSearch.id);
+                          setSelectedSearch(null);
+                        }}
+                        className="w-full h-[54px] bg-[#252525] border border-[#30302e] rounded-[46px] flex items-center justify-center active:bg-[#303030] transition-colors"
+                      >
+                        <span className="text-[15px] font-medium text-[#f13d37] tracking-[0.25px]">
+                          Stop Search
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
             </DrawerContent>
           </Drawer>
 
