@@ -292,7 +292,7 @@ const Prototype: React.FC = () => {
     window.innerWidth <= 768
   );
 
-  // Cmd+A hotkey to toggle version switcher
+  // ⌘A hotkey to toggle version switcher
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === 'a') {
