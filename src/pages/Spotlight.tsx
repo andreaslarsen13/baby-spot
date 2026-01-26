@@ -28,9 +28,10 @@ const availableTables = [
     cuisine: 'Italian',
     time: '8:00 PM',
     partySize: 4,
-    date: 'Fri, Jan 31',
+    date: 'Friday, January 31',
     image: IMAGES.lilia,
     addedAt: Date.now() - 1000 * 60 * 45,
+    claimed: false,
   },
   {
     id: '2',
@@ -39,9 +40,10 @@ const availableTables = [
     cuisine: 'Italian-American',
     time: '7:30 PM',
     partySize: 2,
-    date: 'Sat, Feb 1',
+    date: 'Saturday, February 1',
     image: IMAGES.wenWen,
     addedAt: Date.now() - 1000 * 60 * 60 * 3,
+    claimed: true,
   },
   {
     id: '3',
@@ -50,9 +52,10 @@ const availableTables = [
     cuisine: 'Italian-American',
     time: '9:00 PM',
     partySize: 2,
-    date: 'Fri, Jan 31',
+    date: 'Friday, January 31',
     image: IMAGES.lilia,
     addedAt: Date.now() - 1000 * 60 * 60 * 8,
+    claimed: false,
   },
   {
     id: '4',
@@ -61,9 +64,10 @@ const availableTables = [
     cuisine: 'Italian',
     time: '6:30 PM',
     partySize: 2,
-    date: 'Sun, Feb 2',
+    date: 'Sunday, February 2',
     image: IMAGES.wenWen,
     addedAt: Date.now() - 1000 * 60 * 60 * 24,
+    claimed: true,
   },
   {
     id: '5',
@@ -72,9 +76,10 @@ const availableTables = [
     cuisine: 'Peruvian',
     time: '7:00 PM',
     partySize: 6,
-    date: 'Fri, Jan 31',
+    date: 'Friday, January 31',
     image: IMAGES.llamaInn,
     addedAt: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    claimed: false,
   },
 ];
 
@@ -112,103 +117,147 @@ const getTimeUntilNextDrop = (): string => {
   return `${hours}h`;
 };
 
-// Feed Card Component
-interface FeedCardProps {
+// Hero Card Component - Large featured card
+interface HeroCardProps {
   table: TableData;
-  index: number;
   onSelect: () => void;
+  index: number;
+  total: number;
 }
 
-const FeedCard: React.FC<FeedCardProps> = ({ table, index, onSelect }) => {
-  const isRecent = Date.now() - table.addedAt < 1000 * 60 * 60 * 2;
-
+const HeroCard: React.FC<HeroCardProps> = ({ table, onSelect, index, total }) => {
   return (
     <motion.button
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{
-        opacity: 0,
-        scale: 0.9,
-        y: -20,
-        transition: { duration: 0.3, ease: [0.32, 0.72, 0, 1] }
-      }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.08,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       onClick={onSelect}
       className="w-full text-left relative"
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.995 }}
     >
-      {/* Card container */}
-      <div className="relative h-[200px] rounded-[20px] overflow-hidden">
-        {/* Background image */}
+      {/* Cinematic image */}
+      <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={table.image}
           alt={table.restaurant}
           className="absolute inset-0 w-full h-full object-cover"
         />
-
-        {/* Gradient overlay */}
+        {/* Subtle vignette */}
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(180deg,
-              rgba(0,0,0,0.1) 0%,
-              rgba(0,0,0,0) 40%,
-              rgba(0,0,0,0.7) 100%
-            )`,
+            background: 'linear-gradient(180deg, rgba(10,10,10,0.4) 0%, transparent 40%, transparent 50%, rgba(10,10,10,0.95) 100%)',
           }}
         />
+      </div>
 
-        {/* Top badge */}
-        <div className="absolute top-4 left-4">
-          {isRecent ? (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#22c55e]/90 backdrop-blur-sm">
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              <span className="text-[11px] font-medium text-white tracking-wide">
-                NEW
-              </span>
-            </div>
-          ) : (
-            <div className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm">
-              <span className="text-[11px] text-white/70 tracking-wide">
-                {getRelativeTime(table.addedAt)}
-              </span>
-            </div>
-          )}
-        </div>
+      {/* Editorial text overlay */}
+      <div className="absolute bottom-0 left-0 right-0 px-5 pb-5">
+        {/* Index number */}
+        <span
+          className="text-[11px] text-white/40 uppercase tracking-[0.15em] block mb-2"
+        >
+          {String(index).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </span>
 
-        {/* Bottom content */}
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          {/* Restaurant name */}
-          <h3
-            className="text-[28px] leading-[1] tracking-[-0.02em] text-white mb-1"
-            style={{
-              fontFamily: "'Alte Haas Grotesk', sans-serif",
-              fontWeight: 700,
-            }}
-          >
-            {table.restaurant}
-          </h3>
+        {/* Restaurant name - large editorial type */}
+        <h2
+          className="text-[36px] leading-[0.95] tracking-[-0.02em] text-white mb-2"
+          style={{
+            fontFamily: "'Times New Roman', Georgia, serif",
+            fontWeight: 400,
+            fontStyle: 'italic',
+          }}
+        >
+          {table.restaurant}
+        </h2>
 
-          {/* Details row */}
-          <div className="flex items-center gap-2 text-white/60">
-            <span className="text-[14px]">{table.date}</span>
-            <span className="text-white/30">·</span>
-            <span className="text-[14px]">{table.time}</span>
-            <span className="text-white/30">·</span>
-            <span className="text-[14px]">Party of {table.partySize}</span>
-          </div>
-        </div>
-
+        {/* Metadata line */}
+        <p
+          className="text-[13px] text-white/50 tracking-[0.01em]"
+          style={{ fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif" }}
+        >
+          {table.neighborhood} · {table.time} · {table.partySize} guests
+        </p>
       </div>
     </motion.button>
   );
 };
 
-// Expanded Detail View
+// List Card Component - Elegant horizontal card
+interface ListCardProps {
+  table: TableData;
+  index: number;
+  total: number;
+  onSelect: () => void;
+}
+
+const ListCard: React.FC<ListCardProps> = ({ table, index, total, onSelect }) => {
+  const isClaimed = table.claimed;
+
+  return (
+    <motion.button
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{
+        duration: 0.5,
+        delay: 0.1 + index * 0.04,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      onClick={isClaimed ? undefined : onSelect}
+      className={`w-full text-left relative ${isClaimed ? 'pointer-events-none' : ''}`}
+      whileTap={isClaimed ? undefined : { scale: 0.98 }}
+    >
+      <div className="flex gap-4 py-5 border-t border-white/[0.08]">
+        {/* Index number */}
+        <div className="w-[28px] flex-shrink-0 pt-1">
+          <span className={`text-[11px] tracking-[0.05em] ${isClaimed ? 'text-white/20' : 'text-white/40'}`}>
+            {String(index).padStart(2, '0')}
+          </span>
+        </div>
+
+        {/* Square image */}
+        <div className="relative w-[72px] h-[72px] flex-shrink-0 overflow-hidden">
+          <img
+            src={table.image}
+            alt={table.restaurant}
+            className={`w-full h-full object-cover ${isClaimed ? 'grayscale opacity-40' : ''}`}
+          />
+        </div>
+
+        {/* Text content */}
+        <div className="flex-1 flex flex-col justify-center min-w-0 pr-2">
+          {/* Restaurant name */}
+          <h3
+            className={`text-[20px] leading-[1.1] tracking-[-0.02em] mb-1 ${isClaimed ? 'text-white/30' : 'text-white'}`}
+            style={{
+              fontFamily: "'Times New Roman', Georgia, serif",
+              fontWeight: 400,
+              fontStyle: 'italic',
+            }}
+          >
+            {table.restaurant}
+          </h3>
+
+          {/* Details */}
+          <p className={`text-[12px] tracking-[0.01em] ${isClaimed ? 'text-white/20' : 'text-white/45'}`}>
+            {table.neighborhood} · {table.time}
+          </p>
+
+          {/* Claimed indicator */}
+          {isClaimed && (
+            <p className="text-[10px] text-white/25 mt-1.5 uppercase tracking-[0.12em]">
+              Claimed
+            </p>
+          )}
+        </div>
+      </div>
+    </motion.button>
+  );
+};
+
+// Expanded Detail View - Editorial style
 interface DetailViewProps {
   table: TableData;
   onClose: () => void;
@@ -216,27 +265,25 @@ interface DetailViewProps {
 }
 
 const DetailView: React.FC<DetailViewProps> = ({ table, onClose, onClaim }) => {
-  const isRecent = Date.now() - table.addedAt < 1000 * 60 * 60 * 2;
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md"
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-50 bg-[#0a0a0a]"
       onClick={onClose}
     >
       <motion.div
-        initial={{ opacity: 0, y: 100, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 50, scale: 0.95 }}
-        transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-        className="absolute inset-x-4 bottom-0 top-20 flex flex-col"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+        className="h-full flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image section */}
-        <div className="relative h-[45%] rounded-t-[28px] overflow-hidden flex-shrink-0">
+        {/* Full-bleed image */}
+        <div className="relative h-[55%] flex-shrink-0">
           <img
             src={table.image}
             alt={table.restaurant}
@@ -245,84 +292,70 @@ const DetailView: React.FC<DetailViewProps> = ({ table, onClose, onClaim }) => {
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 30%, transparent 60%, rgba(10,10,10,1) 100%)',
+              background: 'linear-gradient(180deg, rgba(10,10,10,0.4) 0%, transparent 25%, transparent 60%, rgba(10,10,10,1) 100%)',
             }}
           />
 
-          {/* Close button */}
+          {/* Close button - minimal */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/10"
+            className="absolute top-[calc(env(safe-area-inset-top)+16px)] right-4 w-10 h-10 rounded-full flex items-center justify-center"
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M15 5L5 15M5 5L15 15" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6L18 18" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </button>
-
-          {/* Badge */}
-          {isRecent && (
-            <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#22c55e]">
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              <span className="text-[12px] font-semibold text-white">Just added</span>
-            </div>
-          )}
         </div>
 
-        {/* Content section */}
-        <div className="flex-1 bg-[#0a0a0a] rounded-b-[28px] px-6 pt-2 pb-8 flex flex-col overflow-hidden">
-          {/* Restaurant name */}
+        {/* Content section - refined typography */}
+        <div className="flex-1 px-6 -mt-16 flex flex-col overflow-hidden relative z-10">
+          {/* Restaurant name - large editorial serif */}
           <h2
-            className="text-[36px] leading-[1.1] tracking-[-0.03em] text-white mb-1"
+            className="text-[44px] leading-[1] tracking-[-0.02em] text-white mb-3"
             style={{
-              fontFamily: "'Alte Haas Grotesk', sans-serif",
-              fontWeight: 700,
+              fontFamily: "'Times New Roman', Georgia, serif",
+              fontWeight: 400,
+              fontStyle: 'italic',
             }}
           >
             {table.restaurant}
           </h2>
 
-          <p className="text-[15px] text-white/50 mb-6">
+          {/* Cuisine and neighborhood */}
+          <p className="text-[14px] text-white/50 mb-8 tracking-[0.01em]">
             {table.cuisine} · {table.neighborhood}
           </p>
 
-          {/* Reservation details */}
-          <div className="flex gap-4 mb-6">
-            <div className="flex-1 bg-white/5 rounded-2xl p-4 border border-white/5">
-              <span className="text-[11px] uppercase tracking-[0.1em] text-white/40 block mb-1">Date</span>
-              <span className="text-[17px] text-white font-medium">{table.date}</span>
+          {/* Reservation details - clean typography */}
+          <div className="space-y-4 mb-8">
+            <div className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
+              <span className="text-[13px] text-white/40 uppercase tracking-[0.1em]">Date</span>
+              <span className="text-[16px] text-white">{table.date}</span>
             </div>
-            <div className="flex-1 bg-white/5 rounded-2xl p-4 border border-white/5">
-              <span className="text-[11px] uppercase tracking-[0.1em] text-white/40 block mb-1">Time</span>
-              <span className="text-[17px] text-white font-medium">{table.time}</span>
+            <div className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
+              <span className="text-[13px] text-white/40 uppercase tracking-[0.1em]">Time</span>
+              <span className="text-[16px] text-white">{table.time}</span>
             </div>
-            <div className="flex-1 bg-white/5 rounded-2xl p-4 border border-white/5">
-              <span className="text-[11px] uppercase tracking-[0.1em] text-white/40 block mb-1">Party</span>
-              <span className="text-[17px] text-white font-medium">{table.partySize}</span>
+            <div className="flex justify-between items-baseline border-b border-white/[0.06] pb-3">
+              <span className="text-[13px] text-white/40 uppercase tracking-[0.1em]">Party</span>
+              <span className="text-[16px] text-white">{table.partySize} guests</span>
             </div>
-          </div>
-
-          {/* Added time */}
-          <div className="flex items-center gap-2 mb-6 text-white/40">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2"/>
-              <path d="M7 4V7L9 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-            </svg>
-            <span className="text-[13px]">Added {getRelativeTime(table.addedAt)} ago</span>
           </div>
 
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Claim button */}
+          {/* Claim button - refined */}
           <motion.button
             onClick={onClaim}
-            className="w-full h-[56px] rounded-[16px] bg-white text-[#0a0a0a] font-semibold text-[17px] tracking-[-0.01em] flex items-center justify-center gap-2"
-            whileTap={{ scale: 0.98 }}
+            className="w-full h-[54px] border border-white text-white text-[15px] tracking-[0.05em] uppercase flex items-center justify-center"
+            whileTap={{ scale: 0.98, backgroundColor: 'rgba(255,255,255,0.1)' }}
           >
-            Claim this table
+            Claim Table
           </motion.button>
 
           {/* Bottom safe area */}
+          <div className="h-6" />
           <div className="h-[env(safe-area-inset-bottom)]" />
         </div>
       </motion.div>
@@ -333,7 +366,9 @@ const DetailView: React.FC<DetailViewProps> = ({ table, onClose, onClaim }) => {
 // Main Spotlight Component
 const Spotlight: React.FC = () => {
   const navigate = useNavigate();
-  const [tables, setTables] = useState(availableTables);
+  const [tables, setTables] = useState(() =>
+    [...availableTables].sort((a, b) => Number(a.claimed) - Number(b.claimed))
+  );
   const [selectedTable, setSelectedTable] = useState<TableData | null>(null);
   const [nextDrop, setNextDrop] = useState(getTimeUntilNextDrop());
 
@@ -345,9 +380,16 @@ const Spotlight: React.FC = () => {
   }, []);
 
   const handleClaim = (tableId: string) => {
-    setTables((prev) => prev.filter((t) => t.id !== tableId));
+    setTables((prev) =>
+      prev
+        .map((t) => (t.id === tableId ? { ...t, claimed: true } : t))
+        .sort((a, b) => Number(a.claimed) - Number(b.claimed))
+    );
     setSelectedTable(null);
   };
+
+  // All tables in order (available first, then claimed)
+  const totalTables = tables.length;
 
   return (
     <motion.div
@@ -364,15 +406,15 @@ const Spotlight: React.FC = () => {
     >
       {/* Scrollable content */}
       <div className="h-full overflow-y-auto pt-[env(safe-area-inset-top)]">
-        {/* Header */}
-        <div className="sticky top-0 z-10 bg-[#0a0a0a]/90 backdrop-blur-xl">
-          <div className="flex items-center justify-between px-4 py-4">
-            {/* Back button */}
+        {/* Fixed header area */}
+        <div className="px-5 pt-4 pb-6">
+          {/* Back button row */}
+          <div className="flex items-center justify-between mb-6">
             <motion.button
               layoutId="spotlight-back-button"
               onClick={() => navigate('/')}
               aria-label="Go back"
-              className="w-10 h-10 flex items-center justify-center active:opacity-50 bg-white/5 rounded-full border border-white/10"
+              className="w-10 h-10 flex items-center justify-center active:opacity-50 -ml-2"
               transition={{
                 layout: {
                   type: 'tween',
@@ -383,84 +425,61 @@ const Spotlight: React.FC = () => {
             >
               <MorphIcon isChevron={true} className="w-6 h-6" />
             </motion.button>
-
-            {/* Next drop badge */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-              <div className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-              <span className="text-[12px] text-white/70">
-                Next drop in <span className="text-white font-medium">{nextDrop}</span>
-              </span>
-            </div>
-
-            {/* Spacer for balance */}
-            <div className="w-10" />
           </div>
-        </div>
 
-        {/* Hero header section */}
-        <div className="px-5 pt-2 pb-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <h1
-              className="text-[42px] leading-[1] tracking-[-0.03em] text-white mb-3"
-              style={{
-                fontFamily: "'Alte Haas Grotesk', sans-serif",
-                fontWeight: 700,
-              }}
-            >
-              Spotlight
-            </h1>
-            <p className="text-[15px] text-white/50 leading-relaxed max-w-[300px]">
-              {tables.length} {tables.length === 1 ? 'table' : 'tables'} available this week.
-              {' '}New tables drop every Sunday at noon.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Feed */}
-        {tables.length > 0 ? (
-          <div className="px-4 pb-8 flex flex-col gap-4">
-            <AnimatePresence mode="popLayout">
-              {tables.map((table, index) => (
-                <FeedCard
-                  key={table.id}
-                  table={table}
-                  index={index}
-                  onSelect={() => setSelectedTable(table)}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
-        ) : (
-          /* Empty state */
+          {/* Editorial title */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center px-8 py-20"
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M14 6V14L19 17" stroke="white" strokeOpacity="0.4" strokeWidth="2" strokeLinecap="round"/>
-                <circle cx="14" cy="14" r="10" stroke="white" strokeOpacity="0.4" strokeWidth="2"/>
-              </svg>
-            </div>
-            <h2
-              className="text-[22px] tracking-[-0.02em] text-white mb-2"
+            <h1
+              className="text-[11px] text-white/50 uppercase tracking-[0.2em] mb-2"
+            >
+              Spotlight
+            </h1>
+            <p
+              className="text-[26px] leading-[1.2] text-white max-w-[300px] mb-2"
               style={{
-                fontFamily: "'Alte Haas Grotesk', sans-serif",
-                fontWeight: 700,
+                fontFamily: "'Times New Roman', Georgia, serif",
+                fontWeight: 400,
+                fontStyle: 'italic',
               }}
             >
-              All claimed
-            </h2>
-            <p className="text-[15px] text-white/40 text-center max-w-[260px]">
-              Check back throughout the week. New tables appear ad-hoc.
+              The hardest tables to book, released every Sunday.
+            </p>
+            <p className="text-[12px] text-white/35 tracking-[0.02em]">
+              Next drop in {nextDrop}
             </p>
           </motion.div>
+        </div>
+
+        {/* Hero card for first table */}
+        {tables[0] && (
+          <div className="px-5 mb-2">
+            <HeroCard
+              table={tables[0]}
+              index={1}
+              total={totalTables}
+              onSelect={() => setSelectedTable(tables[0])}
+            />
+          </div>
         )}
+
+        {/* Remaining tables list */}
+        <div className="px-5 pb-12">
+          <AnimatePresence mode="popLayout">
+            {tables.slice(1).map((table, idx) => (
+              <ListCard
+                key={table.id}
+                table={table}
+                index={idx + 2}
+                total={totalTables}
+                onSelect={() => setSelectedTable(table)}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Detail overlay */}

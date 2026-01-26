@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { TopNav } from '@/components/ui/TopNav';
+// import { FidgetSpinner } from '@/components/FidgetSpinner';
 import { restaurants } from '@/data/restaurants';
 
 // Active booking search type
@@ -339,37 +340,10 @@ const Prototype: React.FC = () => {
   const [selectedSearch, setSelectedSearch] = useState<ActiveSearch | null>(null);
   const [showCancelDrawer, setShowCancelDrawer] = useState(false);
 
-  // Initialize with demo data (temporary - for testing)
+  // Clear demo data on mount
   useEffect(() => {
-    // Demo active search
-    const dayAfterTomorrow = new Date();
-    dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-    dayAfterTomorrow.setHours(0, 0, 0, 0);
-    setActiveSearches([{
-      id: 'demo-search-1',
-      date: dayAfterTomorrow.toISOString(),
-      startMinutes: 19 * 60 + 30, // 7:30 PM
-      endMinutes: 22 * 60, // 10:00 PM
-      partySize: 4,
-      restaurantIds: ['1', '2', '3', '4'], // Misi, Winson, Caffè Panna, Bodega's Hall
-      stopTimeOffset: 60,
-      createdAt: Date.now(),
-    }]);
-
-    // Demo reservation for testing
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    setReservations([{
-      id: 'demo-1',
-      restaurantId: '1', // Misi
-      date: tomorrow.toISOString(),
-      timeMinutes: 19 * 60 + 30, // 7:30 PM
-      partySize: 2,
-      confirmationCode: 'SPT-2847',
-      seatingArea: 'Dining Room',
-      createdAt: Date.now(),
-    }]);
+    setActiveSearches([]);
+    setReservations([]);
   }, []);
 
   const handleNextStep = () => {
@@ -469,13 +443,18 @@ const Prototype: React.FC = () => {
 
       {/* Home Content */}
       <div className="px-4 py-2 flex-1 overflow-y-auto">
-        {/* Empty state message - only show if no reservations AND no active searches */}
+        {/* Empty state - only show if no reservations AND no active searches */}
         {reservations.length === 0 && activeSearches.length === 0 && (
-          <p className="text-[20px] leading-[28px] tracking-[-0.4px]">
-            <span className="font-light text-[#898989]">Welcome, </span>
-            <span className="font-semibold text-[#D6D6D6]">Antonio</span>
-            <span className="font-light text-[#898989]">. Start a search to find a table.</span>
-          </p>
+          <div className="relative flex-1 min-h-[70vh]">
+            <p className="text-[20px] leading-[28px] tracking-[-0.4px] pointer-events-none relative z-10">
+              <span className="font-light text-[#898989]">Welcome, </span>
+              <span className="font-semibold text-[#D6D6D6]">Antonio</span>
+              <span className="font-light text-[#898989]">. Start a search to find a table.</span>
+            </p>
+{/*           <div className="flex items-center justify-center mt-24">
+              <FidgetSpinner size={100} />
+            </div> */}
+          </div>
         )}
 
         {/* Booked Reservations */}
@@ -699,7 +678,7 @@ const Prototype: React.FC = () => {
       </div>
 
       {/* Bottom Action Button */}
-      <div className="mt-auto mb-8 flex justify-center">
+      <div className="mt-auto mb-12 flex justify-center">
         <PlusButton onClick={() => setCurrentStep(1)} />
       </div>
     </>
