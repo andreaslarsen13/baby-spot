@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import ChairMorphAnimation from '@/components/ChairMorphAnimation';
+import { AnimatedChair } from '@/components/AnimatedChair';
 
 type OnboardingStep =
   | 'splash'
@@ -204,49 +204,40 @@ interface SplashScreenProps {
   onTap: () => void;
 }
 
-// Arrow icon for splash screen
-const ArrowForwardIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <path d="M7.29175 17.5H27.7084M27.7084 17.5L17.5001 7.29169M27.7084 17.5L17.5001 27.7084" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 const SplashScreen: React.FC<SplashScreenProps> = ({ onTap }) => {
   return (
     <button
       onClick={onTap}
-      className="h-full w-full animate-in fade-in duration-500 relative text-left"
+      className="h-full w-full animate-in fade-in duration-500 relative text-left bg-[#fe3400]"
     >
-      {/* Text content - centered horizontally, positioned at 362px from top */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-[362px] w-[286px] flex flex-col gap-[8px]">
-        {/* SPOT logo */}
-        <h1
-          className="text-[38px] font-bold text-white leading-[41px] font-['Alte_Haas_Grotesk']"
-          style={{ fontFeatureSettings: "'dlig' 1" }}
-        >
-          SPOT
-        </h1>
+      {/* spot logo */}
+      <h1
+        className="absolute left-[43px] top-[181.5px] -translate-y-1/2 text-[77px] font-black text-[#ebebe8] leading-[41px] tracking-[-6px]"
+        style={{ fontFeatureSettings: "'dlig' 1", fontFamily: "'Dia Trial', sans-serif" }}
+      >
+        spot
+      </h1>
 
-        {/* Tagline */}
-        <p
-          className="text-[18px] text-white leading-[21px] tracking-[0.25px] uppercase w-[218px] font-['Alte_Haas_Grotesk']"
-          style={{ fontFeatureSettings: "'dlig' 1" }}
-        >
-          Get the best TABLES in New York City.
-        </p>
+      {/* Tagline */}
+      <p
+        className="absolute left-[calc(50%-148.5px)] top-[calc(50%-144px)] -translate-y-1/2 text-[25px] text-[#ebebe8] leading-[30px] tracking-[-1px] w-[229px]"
+        style={{ fontFeatureSettings: "'dlig' 1", fontFamily: "'Alte Haas Grotesk', sans-serif" }}
+      >
+        Get the best tables in New York City.
+      </p>
+
+      {/* Animated chair illustration */}
+      <div className="absolute left-[calc(50%+28.5px)] top-[calc(50%+206.5px)] -translate-x-1/2 -translate-y-1/2">
+        <AnimatedChair />
       </div>
 
-      {/* Morphing chair icon with arrow at bottom right */}
-      <div className="absolute left-[235px] top-[678px] flex items-center gap-[6px]">
-        <ChairMorphAnimation
-          width={59}
-          height={81}
-          fillColor="white"
-          morphDuration={800}
-          pauseDuration={1500}
-        />
-        <ArrowForwardIcon />
-      </div>
+      {/* Tap to enter */}
+      <p
+        className="absolute left-[calc(50%-43.5px)] top-[737.5px] -translate-y-1/2 text-[16px] text-[#ebebe8] leading-[35px]"
+        style={{ fontFeatureSettings: "'dlig' 1", fontFamily: "'Alte Haas Grotesk', sans-serif" }}
+      >
+        Tap to enter
+      </p>
     </button>
   );
 };
