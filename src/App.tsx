@@ -10,6 +10,7 @@ import Onboarding from './pages/Onboarding';
 import Spotlight from './pages/Spotlight';
 import Profile from './pages/Profile';
 import Account from './pages/Account';
+import Splash from './pages/Splash';
 
 // Helper to persist auth state
 const useAuthState = () => {
@@ -49,6 +50,7 @@ function AnimatedRoutes({ onLogin }: { onLogin: () => void }) {
           <Route path="/library" element={<Library />} />
           <Route path="/ui" element={<UIKit />} />
           <Route path="/onboarding" element={<Onboarding onComplete={onLogin} />} />
+          <Route path="/splash" element={<Splash />} />
         </Routes>
       </AnimatePresence>
     </LayoutGroup>
