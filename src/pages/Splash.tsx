@@ -1,179 +1,137 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { interpolate } from 'flubber';
 
-const FG = '#F0C4F0';
-const BG = '#FF4500';
-
-// ─── UTILITIES ──────────────────────────────────────────────────────────────────
-
-// CCW ellipse polygon starting near top (matches chair path winding)
-function ellipseToPath(cx: number, cy: number, rx: number, ry: number, rotDeg: number, n = 64): string {
-  const rad = (rotDeg * Math.PI) / 180;
+// ── Ellipse → polygon path (for flubber compatibility) ──────────────────────
+function ellipsePoly(
+  cx: number, cy: number, rx: number, ry: number, rotDeg: number, n = 72
+): string {
+  const r = (rotDeg * Math.PI) / 180;
   const pts: string[] = [];
   for (let i = 0; i < n; i++) {
-    // Counter-clockwise in SVG coords, starting at top
-    const a = (3 * Math.PI) / 2 - (i / n) * 2 * Math.PI;
-    const px = rx * Math.cos(a);
-    const py = ry * Math.sin(a);
-    const x = cx + px * Math.cos(rad) - py * Math.sin(rad);
-    const y = cy + px * Math.sin(rad) + py * Math.cos(rad);
-    pts.push(`${x.toFixed(2)} ${y.toFixed(2)}`);
+    const t = (2 * Math.PI * i) / n;
+    const x = cx + rx * Math.cos(t) * Math.cos(r) - ry * Math.sin(t) * Math.sin(r);
+    const y = cy + rx * Math.cos(t) * Math.sin(r) + ry * Math.sin(t) * Math.cos(r);
+    pts.push(`${x.toFixed(3)} ${y.toFixed(3)}`);
   }
   return `M${pts[0]}L${pts.slice(1).join('L')}Z`;
 }
 
-function translatePath(d: string, dx: number, dy: number): string {
-  const cmds = d.match(/[MCLQZmclqz][^MCLQZmclqz]*/g) || [];
-  return cmds
-    .map((cmd) => {
-      const type = cmd[0];
-      if (type === 'Z' || type === 'z') return cmd;
-      const nums = cmd.slice(1).match(/-?\d+\.?\d*(e[+-]?\d+)?/gi) || [];
-      const t = nums.map((n, i) => {
-        const v = parseFloat(n);
-        return (i % 2 === 0 ? v + dx : v + dy).toFixed(4);
-      });
-      return type + t.join(' ');
-    })
-    .join('');
+// ── Superellipse (squircle) polygon ─────────────────────────────────────────
+function squirclePoly(
+  cx: number, cy: number, a: number, b: number, exp: number, n = 72
+): string {
+  const pts: string[] = [];
+  for (let i = 0; i < n; i++) {
+    const t = (2 * Math.PI * i) / n;
+    const cosT = Math.cos(t);
+    const sinT = Math.sin(t);
+    const x = cx + a * Math.sign(cosT) * Math.abs(cosT) ** (2 / exp);
+    const y = cy + b * Math.sign(sinT) * Math.abs(sinT) ** (2 / exp);
+    pts.push(`${x.toFixed(3)} ${y.toFixed(3)}`);
+  }
+  return `M${pts[0]}L${pts.slice(1).join('L')}Z`;
 }
 
-// ─── KEYFRAME SHAPES (300×350 coordinate space) ─────────────────────────────────
-//
-// ALL paths are counter-clockwise (matching the chair's winding direction).
-// Path direction: top → left side → bottom (left-to-right) → right side → top.
-// Legs appear in left → middle → right order so flubber maps them correctly
-// to the chair's left → center → right legs.
-//
-// Chair leg positions (translated, x-centers): ~62, ~122, ~181, ~238
-// Intermediate shapes use 3 legs at: ~120, ~180, ~235
-// The chair's back-left leg (~62) emerges from the body during final morph.
+// ── Scale + translate absolute SVG path ─────────────────────────────────────
+function xformPath(d: string, s: number, tx: number, ty: number): string {
+  const toks = d.match(/-?\d*\.?\d+(?:e[+-]?\d+)?|[A-Za-z]/gi) || [];
+  let isX = true;
+  return toks
+    .map((t) => {
+      if (/^[A-Za-z]$/.test(t)) { isX = true; return t; }
+      const v = parseFloat(t);
+      const out = isX ? v * s + tx : v * s + ty;
+      isX = !isX;
+      return out.toFixed(3);
+    })
+    .join(' ');
+}
 
-const SPOT = ellipseToPath(150, 158, 118, 128, 15);
+// ── Shapes (all in 237×263 coordinate space) ────────────────────────────────
+const SPOT = ellipsePoly(118.321, 131.415, 112.709, 136.214, 28.041);
 
-// Organic rounded rectangle — CCW: top → left → bottom → right
-const BLOB =
-  'M155 42' +
-  'C110 46 58 58 48 98' +
-  'C38 138 32 192 52 228' +
-  'C68 258 115 272 160 275' +
-  'C205 278 242 262 252 228' +
-  'C262 195 268 138 258 98' +
-  'C248 58 200 38 155 42Z';
+const CHAIR_SPLASH_RAW =
+  'M44.6637 127.853C41.9236 117.617 39.7068 107.408 37.3086 97.2422C36.7007 94.6653 36.4161 92.0357 36.1389 89.4085C35.8417 86.5921 34.6997 84.3135 32.3207 82.5441C27.2249 78.754 22.2351 74.826 17.2067 70.9485C16.5956 70.4773 15.9841 70.023 14.9879 69.7474C14.586 71.4962 14.8254 73.1688 14.9365 74.8167C15.3623 81.1373 15.7668 87.4606 16.3107 93.7719C16.8843 100.427 17.6532 107.063 18.5745 113.683C18.8572 115.714 18.9534 117.769 19.1602 119.811C19.3128 121.317 18.6278 122.179 17.1319 122.379C13.822 122.823 10.5062 123.208 7.15799 123.252C5.88656 123.268 5.3416 122.71 5.27121 121.462C5.09946 118.418 4.81494 115.379 4.63115 112.335C3.92046 100.565 3.4304 88.7831 2.5749 77.0189C2.10284 70.5275 1.77647 64.022 1.62797 57.5036C1.38073 46.652 0.735504 35.8096 0.323355 24.9609C0.136132 20.0328 0.103473 15.099 0.00661223 10.1677C-0.00491944 9.58088 -0.00451484 8.99174 0.0337023 8.40641C0.224897 5.47838 0.419341 5.08794 3.39982 4.58018C13.0798 2.93111 22.6481 0.490285 32.5893 0.625534C34.7834 0.655383 36.9799 0.172591 39.1824 0.0326618C41.9153 -0.140968 42.4203 0.312665 42.7104 2.98331C43.122 6.77282 43.5147 10.5644 43.9008 14.3565C44.862 23.797 45.783 33.2402 47.4499 42.5977C47.7923 44.5197 48.5212 45.511 50.6116 45.9422C59.4229 47.7601 68.2891 49.3285 77.0309 51.4757C78.8468 51.9217 79.8593 52.8205 80.4974 54.5737C86.7946 71.8757 91.6631 89.5828 96.1044 107.412C96.5283 109.114 96.7173 110.874 96.9718 112.614C97.1085 113.548 96.7567 114.275 95.724 114.415C92.1677 114.898 88.7683 116.052 85.2596 116.738C82.7661 117.226 82.0118 116.83 81.3434 114.431C77.4661 100.518 73.5962 86.6018 69.7469 72.6805C69.3822 71.3615 68.8232 70.149 68.1617 68.9597C67.583 67.9194 66.8759 67.7166 65.8208 68.3279C60.2647 71.5472 54.7075 74.7655 49.1157 77.924C47.6405 78.7573 47.6931 79.9284 47.9787 81.2589C49.4825 88.2661 51.6009 95.1129 53.5316 102.01C55.6034 109.411 57.8032 116.785 59.2344 124.345C59.7503 127.07 59.4278 127.511 56.6311 128.286C54.1043 128.986 51.606 129.787 49.0809 130.494C45.7067 131.438 45.5342 131.323 44.6637 127.853Z';
 
-// Scalloped bottom — bumps at leg x-positions, left → middle → right
-const NOTCHED =
-  'M155 42' +
-  'C110 46 58 58 48 98' +
-  'C38 138 32 192 52 228' +
-  'C76 248 100 258 112 266' +
-  'Q120 290 128 266' +
-  'C140 256 160 256 172 266' +
-  'Q180 290 188 266' +
-  'C198 256 222 256 232 266' +
-  'Q235 290 238 266' +
-  'C244 262 248 250 252 228' +
-  'C262 195 268 138 258 98' +
-  'C248 58 200 38 155 42Z';
-
-// Short stubby legs — CCW, left → middle → right
-const WEBBED =
-  'M155 38' +
-  'C112 42 68 50 58 82' +
-  'C50 112 56 162 68 198' +
-  'C80 218 96 228 112 232' +
-  'L114 300 Q120 308 126 300 L128 232' +
-  'L172 232 L174 300 Q180 308 186 300 L188 232' +
-  'L226 232 L228 300 Q235 308 242 300 L244 232' +
-  'C246 226 248 214 250 198' +
-  'C254 162 256 112 248 82' +
-  'C240 50 200 34 155 38Z';
-
-// Legs differentiate: left longest, middle shortest (matching chair proportions)
-const EMERGING =
-  'M148 36' +
-  'C104 36 64 44 54 76' +
-  'C46 106 48 158 64 192' +
-  'C74 210 92 222 112 226' +
-  'L114 304 Q118 312 122 304 L124 226' +
-  'L174 226 L176 272 Q180 280 184 272 L186 226' +
-  'L228 226 L230 298 Q234 306 238 298 L240 226' +
-  'C240 220 242 210 246 192' +
-  'C252 158 254 106 246 76' +
-  'C238 44 196 30 148 36Z';
-
-const CHAIR_RAW =
+const CHAIR_2_RAW =
   'M186.784 129.81C186.669 127.422 186.559 125.205 186.45 122.989C186.129 116.475 181.142 110.383 174.219 109.408C165.577 108.191 156.975 106.696 148.27 105.942C147.631 105.886 146.997 105.748 146.364 105.629C143.291 105.051 141.265 103.307 140.637 100.22C140.021 97.1927 139.568 94.1329 139.026 91.0907C137.336 81.6134 135.7 72.126 133.927 62.6642C131.79 51.258 129.549 39.8709 127.321 28.4819C126.3 23.262 124.34 18.3927 121.189 14.0952C116.682 7.94544 110.667 3.90583 103.275 1.8885C99.5212 0.864222 95.6971 0.334274 91.8292 0.190445C83.1533 -0.132189 74.4733 -0.0670238 65.8138 0.556889C56.6957 1.21384 47.6155 2.24184 38.6237 3.94179C31.4836 5.29166 26.6655 9.44759 23.7774 16.0094C21.5623 21.042 20.4252 26.344 20.0213 31.7693C19.1326 43.7049 18.3765 55.6511 17.6567 67.5984C17.0703 77.3313 16.7198 87.079 16.0666 96.807C15.5937 103.85 14.8683 110.879 14.1215 117.9C13.4982 123.76 12.7215 129.605 11.9385 135.448C10.8377 143.661 9.69496 151.869 8.52131 160.072C7.11617 169.893 5.72486 179.717 4.20416 189.521C3.03302 197.071 1.66097 204.59 0.404142 212.127C0.193611 213.39 -0.00450984 214.675 6.36645e-05 215.949C0.00983335 218.677 1.69679 220.427 4.44785 220.593C6.14185 220.695 7.84942 220.697 9.54513 220.619C12.4162 220.487 13.8162 219.236 14.3257 216.445C15.5409 209.786 16.7327 203.123 17.9431 196.464C19.8415 186.018 21.7503 175.575 23.6491 165.129C25.0159 157.611 26.3317 150.083 27.753 142.574C28.4687 138.793 29.3115 135.033 30.2066 131.29C30.7254 129.12 31.6609 127.099 33.1402 125.378C34.6734 123.594 36.5242 122.632 38.8958 123.497C41.5815 124.477 44.2891 125.431 46.8788 126.629C49.6362 127.904 52.2985 129.396 54.9383 130.905C56.1418 131.593 57.2978 132.44 58.2866 133.406C59.8036 134.889 60.4343 136.718 60.4315 138.929C60.3989 164.046 60.4094 189.162 60.4813 214.279C60.5229 228.822 60.6928 243.364 60.8224 257.907C60.8291 258.654 60.8896 259.435 61.1171 260.139C61.7813 262.194 62.8644 262.94 65.0177 262.958C66.9524 262.974 68.8917 262.888 70.821 262.993C73.2252 263.123 74.7945 261.427 75.2659 259.333C75.4562 258.488 75.5019 257.599 75.5173 256.728C75.7163 245.398 75.8776 234.067 76.0904 222.738C76.2692 213.221 76.5358 203.706 76.705 194.189C76.9666 179.474 77.151 164.757 77.4346 150.042C77.4907 147.132 77.7466 144.216 78.09 141.323C78.5019 137.854 80.4286 135.43 83.6753 134.055C85.5775 133.249 87.5264 132.721 89.6076 132.586C98.7889 131.993 107.967 131.35 117.146 130.725C117.38 130.709 117.614 130.685 117.848 130.674C120.591 130.546 122.418 132.078 122.446 134.796C122.482 138.181 122.378 141.571 122.226 144.954C121.987 150.262 121.637 155.565 121.372 160.873C120.915 170.029 120.485 179.187 120.047 188.344C119.894 191.552 119.746 194.761 119.61 197.97C119.58 198.669 119.563 199.375 119.622 200.071C119.763 201.75 120.55 202.62 122.184 202.934C122.641 203.022 123.115 203.048 123.582 203.051C125.458 203.063 127.335 203.068 129.211 203.05C131.461 203.029 132.56 202.188 133.039 199.995C133.3 198.802 133.414 197.575 133.539 196.358C134.286 189.099 135.064 181.843 135.74 174.578C136.466 166.788 137.116 158.99 137.749 151.192C138.08 147.119 138.267 143.033 138.591 138.959C138.729 137.22 138.994 135.485 139.305 133.767C139.629 131.974 140.65 130.726 142.434 130.091C147.695 128.218 153.053 126.768 158.661 126.502C159.928 126.442 161.255 126.574 162.479 126.899C165.479 127.694 167.174 129.933 168.048 132.72C168.725 134.878 169.237 137.129 169.478 139.375C170.056 144.771 170.518 150.184 170.869 155.601C171.501 165.39 172.046 175.185 172.576 184.98C173.125 195.127 173.598 205.277 174.131 215.425C174.566 223.705 175.014 231.984 175.511 240.261C175.707 243.517 177.451 245.062 180.75 245.091C182.45 245.105 184.151 245.116 185.851 245.086C189.065 245.029 190.848 243.309 190.977 240.106C191.028 238.824 190.985 237.535 190.935 236.252C190.276 219.328 189.606 202.404 188.942 185.479C188.552 175.559 188.167 165.638 187.782 155.717C187.449 147.138 187.121 138.56 186.784 129.81Z';
 
-const CHAIR = translatePath(CHAIR_RAW, 54.5, 43.5);
+const STOOL_RAW =
+  'M35.6326 25.1868C35.0496 40.6527 34.4677 56.0296 33.8918 71.4068C33.67 77.3306 33.4624 83.2548 33.2463 89.1788C33.2336 89.5253 33.194 89.8708 33.1824 90.2173C33.1643 90.7602 32.9029 91.0181 32.3424 90.999C31.4195 90.9677 30.496 90.9435 29.5726 90.9415C28.7605 90.9397 28.4813 90.5621 28.4788 89.7649C28.4656 85.5392 28.4104 81.3136 28.3678 77.088C28.2039 60.8482 27.993 44.6085 27.9133 28.3683C27.8972 25.0731 28.3375 21.7721 28.6524 18.4817C28.7301 17.6697 28.5612 17.3499 27.7509 17.21C22.3332 16.2748 17.2572 14.4065 12.5101 11.6562C11.7072 11.191 11.3866 11.2904 11.0989 12.1802C10.8187 13.0467 10.5449 13.9379 10.4496 14.8371C9.43337 24.4295 8.43893 34.0243 7.46767 43.6213C6.6995 51.2115 5.9675 58.8054 5.23269 66.3988C5.15124 67.2404 4.78739 67.8185 3.97435 68.1165C3.64735 68.2363 3.3392 68.4067 3.02286 68.5548C1.07307 69.468 -0.133278 68.6739 0.0117723 66.5626C0.333803 61.8753 0.667699 57.1888 0.987711 52.5013C1.7716 41.0189 2.52457 29.5344 3.35308 18.0552C3.5176 15.7758 3.48926 13.4476 4.43786 11.2701C5.04742 9.87088 6.01302 8.77825 7.09815 7.73734C7.41166 7.43661 7.6241 6.9105 7.65676 6.47123C7.71711 5.65974 7.63818 4.83367 7.56628 4.01808C7.4741 2.97249 7.94537 2.29892 8.92124 2.01998C10.5664 1.54973 12.2066 0.938638 13.8903 0.750493C17.1753 0.383414 20.4861 0.147181 23.7913 0.0710079C32.4883 -0.129433 41.1831 0.0768755 49.843 0.915811C53.7617 1.29542 57.6509 1.99319 61.5421 2.61571C62.4398 2.75932 63.2922 3.18368 64.1637 3.48365C64.9772 3.76363 65.4509 4.34685 65.4298 5.1855C65.4046 6.18501 65.225 7.18017 65.1835 8.18011C65.1697 8.51376 65.2682 9.0304 65.497 9.16873C68.9526 11.258 70.3701 14.422 70.5475 18.2844C71.0624 29.4981 71.5873 40.7113 72.1096 51.9246C72.3913 57.9722 72.684 64.0194 72.9496 70.0677C72.9885 70.9534 73.2314 71.9815 72.1512 72.4895C71.0441 73.01 70.1297 72.4797 69.2477 71.8441C68.5821 71.3645 68.277 70.7608 68.2185 69.9347C67.5098 59.9332 66.7977 49.9318 66.0399 39.9338C65.4299 31.8866 64.7594 23.8438 64.1085 15.7997C63.9949 14.3967 63.3522 13.2049 62.4815 12.131C61.8395 11.3392 61.0767 11.1697 60.1935 11.6089C55.8928 13.7479 51.2953 15.025 46.6344 16.0593C43.7847 16.6917 40.8797 17.09 37.9889 17.5243C37.1742 17.6468 36.7707 18.0745 36.6494 18.7683C36.2812 20.8729 35.9697 22.9873 35.6326 25.1868Z';
 
-// ─── ANIMATION ──────────────────────────────────────────────────────────────────
-//
-// Single Framer Motion progress (0→1) drives flubber interpolators.
-// One continuous ease-in-out-quart curve — no per-stage pulsing.
-//
-// Progress breakpoints (weighted toward later, more complex stages):
-//   0.00 → 0.15   spot → blob
-//   0.15 → 0.30   blob → notched
-//   0.30 → 0.50   notched → webbed
-//   0.50 → 0.75   webbed → emerging
-//   0.75 → 1.00   emerging → chair
+// Scale & center into 237×263 space
+const CHAIR_SPLASH = xformPath(CHAIR_SPLASH_RAW, 2, 21.5, 0.5);
+// chair_2 is 191×263 → just center horizontally
+const CHAIR_2 = xformPath(CHAIR_2_RAW, 1, 23, 0);
+// stool is 73×91 → scale ~2.89, center horizontally
+const STOOL = xformPath(STOOL_RAW, 2.89, 13, 0);
 
-const BREAKPOINTS = [0, 0.15, 0.30, 0.50, 0.75, 1.0];
+// Bridge shape for stool→ellipse compound morph
+const SMOOTH_STOOL = ellipsePoly(118.5, 120, 100, 115, 0);
 
-const W = 300;
-const H = 350;
+// Cycle: ellipse → chair_splash → ellipse → chair_2 → ellipse → stool → (back to ellipse)
+const SEQUENCE = [SPOT, CHAIR_SPLASH, SPOT, CHAIR_2, SPOT, STOOL];
 
+// ── Component ───────────────────────────────────────────────────────────────
 export default function Splash() {
   const progress = useMotionValue(0);
+  const stepRef = useRef(0);
 
   const interps = useMemo(() => {
-    const opts = { maxSegmentLength: 6 };
-    return [
-      interpolate(SPOT, BLOB, opts),
-      interpolate(BLOB, NOTCHED, opts),
-      interpolate(NOTCHED, WEBBED, opts),
-      interpolate(WEBBED, EMERGING, opts),
-      interpolate(EMERGING, CHAIR, opts),
-    ];
+    const opts = { maxSegmentLength: 1 };
+    return SEQUENCE.map((shape, i) => {
+      const next = SEQUENCE[(i + 1) % SEQUENCE.length];
+      // Stool → Spot: compound morph through smooth intermediate
+      if (shape === STOOL && next === SPOT) {
+        const a = interpolate(STOOL, SMOOTH_STOOL, opts);
+        const b = interpolate(SMOOTH_STOOL, SPOT, opts);
+        return (t: number) => (t < 0.5 ? a(t * 2) : b((t - 0.5) * 2));
+      }
+      return interpolate(shape, next, opts);
+    });
   }, []);
 
-  const pathD = useTransform(progress, (p) => {
-    if (p <= 0) return SPOT;
-    if (p >= 1) return CHAIR;
+  const interpRef = useRef(interps[0]);
 
-    for (let i = 0; i < interps.length; i++) {
-      if (p <= BREAKPOINTS[i + 1]) {
-        const localT = (p - BREAKPOINTS[i]) / (BREAKPOINTS[i + 1] - BREAKPOINTS[i]);
-        return interps[i](localT);
-      }
-    }
-    return CHAIR;
-  });
+  const d = useTransform(progress, (v) =>
+    interpRef.current(Math.min(Math.max(v, 0), 1))
+  );
+
+  // Layered scale: dip to 0.88 at midpoint, land back at 1
+  const scale = useTransform(
+    progress,
+    [0, 0.4, 0.6, 1],
+    [1, 0.88, 0.88, 1]
+  );
+
+  const spring = useMemo(() => ({ type: 'spring' as const, stiffness: 150, damping: 24 }), []);
+  const controlsRef = useRef<{ stop: () => void } | null>(null);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      animate(progress, 1, {
-        duration: 2.2,
-        ease: [0.76, 0, 0.24, 1],
-      });
-    }, 700);
-    return () => clearTimeout(timeout);
-  }, [progress]);
+    const timer = setTimeout(() => {
+      controlsRef.current = animate(progress, 1, spring);
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [progress, spring]);
+
+  const advance = useCallback(() => {
+    controlsRef.current?.stop();
+    stepRef.current = (stepRef.current + 1) % SEQUENCE.length;
+    interpRef.current = interps[stepRef.current];
+    progress.set(0);
+    controlsRef.current = animate(progress, 1, spring);
+  }, [progress, spring, interps]);
 
   return (
     <div
-      className="h-dvh w-full flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: BG }}
+      className="flex h-dvh w-full items-center justify-center overflow-hidden cursor-pointer"
+      style={{ backgroundColor: '#FE3400' }}
+      onClick={advance}
     >
-      <svg
-        width={(W * 220) / 300}
-        height={(H * 220) / 300}
-        viewBox={`0 0 ${W} ${H}`}
-      >
-        <motion.path d={pathD} fill={FG} />
-      </svg>
+      <motion.svg viewBox="0 0 237 263" className="w-52" style={{ scale }}>
+        <motion.path d={d} fill="white" />
+      </motion.svg>
     </div>
   );
 }
